@@ -1,6 +1,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import SingleInput from '../inputs/SingleInput';
+import SingleTextArea from '../inputs/SingleTextArea';
 
 interface FormInputProps {
   label: string;
@@ -11,25 +12,26 @@ interface FormInputProps {
   isDisabled?:boolean,
   placeholder:string,
   isRequired?:boolean,
+  rows:number,
 }
 
-const FormInput: React.FC<FormInputProps> = ({ label,className,control,name,type,isDisabled,placeholder,isRequired }) => {
+const FormTextArea: React.FC<FormInputProps> = ({ label,className,control,name,type,isDisabled,placeholder,isRequired,rows }) => {
   return (
     <Controller
 		control={control}
 		name={name}
 		render={({field: {value, onChange, onBlur},fieldState:{error}}) => (
 		<div className='w-full flex flex-col'>
-		<SingleInput
+		<SingleTextArea
 			label={label}
 			className={className}
 			onChange={onChange}
 			onBlur={onBlur}
 			value={value}
-			type={type}
 			isDisabled={isDisabled}
 			placeholder={placeholder}
 			isRequired={isRequired}
+			rows={rows}
 		/>
 		{error&&<p className='text-red-600 text-md'>{error.message}</p>}
 		</div>
@@ -38,4 +40,4 @@ const FormInput: React.FC<FormInputProps> = ({ label,className,control,name,type
   );
 }
 
-export default FormInput;
+export default FormTextArea;
