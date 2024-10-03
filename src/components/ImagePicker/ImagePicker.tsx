@@ -20,7 +20,7 @@ export default function ImagePicker(props: ImagePickerProps) {
 	
   return (
 	<div className={'w-full'}>
-				<label className="mb-3 block text-black dark:text-white">
+				<label className="mb-3 block text-orange-600 dark:text-white">
 					{props.label||'Images'}
 				</label>
 				<div className='flex items-center justify-start flex-wrap gap-6'>
