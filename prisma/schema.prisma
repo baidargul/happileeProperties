@@ -12,3 +12,43 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+//schema for general listing
+model Property {
+  id            Int       @id @default(autoincrement()) // Unique identifier for the property
+  title         String    // Title of the property listing (e.g., "2 Bedroom Apartment in City Center")
+  description   String    // Detailed description of the property
+  price         Float     // Price of the property
+  propertyType  String    // Type of property (e.g., "Apartment", "House", "Commercial", etc.)
+  address       String    // Full address of the property
+  city          String    // City where the property is located
+  state         String    // State or region
+  zipCode       String    // Postal code
+  country       String    // Country where the property is located
+  bedrooms      Int       // Number of bedrooms
+  bathrooms     Int       // Number of bathrooms
+  areaSize      Float     // Size of the property in square feet/meters
+  availableFrom DateTime  // Date from when the property is available
+  listedAt      DateTime  @default(now()) // Date when the property was listed
+  isAvailable   Boolean   @default(true) // Availability status
+  owner         User      @relation(fields: [ownerId], references: [id]) // Relationship to User (Property owner)
+  ownerId       Int       // Foreign key to User
+  createdAt     DateTime  @default(now()) // Date when the property record was created
+  updatedAt     DateTime  @updatedAt      // Automatically updated timestamp
+  images        Image[]   // Relationship to store multiple images of the property
+}
+
+model Image {
+  id          Int      @id @default(autoincrement()) // Unique identifier for each image
+  url         String   // URL of the image
+  description String?  // Optional description for the image
+  property    Property @relation(fields: [propertyId], references: [id]) // Reference to the property
+  propertyId  Int      // Foreign key to the property
+}
+
+model User {
+  id         Int        @id @default(autoincrement()) // Unique identifier for the user
+  name       String     // User's full name
+  email      String     @unique // Email (must be unique)
+  properties Property[] // Relationship to the properties the user owns/listed
+}
