@@ -1,8 +1,11 @@
+import ImagePicker from "@/components/ImagePicker/ImagePicker";
 import NiceSelect from "@/ui/NiceSelect";
 
 const Overview = () => {
 
    const selectHandler = (e: any) => { };
+
+   // const temp
 
    return (
       <div className="bg-white card-box border-20">
@@ -62,6 +65,7 @@ const Overview = () => {
                </div>
             </div>
          </div>
+         <ImagePicker label={'Images'} selectedImageArray={[]} />
       </div>
    )
 }
