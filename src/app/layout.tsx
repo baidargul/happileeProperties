@@ -1,5 +1,6 @@
-'use client'
+"use client";
 import "../styles/index.scss";
+import "@/app/global.css";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
 import { Toaster } from "sonner";
@@ -7,21 +8,29 @@ import { Toaster } from "sonner";
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-
-  const isDev = process.env.NODE_ENV === 'development'
+  const isDev = process.env.NODE_ENV === "development";
 
   return (
     <html lang="en" suppressHydrationWarning={isDev}>
       <head>
-        <meta name="keywords" content="Real estate, Property sale, Property buy" />
-        <meta name="description" content="Homy is a beautiful website template designed for Real Estate Agency." />
+        <meta
+          name="keywords"
+          content="Real estate, Property sale, Property buy"
+        />
+        <meta
+          name="description"
+          content="Homy is a beautiful website template designed for Real Estate Agency."
+        />
         <meta property="og:site_name" content="Homy" />
         <meta property="og:url" content="https://creativegigstf.com" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Homy - Real Estate React Next js Template" />
-        <meta name='og:image' content='images/assets/ogg.png' />
+        <meta
+          property="og:title"
+          content="Homy - Real Estate React Next js Template"
+        />
+        <meta name="og:image" content="images/assets/ogg.png" />
         {/* For IE  */}
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         {/* For Resposive Device */}
@@ -34,18 +43,19 @@ export default function RootLayout({
         {/* iOS Safari */}
         <meta name="apple-mobile-web-app-status-bar-style" content="#0D1A1C" />
         <link rel="icon" href="/favicon.png" sizes="any" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap"
+        />
       </head>
       <body suppressHydrationWarning={true}>
         <div className="main-page-wrapper">
           <Provider store={store}>
-          <Toaster 
-            position="top-right"
-            richColors/>
+            <Toaster position="top-right" richColors />
             {children}
           </Provider>
         </div>
       </body>
     </html>
-  )
+  );
 }
