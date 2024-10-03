@@ -71,10 +71,6 @@ const Overview = () => {
           </div>
         </div>
       </div>
-      <div className="p-2 bg-zinc-100 rounded border border-zinc-200 hover:bg-red-500 ">
-        Baidar Gul
-      </div>
-      <div className="bg-zinc-800 text-white p-2">Temp</div>
       <ImagePicker label={"Images"} selectedImageArray={[]} />
     </div>
   );
