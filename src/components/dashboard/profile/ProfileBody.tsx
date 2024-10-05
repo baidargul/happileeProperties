@@ -53,9 +53,7 @@ const ProfileBody = () => {
   });
 
   // Example submit function
-  const onSubmit = (data) => {
-    console.log(data);
-
+  const onSubmit = (data: any) => {
     const formData = new FormData();
     for (var key in data) {
       formData.append(key, data[key]);
@@ -70,7 +68,12 @@ const ProfileBody = () => {
       console.log(pair[0], pair[1]);
     }
 
-    serverActions.buyer.create(formData);
+    const executeBackend = async () => {
+      const temp = await serverActions.builder.create(formData);
+      console.log(temp);
+    };
+
+    executeBackend();
   };
 
   return (

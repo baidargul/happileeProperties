@@ -1,21 +1,23 @@
 import axios from "axios";
 
+const apiPath = "/api/users/builder";
+
 async function listAll() {
-  await axios.get("").then(async (res: any) => {
+  await axios.get(apiPath).then(async (res: any) => {
     const response = await res.data;
     return response;
   });
 }
 
 async function get(id: number) {
-  await axios.get("").then(async (res: any) => {
+  await axios.get(apiPath).then(async (res: any) => {
     const response = await res.data;
     return response;
   });
 }
 
 async function findByName(name: string) {
-  await axios.get("").then(async (res: any) => {
+  await axios.get(apiPath).then(async (res: any) => {
     const response = await res.data;
     return response;
   });
@@ -23,21 +25,25 @@ async function findByName(name: string) {
 
 async function create(data: any) {
   try {
-    const res = await axios.post("/api/users/buyer", data, {
+    const res = await axios.post(apiPath, data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-
     const response = await res.data;
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error while creating user:", error);
-    throw error;
+    console.error("ERROR:", error.message);
+    return {
+      status: 500,
+      message: error.message,
+      data: null,
+    };
   }
 }
 
-export const buyer = {
+export const builder = {
   listAll,
   get,
   findByName,

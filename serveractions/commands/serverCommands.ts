@@ -1,5 +1,5 @@
-import { buyer } from "./partials/buyer";
+import { builder } from "./partials/builder";
 
 export const serverActions = {
-  buyer,
+  builder,
 };

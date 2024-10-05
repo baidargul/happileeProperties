@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     console.log(`------`);
 
     let isExists: any;
-    isExists = await prisma.users.findMany({
+    isExists = await prisma.user.findMany({
       where: {
         email: formValues.email,
       },
@@ -40,10 +40,10 @@ export async function POST(req: NextRequest) {
       response.status = 400;
       response.message = "User with this email already exists";
       response.data = null;
-      return new Response(JSON.stringify(response), { status: 400 });
+      return new Response(JSON.stringify(response));
     }
 
-    isExists = await prisma.users.findMany({
+    isExists = await prisma.user.findMany({
       where: {
         phone: formValues.phone,
       },
@@ -53,10 +53,10 @@ export async function POST(req: NextRequest) {
       response.status = 400;
       response.message = "User with this phone number already exists";
       response.data = null;
-      return new Response(JSON.stringify(response), { status: 400 });
+      return new Response(JSON.stringify(response));
     }
 
-    isExists = await prisma.users.create({
+    isExists = await prisma.user.create({
       data: {
         name: formValues.name,
         email: formValues.email,
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
       response.status = 400;
       response.message = "Failed to create user";
       response.data = null;
-      return new Response(JSON.stringify(response), { status: 400 });
+      return new Response(JSON.stringify(response));
     }
 
     isExists = await prisma.builder.create({
@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!isExists) {
-      await prisma.users.delete({
+      await prisma.user.delete({
         where: {
           id: isExists.id,
         },
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
       response.status = 400;
       response.message = "Failed to create buyer";
       response.data = null;
-      return new Response(JSON.stringify(response), { status: 400 });
+      return new Response(JSON.stringify(response));
     }
 
     const newBuyer = await prisma.builder.findUnique({
@@ -105,12 +105,12 @@ export async function POST(req: NextRequest) {
     response.status = 200;
     response.message = "Success";
     response.data = newBuyer;
-    return new Response(JSON.stringify(response), { status: 200 });
+    return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
     response.status = 500;
     response.message = error.message;
     response.data = null;
-    return new Response(JSON.stringify(response), { status: 500 });
+    return new Response(JSON.stringify(response));
   }
 }
