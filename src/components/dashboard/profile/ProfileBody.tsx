@@ -14,11 +14,12 @@ import FormInput from "@/components/forms/reactHookInputs/FormInput";
 import ImagePicker from "@/components/ImagePicker/ImagePicker";
 import FormTextArea from "@/components/forms/reactHookInputs/FormTextArea";
 import { useState } from "react";
+import { serverActions } from "../../../../serveractions/commands/serverCommands";
 
 const ProfileBody = () => {
   // Define the form schema using Zod
 
-  const [selectedImageArray,setSelectedImageArray]=useState([]);
+  const [selectedImageArray, setSelectedImageArray] = useState([]);
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
@@ -53,22 +54,23 @@ const ProfileBody = () => {
 
   // Example submit function
   const onSubmit = (data) => {
-
     console.log(data);
 
     const formData = new FormData();
-	for ( var key in data ) {
-		formData.append(key, data[key]);
-	}
-   selectedImageArray.forEach(file => {
-		if (file instanceof File) {
-		  formData.append("images", file);
-		}
-	  });
-   // Display the key/value pairs
-   for (const pair of formData.entries()) {
+    for (var key in data) {
+      formData.append(key, data[key]);
+    }
+    selectedImageArray.forEach((file) => {
+      if (file instanceof File) {
+        formData.append("images", file);
+      }
+    });
+    // Display the key/value pairs
+    for (const pair of formData.entries()) {
       console.log(pair[0], pair[1]);
-   }
+    }
+
+    serverActions.buyer.create(formData);
   };
 
   return (
@@ -87,24 +89,24 @@ const ProfileBody = () => {
                   <button className="delete-btn tran3s">Delete</button>
                </div> */}
           <form onSubmit={handleSubmit(onSubmit)} className="row">
-              <FormInput
-                label={"Name*"}
-                className="custom-class"
-                control={control}
-                name="name"
-                type="text"
-                isRequired={true}
-                placeholder="Enter company name"
-              />
-              <FormTextArea
-                label={"Description*"}
-                control={control}
-                name="description"
-                type="text"
-                isRequired={true}
-                placeholder="Enter a description"
-                rows={8}
-              />
+            <FormInput
+              label={"Name*"}
+              className="custom-class"
+              control={control}
+              name="name"
+              type="text"
+              isRequired={true}
+              placeholder="Enter company name"
+            />
+            <FormTextArea
+              label={"Description*"}
+              control={control}
+              name="description"
+              type="text"
+              isRequired={true}
+              placeholder="Enter a description"
+              rows={8}
+            />
             <div className="col-sm-6">
               <FormInput
                 label={"GST"}
@@ -124,17 +126,22 @@ const ProfileBody = () => {
                 placeholder="Enter phone number"
               />
             </div>
-              <FormTextArea
-                label={"Address*"}
-                control={control}
-                name="address"
-                type="text"
-                isRequired={true}
-                placeholder="Enter your address"
-                rows={4}
-              />
-            <ImagePicker selectedImageArray={selectedImageArray} setSelectedImageArray={setSelectedImageArray} />
-            <button type="submit" className="dash-btn-two tran3s me-3 w-25">Submit</button>
+            <FormTextArea
+              label={"Address*"}
+              control={control}
+              name="address"
+              type="text"
+              isRequired={true}
+              placeholder="Enter your address"
+              rows={4}
+            />
+            <ImagePicker
+              selectedImageArray={selectedImageArray}
+              setSelectedImageArray={setSelectedImageArray}
+            />
+            <button type="submit" className="dash-btn-two tran3s me-3 w-25">
+              Submit
+            </button>
           </form>
           {/* <UserAvatarSetting /> */}
         </div>

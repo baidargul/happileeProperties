@@ -8,14 +8,20 @@ export async function POST(req: NextRequest) {
   };
 
   try {
-    // Parse the form data
+    // Parse the form data sent in the request
     const formData = await req.formData();
 
     const formValues: { [key: string]: any } = {};
 
     // Convert FormData into a JSON-like object for easier access
     formData.forEach((value, key) => {
-      formValues[key] = value;
+      // If the key is "images", handle it differently (array of files)
+      if (key === "images") {
+        if (!formValues.images) formValues.images = [];
+        formValues.images.push(value);
+      } else {
+        formValues[key] = value;
+      }
     });
 
     console.log(`SERVER GOT DATA FROM USER`);

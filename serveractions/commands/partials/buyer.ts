@@ -23,7 +23,11 @@ async function findByName(name: string) {
 
 async function create(data: any) {
   try {
-    const res = await axios.post("/api/users/buyer", { body: data });
+    const res = await axios.post("/api/users/buyer", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     const response = await res.data;
     return response;
