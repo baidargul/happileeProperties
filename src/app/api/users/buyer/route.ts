@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import prisma from "../../../../../serveractions/commands/prisma";
 
 export async function POST(req: NextRequest) {
   const response = {
@@ -28,9 +29,82 @@ export async function POST(req: NextRequest) {
     console.log(formValues);
     console.log(`------`);
 
+    let isExists: any;
+    isExists = await prisma.users.findMany({
+      where: {
+        email: formValues.email,
+      },
+    });
+
+    if (isExists.length > 0) {
+      response.status = 400;
+      response.message = "User with this email already exists";
+      response.data = null;
+      return new Response(JSON.stringify(response), { status: 400 });
+    }
+
+    isExists = await prisma.users.findMany({
+      where: {
+        phone: formValues.phone,
+      },
+    });
+
+    if (isExists.length > 0) {
+      response.status = 400;
+      response.message = "User with this phone number already exists";
+      response.data = null;
+      return new Response(JSON.stringify(response), { status: 400 });
+    }
+
+    isExists = await prisma.users.create({
+      data: {
+        name: formValues.name,
+        email: formValues.email,
+        phone: formValues.phone,
+        address: formValues.address,
+      },
+    });
+
+    if (!isExists) {
+      response.status = 400;
+      response.message = "Failed to create user";
+      response.data = null;
+      return new Response(JSON.stringify(response), { status: 400 });
+    }
+
+    isExists = await prisma.builder.create({
+      data: {
+        userId: isExists.id,
+        description: formValues.description,
+        gst: formValues.gst,
+      },
+    });
+
+    if (!isExists) {
+      await prisma.users.delete({
+        where: {
+          id: isExists.id,
+        },
+      });
+
+      response.status = 400;
+      response.message = "Failed to create buyer";
+      response.data = null;
+      return new Response(JSON.stringify(response), { status: 400 });
+    }
+
+    const newBuyer = await prisma.builder.findUnique({
+      where: {
+        id: isExists.id,
+      },
+      include: {
+        users: true,
+      },
+    });
+
     response.status = 200;
     response.message = "Success";
-    response.data = formValues; // returning the form data for confirmation
+    response.data = newBuyer;
     return new Response(JSON.stringify(response), { status: 200 });
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
