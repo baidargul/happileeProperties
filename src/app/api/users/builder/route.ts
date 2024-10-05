@@ -36,12 +36,12 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    if (isExists.length > 0) {
-      response.status = 400;
-      response.message = "User with this email already exists";
-      response.data = null;
-      return new Response(JSON.stringify(response));
-    }
+    // if (isExists.length > 0) {
+    //   response.status = 400;
+    //   response.message = "User with this email already exists";
+    //   response.data = null;
+    //   return new Response(JSON.stringify(response));
+    // }
 
     isExists = await prisma.user.findMany({
       where: {
