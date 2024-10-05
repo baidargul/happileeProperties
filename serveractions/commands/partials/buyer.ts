@@ -22,10 +22,19 @@ async function findByName(name: string) {
 }
 
 async function create(data: any) {
-  await axios.post("/api/users/buyer").then(async (res: any) => {
+  try {
+    const res = await axios.post("/api/users/buyer", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
     const response = await res.data;
     return response;
-  });
+  } catch (error) {
+    console.error("Error while creating user:", error);
+    throw error;
+  }
 }
 
 export const buyer = {
