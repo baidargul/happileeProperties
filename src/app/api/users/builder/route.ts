@@ -45,11 +45,12 @@ export async function POST(req: NextRequest) {
 
     isExists = await prisma.user.findMany({
       where: {
-        phone: formValues.phone,
+        phone: formValues.phoneNumber,
       },
     });
 
     if (isExists.length > 0) {
+      console.log(isExists);
       response.status = 400;
       response.message = "User with this phone number already exists";
       response.data = null;
@@ -60,7 +61,7 @@ export async function POST(req: NextRequest) {
       data: {
         name: formValues.name,
         email: formValues.email,
-        phone: formValues.phone,
+        phone: formValues.phoneNumber,
         address: formValues.address,
       },
     });
@@ -98,7 +99,7 @@ export async function POST(req: NextRequest) {
         id: isExists.id,
       },
       include: {
-        users: true,
+        user: true,
       },
     });
 
