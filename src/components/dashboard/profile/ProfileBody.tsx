@@ -70,8 +70,6 @@ const ProfileBody = () => {
 
     const executeBackend = async () => {
       const temp = await serverActions.builder.create(formData);
-      const tmp = await serverActions.builder.findByName(temp.name);
-      console.log(temp);
     };
 
     executeBackend();
@@ -142,6 +140,7 @@ const ProfileBody = () => {
             <ImagePicker
               selectedImageArray={selectedImageArray}
               setSelectedImageArray={setSelectedImageArray}
+              label={'Images*'}
             />
             <button type="submit" className="dash-btn-two tran3s me-3 w-25">
               Submit
