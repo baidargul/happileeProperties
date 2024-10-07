@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from "react";
+import Fancybox from "../common/Fancybox";
 
+import bigCarousel_1 from "@/assets/images/listing/img_43.jpg";
+import bigCarousel_2 from "@/assets/images/listing/img_44.jpg";
+import bigCarousel_3 from "@/assets/images/listing/img_45.jpg";
+import bigCarousel_4 from "@/assets/images/listing/img_46.jpg";
+
+import smallCarousel_1 from "@/assets/images/listing/img_43_s.jpg";
+import smallCarousel_2 from "@/assets/images/listing/img_44_s.jpg";
+import smallCarousel_3 from "@/assets/images/listing/img_45_s.jpg";
+import smallCarousel_4 from "@/assets/images/listing/img_46_s.jpg";
+import Image, { StaticImageData } from "next/image";
+import MediaGallery from "../ListingDetails/listing-details-1/MediaGallery";
 
 type ImagePreviewBoxProps = {
   imageData: any;
@@ -21,59 +33,29 @@ const ImagePreviewBox = (props: ImagePreviewBoxProps) => {
 
   return (
     <>
-      <div
-        className={`w-24 h-24 flex bg-cover`}
-        style={{
-          backgroundImage: `url(${
-            props.imageData?.url
-              ? `${import.meta?.env.VITE_BASE_URL + props.imageData?.url}`
-              : URL.createObjectURL(props.imageData)
-          })`,
-        }}
-      >
-        <div className="w-full h-full bg-[#1a1a1a9c] opacity-0 hover:opacity-100 flex justify-center items-center gap-4 transition-all ease-in-out duration-200">
+      <Fancybox options={{}}>
+        <a
+          className="relative"
+          data-fancybox="gallery"
+          href={URL.createObjectURL(props.imageData)}
+        >
+          <img
+            src={URL.createObjectURL(props.imageData)}
+            className="w-24 h-24"
+          />
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 576 512"
-            onClick={() => setVisible(true)}
-            className="w-4 h-4 cursor-pointer transition-all ease-in-out duration-200"
-          >
-            <path
-              className=" fill-white"
-              d="M572.531 238.973C518.281 115.525 410.938 32 288 32S57.688 115.58 3.469 238.973C1.562 243.402 0 251.041 0 256C0 260.977 1.562 268.596 3.469 273.025C57.719 396.473 165.062 480 288 480S518.312 396.418 572.531 273.025C574.438 268.596 576 260.957 576 256C576 251.023 574.438 243.402 572.531 238.973ZM432 256.062C432 335.516 367.531 400 288.062 400H288C208.5 400 144 335.484 144 256S208.5 112 288 112S432 176.516 432 256V256.062ZM288 160H287.781C285.48 160.029 282.426 160.441 279.539 160.764C284.77 170.037 288 180.594 288 192C288 227.346 259.346 256 224 256C212.551 256 201.959 252.748 192.66 247.482C192.363 250.479 192 253.625 192 256C192 308.996 235.004 352 288 352S384 308.996 384 256S340.996 160 288 160Z"
-            />
-          </svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
             onClick={() => handleDelete(props.imageData)}
-            className="w-4 h-4 cursor-pointer transition-all ease-in-out duration-200"
+            className="bg-white rounded-full p-1 w-5 h-5 cursor-pointer transition-all ease-in-out duration-200 absolute top-1 right-1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 320 512"
           >
             <path
-              className=" fill-white"
-              d="M53.188 467C54.75 491.844 76.219 512 101.094 512H346.906C371.781 512 393.25 491.844 394.812 467L416 128H32L53.188 467ZM432 32H320L308.422 8.844C305.713 3.424 300.172 0 294.111 0H153.889C147.828 0 142.289 3.424 139.578 8.844L128 32H16C7.164 32 0 39.162 0 48V80C0 88.836 7.164 96 16 96H432C440.838 96 448 88.836 448 80V48C448 39.162 440.838 32 432 32Z"
+              className=" fill-black"
+              d="M315.31 411.31C309.056 417.563 298.936 417.563 292.682 411.31L160 278.627L27.318 411.31C21.064 417.563 10.944 417.563 4.69 411.31C-1.563 405.056 -1.563 394.936 4.69 388.682L137.373 256L4.69 123.318C-1.563 117.064 -1.563 106.944 4.69 100.69C10.944 94.437 21.064 94.437 27.318 100.69L160 233.373L292.682 100.69C298.936 94.437 309.056 94.437 315.31 100.69C321.563 106.944 321.563 117.064 315.31 123.318L182.627 256L315.31 388.682C321.563 394.936 321.563 405.056 315.31 411.31Z"
             />
           </svg>
-        </div>
-      </div>
-      {/* <Viewer
-        visible={visible}
-        onClose={() => {
-          setVisible(false);
-        }}
-        images={[
-          {
-            src: props.imageData?.url
-              ? `${import.meta.env.VITE_BASE_URL + props.imageData?.url}`
-              : URL.createObjectURL(props.imageData),
-            alt: "",
-          },
-        ]}
-        noFooter={true}
-        noToolbar={true}
-        downloadable={true}
-        drag={false}
-      /> */}
+        </a>
+      </Fancybox>
     </>
   );
 };

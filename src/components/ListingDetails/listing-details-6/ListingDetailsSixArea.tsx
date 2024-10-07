@@ -13,16 +13,38 @@ import CommonPropertyVideoTour from "../listing-details-common/CommonPropertyVid
 import Sidebar from "../listing-details-1/Sidebar"
 import Review from "@/components/inner-pages/agency/agency-details/Review"
 import LoginModal from "@/modals/LoginModal"
-import { useState } from "react"
+// import { useState } from "react"
 import NiceSelect from "@/ui/NiceSelect"
 
 const ListingDetailsSixArea = () => {
 
    const selectHandler = (e: any) => { };
 
-   const [loginModal, setLoginModal] = useState<boolean>(false);
+   // const [loginModal, setLoginModal] = useState<boolean>(false);
 
-   
+
+// const data={
+//    name: 'Top Builder',
+//    description: 'asd sadd sa',
+//    gst: '123213123111111',
+//    phoneNumber: '1234567890',
+//    address: 'ascas sa ds d s dsadasd as das d sa ',
+//    images: [
+//      File {
+//        size: 1279813,
+//        type: 'image/jpeg',
+//        name: 'sotd-nike-up-or-down-a-fresh-summer-cheapie-v0-ztjoc8j6sa7b1.jpg',
+//        lastModified: 1728308303535
+//      },
+//      File {
+//        size: 3101151,
+//        type: 'image/png',
+//        name: '2024-09-15_16-23-24_7423.png',
+//        lastModified: 1728308303549
+//      }
+//    ]
+//  }
+
 
    return (
       <>
@@ -92,11 +114,11 @@ const ListingDetailsSixArea = () => {
                                  name=""
                                  placeholder="" />
                            </div>
-                           <Review />
+                           {/* <Review /> */}
                         </div>
                      </div>
                      
-                     <div className="review-form">
+                     {/* <div className="review-form">
                         <h4 className="mb-20">Leave A Reply</h4>
                         <p className="fs-20 lh-lg pb-15">
                            <a onClick={() => setLoginModal(true)} style={{ cursor: "pointer" }}
@@ -106,14 +128,14 @@ const ListingDetailsSixArea = () => {
                         <div className="bg-dot p-30">
                            <AgencyFormOne />
                         </div>
-                     </div>
+                     </div> */}
                   </div>
                   <Sidebar />
                </div>
             </div>
          </div>
 
-         <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} />
+         {/* <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} /> */}
       </>
    )
 }
