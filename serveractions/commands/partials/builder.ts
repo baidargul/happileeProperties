@@ -9,7 +9,7 @@ async function listAll() {
   });
 }
 
-async function get(id: number) {
+async function get(id: string) {
   await axios.get(apiPath).then(async (res: any) => {
     const response = await res.data;
     return response;
