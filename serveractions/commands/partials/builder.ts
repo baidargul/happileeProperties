@@ -3,24 +3,34 @@ import axios from "axios";
 const apiPath = "/api/users/builder";
 
 async function listAll() {
-  await axios.get(apiPath).then(async (res: any) => {
+  const temp = await axios.get(apiPath).then(async (res: any) => {
     const response = await res.data;
     return response;
   });
+
+  return temp;
 }
 
 async function get(id: string) {
-  await axios.get(apiPath).then(async (res: any) => {
-    const response = await res.data;
-    return response;
-  });
+  const temp = await axios
+    .get(`${apiPath}/id?id=${id}`)
+    .then(async (res: any) => {
+      const response = await res.data;
+      return response;
+    });
+
+  return temp;
 }
 
 async function findByName(name: string) {
-  await axios.get(apiPath).then(async (res: any) => {
-    const response = await res.data;
-    return response;
-  });
+  const temp = await axios
+    .get(`${apiPath}/name?name=${name}`)
+    .then(async (res: any) => {
+      const response = await res.data;
+      return response;
+    });
+
+  return temp;
 }
 
 async function create(data: any) {

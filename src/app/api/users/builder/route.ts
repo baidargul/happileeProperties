@@ -25,10 +25,6 @@ export async function POST(req: NextRequest) {
       }
     });
 
-    console.log(`SERVER GOT DATA FROM USER`);
-    console.log(formValues);
-    console.log(`------`);
-
     let isExists: any;
     isExists = await prisma.user.findMany({
       where: {
@@ -106,6 +102,39 @@ export async function POST(req: NextRequest) {
     response.status = 200;
     response.message = "Success";
     response.data = newBuyer;
+    return new Response(JSON.stringify(response));
+  } catch (error: any) {
+    console.log("[SERVER ERROR]: " + error.message);
+    response.status = 500;
+    response.message = error.message;
+    response.data = null;
+    return new Response(JSON.stringify(response));
+  }
+}
+
+export async function GET() {
+  const response = {
+    status: 500,
+    message: "Internal Server Error",
+    data: null as any,
+  };
+
+  try {
+    const list = await prisma.builder.findMany({
+      include: {
+        user: true,
+      },
+      orderBy: {
+        user: {
+          name: "asc",
+        },
+      },
+    });
+
+    response.status = 200;
+    response.message =
+      list.length > 0 ? `Found ${list.length} builders` : "No builder found";
+    response.data = list;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
