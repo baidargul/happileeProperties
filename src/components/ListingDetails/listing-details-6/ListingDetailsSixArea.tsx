@@ -22,6 +22,8 @@ const ListingDetailsSixArea = () => {
 
    const [loginModal, setLoginModal] = useState<boolean>(false);
 
+   
+
    return (
       <>
          <div className="listing-details-one theme-details-one mt-200 xl-mt-150 pb-150 xl-mb-120">

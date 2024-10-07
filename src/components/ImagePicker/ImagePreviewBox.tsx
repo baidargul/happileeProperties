@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Viewer from 'react-viewer';
+
 
 export default function ImagePreviewBox({imageData,setSelectedArray,setRemovedArray}) {
 	const [ visible, setVisible ] = useState(false);
@@ -28,7 +28,7 @@ export default function ImagePreviewBox({imageData,setSelectedArray,setRemovedAr
 								</svg>
 							</div>
 		</div>
-		<Viewer
+		{/* <Viewer
 			visible={visible}
 			onClose={() => { setVisible(false); } }
 			images={[{src:imageData?.url?`${import.meta.env.VITE_BASE_URL+imageData?.url}`:URL.createObjectURL(imageData), alt: ''}]}
@@ -36,7 +36,7 @@ export default function ImagePreviewBox({imageData,setSelectedArray,setRemovedAr
 			noToolbar={true}
 			downloadable={true}
 			drag={false}
-		/>
+		/> */}
 	</>
   )
 }
