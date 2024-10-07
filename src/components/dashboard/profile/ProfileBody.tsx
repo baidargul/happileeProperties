@@ -72,6 +72,7 @@ const ProfileBody = () => {
   const handleTestClick = () => {
     const executeBackend = async () => {
       const temp = await serverActions.builder.listAll();
+      console.log(temp);
     };
     executeBackend();
   };
