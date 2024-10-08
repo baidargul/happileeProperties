@@ -12,10 +12,10 @@ const HeroBanner = () => {
                <div className="row">
                   <div className="col-xxl-7 col-xl-6 col-lg-7">
                      <div className="position-relative pe-xxl-5 wow fadeInLeft">
-                        <h1 className="hero-heading">Find a Spacious & Cozy <span className="d-inline-block position-relative">Home <Image src={titleShape} alt="" className="lazy-img" /></span> Abode.</h1>
+                        <h1 className="hero-heading">Find a Spacious & Cozy Home</h1>
                      </div>
                   </div>
-                  <div className="col-lg-5 ms-auto">
+                  {/* <div className="col-lg-5 ms-auto">
                      <div className="ps-xxl-5 pt-35 wow fadeInRight">
                         <p className="color-dark sub-heading mb-40 lg-mb-20">Over 745,000 listings, apartments, lots and  plots available now!</p>
                         <div className="d-flex flex-wrap justify-content-between align-items-start">
@@ -26,7 +26,7 @@ const HeroBanner = () => {
                            <Link href="/contact" className="btn-five rounded-0 md mt-20"><span>Contact us</span> <i className="bi bi-arrow-up-right"></i></Link>
                         </div>
                      </div>
-                  </div>
+                  </div> */}
                </div>
                <div className="row">
                   <div className="col-12">

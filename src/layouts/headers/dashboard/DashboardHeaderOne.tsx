@@ -44,9 +44,9 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
                      <Image src={pathname === '/dashboard/dashboard-index' ? dashboardIconActive_1 : dashboardIcon_1} alt="" />
                      <span>Dashboard</span>
                   </Link></li>
-                  <li className="plr"><Link href="/dashboard/message" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/message' ? 'active' : ''}`}>
-                     <Image src={pathname === '/dashboard/message' ? dashboardIconActive_2 : dashboardIcon_2} alt="" />
-                     <span>Message</span>
+                  <li className="plr"><Link href="/dashboard/leads" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/leads' ? 'active' : ''}`}>
+                     <Image src={pathname === '/dashboard/leads' ? dashboardIconActive_2 : dashboardIcon_2} alt="" />
+                     <span>Leads</span>
                   </Link></li>
                   <li className="bottom-line pt-30 lg-pt-20 mb-40 lg-mb-30"></li>
                   <li><div className="nav-title">Profile</div></li>

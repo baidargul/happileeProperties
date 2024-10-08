@@ -20,6 +20,7 @@ const ProfileBody = () => {
   // Define the form schema using Zod
 
   const [selectedImageArray, setSelectedImageArray] = useState([]);
+  const [removedImageArray,setRemovedImageArray]=useState([]);
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
@@ -58,7 +59,7 @@ const ProfileBody = () => {
     for (var key in data) {
       formData.append(key, data[key]);
     }
-    selectedImageArray.forEach((file) => {
+    selectedImageArray.forEach((file:File) => {
       if (file instanceof File) {
         formData.append("images", file);
       }
@@ -137,6 +138,7 @@ const ProfileBody = () => {
             <ImagePicker
               selectedImageArray={selectedImageArray}
               setSelectedImageArray={setSelectedImageArray}
+              setRemovedImageArray={setSelectedImageArray}
               label={"Images*"}
             />
             <button type="submit" className="dash-btn-two tran3s me-3 w-25">
@@ -145,17 +147,17 @@ const ProfileBody = () => {
           </form>
           {/* <UserAvatarSetting /> */}
         </div>
-        <SocialMediaLink />
-        <AddressAndLocation />
+        {/* <SocialMediaLink />
+        <AddressAndLocation /> */}
 
-        <div className="button-group d-inline-flex align-items-center mt-30">
+        {/* <div className="button-group d-inline-flex align-items-center mt-30">
           <Link href="#" className="dash-btn-two tran3s me-3">
             Save
           </Link>
           <Link href="#" className="dash-cancel-btn tran3s">
             Cancel
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );
