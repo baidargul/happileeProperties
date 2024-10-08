@@ -32,11 +32,11 @@ const HeaderFour = () => {
                               <Link href="/dashboard/add-property" className="btn-ten rounded-0" target="_blank"><span>Add Listing</span> <i className="bi bi-arrow-up-right"></i></Link>
                            </li>
                            <li>
-                              <Link href="#" data-bs-toggle="modal" data-bs-target="#loginModal" className="login-btn-two rounded-circle tran3s d-flex align-items-center justify-content-center"><i className="fa-regular fa-lock"></i></Link>
+                              <Link href="#" data-bs-toggle="modal" data-bs-target="#loginModal" className="login-btn-two rounded-circle tran3s d-flex align-items-center justify-content-center"><i className="fa-regular fa-user"></i></Link>
                            </li>
-                           <li>
+                           {/* <li>
                               <a onClick={() => setIsSearch(true)} style={{ cursor: "pointer" }} className="search-btn-one rounded-circle tran3s d-flex align-items-center justify-content-center"><i className="bi bi-search"></i></a>
-                           </li>
+                           </li> */}
                         </ul>
                      </div>
 
@@ -56,7 +56,7 @@ const HeaderFour = () => {
          </header>
 
          <LoginModal />
-         <HeaderSearchbar isSearch={isSearch} setIsSearch={setIsSearch} />
+         {/* <HeaderSearchbar isSearch={isSearch} setIsSearch={setIsSearch} /> */}
       </>
    )
 }

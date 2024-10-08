@@ -18,42 +18,9 @@ import NiceSelect from "@/ui/NiceSelect"
 import { serverActions } from "../../../../serveractions/commands/serverCommands"
 import prisma from "../../../../serveractions/commands/prisma"
 import { builder } from "@prisma/client"
+import Banner from "@/app/builder/[id]/Banner"
 
 const ListingDetailsSixArea = async () => {
-
-   // const selectHandler = (e: any) => { };
-
-   // const [loginModal, setLoginModal] = useState<boolean>(false);
-
-
-// const data={
-//    name: 'Top Builder',
-//    description: 'asd sadd sa',
-//    gst: '123213123111111',
-//    phoneNumber: '1234567890',
-//    address: 'ascas sa ds d s dsadasd as das d sa ',
-//    images: [
-//      File {
-//        size: 1279813,
-//        type: 'image/jpeg',
-//        name: 'sotd-nike-up-or-down-a-fresh-summer-cheapie-v0-ztjoc8j6sa7b1.jpg',
-//        lastModified: 1728308303535
-//      },
-//      File {
-//        size: 3101151,
-//        type: 'image/png',
-//        name: '2024-09-15_16-23-24_7423.png',
-//        lastModified: 1728308303549
-//      }
-//    ]
-//  }
-// let data;
-// const getDetails= async ()=>{
-   // const getAllBuilder = await serverActions.builder.listAll();
-   // const length = getAllBuilder?.data?.length;
-   // data= await serverActions.builder.get(getAllBuilder?.data[Math.floor(Math.random() * (length - 0 + 1)) + 0]?.id);
-   // console.log(data.data);
-
       const list:builder = await prisma.builder.findMany({
         include: {
           user: true,
@@ -64,102 +31,32 @@ const ListingDetailsSixArea = async () => {
           },
         },
       });
-      console.log(list);
-// }
-
-// getDetails();
-
 
    return (
       <>
-         <div className="listing-details-one theme-details-one mt-200 xl-mt-150 pb-150 xl-mb-120">
+         <div className="listing-details-one theme-details-one mt-200 xl-mt-150">
             <div className="container">
-               <CommonBanner style_3={true} data={list[0]}/>
+               <Banner style_3={true} data={list[0]}/>
                <MediaGallery style={true} />
                <div className="row pt-80 lg-pt-50">
                   <div className="col-xl-8">
-                     <div className="property-overview bottom-line-dark pb-40 mb-60">
-                        <h4 className="mb-20">Overview</h4>
-                        <p className="fs-20 lh-lg">Risk management and compliance, when approached strategically, have the
-                           potential to go beyond mitigating threats and protecting a company’s operations &
-                           reputation.They can actually generate value and create opportunities. </p>
+                     <div className="property-overview bottom-line-dark">
+                        <h4 className="mb-20">Description</h4>
+                        <p className="fs-20 lh-lg">{list[0]?.description??`Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime illum consectetur sint minus! Molestias repellendus quisquam et eum quibusdam provident? Architecto vitae asperiores adipisci consequuntur praesentium aperiam non, illo qui.
+                        Sapiente molestias fuga dolorum fugit voluptate corrupti ratione. Similique ipsa ut pariatur dignissimos! Ipsum mollitia, dolor quae beatae quas deleniti quam nobis illo ut quaerat, necessitatibus modi sint deserunt nam!
+                        Sed voluptatum rem reprehenderit, nostrum aspernatur nihil hic dolor optio nemo, incidunt sapiente saepe non quo odit, reiciendis maiores minima? Beatae quo maiores provident, cupiditate repellat quidem architecto ratione possimus!
+                        Eius eum facere asperiores dolorem iste tempora expedita laudantium, dicta aperiam exercitationem quis. Inventore eos ad dolorum sapiente asperiores odit consectetur, nulla nesciunt accusantium unde voluptate sint, ipsum nemo neque!
+                        Obcaecati magni, illum suscipit laborum consectetur tempore deleniti cupiditate! Cupiditate asperiores at, obcaecati iusto voluptas ullam quas minima tempore natus nulla alias exercitationem mollitia architecto atque consectetur maxime itaque maiores!
+                        Nostrum at necessitatibus amet impedit fugiat corporis laborum repellendus, ad optio voluptas dolores facere recusandae. Perspiciatis delectus beatae laudantium, facilis deleniti dignissimos blanditiis dolor atque fugiat odit enim eaque molestiae?
+                        Eum laudantium reiciendis natus numquam aut inventore, labore suscipit commodi voluptas dolore voluptatem sed id non magnam sunt architecto omnis eaque, autem ipsa provident obcaecati quibusdam dolor quasi? Earum, tenetur.
+                        Quas repudiandae, natus quia cumque soluta ducimus! Voluptates rem reiciendis, quis adipisci id minima iure explicabo unde consectetur error, enim iusto vitae corrupti eius magni necessitatibus incidunt assumenda ab. Repudiandae?
+                        Fugiat facilis voluptatum saepe possimus vel quidem laudantium nostrum similique inventore nemo minima itaque asperiores voluptatem, magni sequi quos repudiandae nisi, accusamus repellat. Ipsam ducimus rerum possimus ipsa nihil consectetur.
+                        Fugiat eaque, impedit, at laudantium quaerat cumque consequatur in possimus asperiores sed enim et, atque sit dolorum quos voluptatibus natus ab odio ipsa officia necessitatibus eius ea quam! Quia, maiores!`}</p>
                      </div>
-                     <div className="property-feature-accordion bottom-line-dark pb-40 mb-60">
-                        <h4  className="mb-20">Property Features</h4>
-                        <p className="fs-20 lh-lg">Risk management and compliance, when approached strategically, have the
-                           potential to go beyond mitigating threats.</p>
-
-                        <div className="accordion-style-two grey-bg mt-45">
-                           <CommonPropertyFeatureList />
-                        </div>
-                     </div>
-                     <div className="property-amenities bottom-line-dark pb-40 mb-60">
-                        <CommonAmenities />
-                     </div>
-                     <div className="property-video-tour bottom-line-dark pb-40 mb-60">
-                        <CommonPropertyVideoTour />
-                     </div>
-                     <CommonPropertyFloorPlan style={true} />
-                     <div className="property-nearby bottom-line-dark pb-40 mb-60">
-                        <CommonNearbyList />
-                     </div>
-                     <SimilarProperty />
-                     <div className="property-score bottom-line-dark pb-40 mb-60">
-                        <CommonProPertyScore />
-                     </div>
-
-                     <div className="property-location bottom-line-dark pb-60 mb-60">
-                        <h4 className="mb-40">Location</h4>
-                        <div className="wrapper">
-                           <div className="map-banner overflow-hidden">
-                              <div className="gmap_canvas h-100 w-100">
-                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83088.3595592641!2d-105.54557276330914!3d39.29302101722867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874014749b1856b7%3A0xc75483314990a7ff!2sColorado%2C%20USA!5e0!3m2!1sen!2sbd!4v1699764452737!5m2!1sen!2sbd"
-                                    width="600" height="450" style={{ border: 0 }} allowFullScreen={true} loading="lazy"
-                                    referrerPolicy="no-referrer-when-downgrade" className="w-100 h-100">
-                                 </iframe>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
-                     {/* <div className="review-panel-one bottom-line-dark pb-40 mb-60">
-                        <div className="position-relative z-1">
-                           <div className="d-sm-flex justify-content-between align-items-center mb-10">
-                              <h4 className="m0 xs-pb-30">Reviews</h4>
-                              <NiceSelect className="nice-select rounded-0"
-                                 options={[
-                                    { value: "01", text: "Newest" },
-                                    { value: "02", text: "Best Seller" },
-                                    { value: "03", text: "Best Match" },
-                                 ]}
-                                 defaultCurrent={0}
-                                 onChange={selectHandler}
-                                 name=""
-                                 placeholder="" />
-                           </div>
-                           <Review />
-                        </div>
-                     </div> */}
-                     
-                     {/* <div className="review-form">
-                        <h4 className="mb-20">Leave A Reply</h4>
-                        <p className="fs-20 lh-lg pb-15">
-                           <a onClick={() => setLoginModal(true)} style={{ cursor: "pointer" }}
-                              className="color-dark fw-500 text-decoration-underline">Sign in</a>
-                           to post your comment or signup if you don&apos;t have any account.</p>
-
-                        <div className="bg-dot p-30">
-                           <AgencyFormOne />
-                        </div>
-                     </div> */}
                   </div>
-                  <Sidebar />
                </div>
             </div>
          </div>
-
-         {/* <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} /> */}
       </>
    )
 }

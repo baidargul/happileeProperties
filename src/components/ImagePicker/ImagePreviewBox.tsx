@@ -35,19 +35,20 @@ const ImagePreviewBox = (props: ImagePreviewBoxProps) => {
     <>
       <Fancybox options={{}}>
         <a
-          className="relative"
+          className="position-relative"
           data-fancybox="gallery"
           href={URL.createObjectURL(props.imageData)}
         >
           <img
             src={URL.createObjectURL(props.imageData)}
-            className="w-24 h-24"
+            style={{ width: "6.2rem", height: "6.2rem"}}
           />
           <svg
             onClick={() => handleDelete(props.imageData)}
-            className="bg-white rounded-full p-1 w-5 h-5 cursor-pointer transition-all ease-in-out duration-200 absolute top-1 right-1"
+            className="position-absolute top-0 end-0 bg-light rounded-circle p-1"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 320 512"
+            style={{ width: "1.5rem", height: "1.5rem", cursor: "pointer",zIndex:10, transition: "all 0.2s ease-in-out" }}
           >
             <path
               className=" fill-black"

@@ -72,23 +72,12 @@ const ProfileBody = () => {
     console.log(response)
   };
 
-  const handleTestClick = () => {
-    const executeBackend = async () => {
-      const temp = await serverActions.builder.listAll();
-      console.log(temp);
-    };
-    executeBackend();
-  };
 
   return (
     <div className="dashboard-body">
       <div className="position-relative">
         <DashboardHeaderTwo title="Profile" />
         <h2 className="main-title d-block d-lg-none">Profile</h2>
-        <button onClick={handleTestClick} className="btn btn-primary">
-          Test Button
-        </button>
-
         <div className="bg-white card-box border-20">
           {/* <div className="user-avatar-setting d-flex align-items-center mb-30">
                   <Image src={avatar_1} alt="" className="lazy-img user-img" />

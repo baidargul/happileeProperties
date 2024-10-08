@@ -4,6 +4,7 @@ import property_data from "@/data/home-data/PropertyData";
 
 import titleShape from "@/assets/images/shape/title_shape_03.svg";
 
+
 const Property = () => {
    return (
       <div className="property-listing-one bg-pink-two mt-150 xl-mt-120 pt-140 xl-pt-120 lg-pt-80 pb-180 xl-pb-120 lg-pb-100">

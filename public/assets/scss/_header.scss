@@ -176,17 +176,17 @@
         font-weight: 900;
         font-size: 12px;
     }
-    .dashboard-menu .nav-link::after {
-        content: '';
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        background: url(../images/shape/shape_79.svg) no-repeat center;
-        background-size: cover;
-        margin-left: 5px;
-        vertical-align: 2px;
-        animation: rotated 2s infinite linear;
-    }
+    // .dashboard-menu .nav-link::after {
+    //     content: '';
+    //     display: inline-block;
+    //     width: 10px;
+    //     height: 10px;
+    //     background: url(../images/shape/shape_79.svg) no-repeat center;
+    //     background-size: cover;
+    //     margin-left: 5px;
+    //     vertical-align: 2px;
+    //     animation: rotated 2s infinite linear;
+    // }
 
     // Menu Two
     &.menu-style-two:not(.fixed) {
