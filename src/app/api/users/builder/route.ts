@@ -140,7 +140,8 @@ export async function POST(req: NextRequest) {
 
     response.status = 200;
     response.message = "Success";
-    response.data = { newUser, newBuilder, dataImages };
+    // response.data = { newUser, newBuilder, dataImages };
+    response.data = user;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
