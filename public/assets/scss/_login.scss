@@ -161,7 +161,7 @@
         z-index: 1;
     }
     .nav {
-        background: #FFF8F4;
+        background: #fff;
         border-radius: 40px;
         border: 1px solid $color-one;
         .nav-item {
@@ -175,8 +175,8 @@
                 margin: 0;
                 padding: 13px 5px;
                 &.active {
-                    color: $color-one;
-                    background: #fff;
+                    color: #fff;
+                    background: #006BFF;
                 }
             }
             &:first-child {

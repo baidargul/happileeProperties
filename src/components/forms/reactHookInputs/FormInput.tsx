@@ -1,6 +1,6 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import SingleInput from '../inputs/SingleInput';
+import {SingleInput} from '../inputs/SingleInput';
 
 interface FormInputProps {
   label: string;

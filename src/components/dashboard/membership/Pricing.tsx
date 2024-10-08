@@ -41,6 +41,33 @@ const pricing_data: DataType[] = [
       btn: "Choose Plan",
       class_name:"border-0",
    },
+   {
+      id: 1,
+      title: "FREE PLAN",
+      price: "0",
+      desc: "per user/month",
+      list_details: [{ list: "60-day chat history" }, { list: "Basic widget customization" }, { list: "Ticketing system", disable: "disable" }, { list: "Data security", disable: "disable" }],
+      btn: "Choose Plan",
+      class_name:"border-0",
+   },
+   {
+      id: 2,
+      title: "STANDARD",
+      price: "$12",
+      desc: "per user/month",
+      list_details: [{ list: "60-day chat history" }, { list: "Basic widget customization" }, { list: "Ticketing system" }, { list: "Data security", disable: "disable" }],
+      btn: "Current Plan",
+      class_name: "active",
+   },
+   {
+      id: 3,
+      title: "BUSINESS",
+      price: "$39",
+      desc: "per user/month",
+      list_details: [{ list: "60-day chat history" }, { list: "Basic widget customization" }, { list: "Ticketing system" }, { list: "Data security" }],
+      btn: "Choose Plan",
+      class_name:"border-0",
+   },
 ]
 
 const Pricing = () => {

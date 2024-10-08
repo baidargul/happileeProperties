@@ -21,7 +21,7 @@ import { builder } from "@prisma/client"
 import Banner from "@/app/builder/[id]/Banner"
 
 const ListingDetailsSixArea = async () => {
-      const list:builder = await prisma.builder.findMany({
+      const list:any = await prisma.builder.findMany({
         include: {
           user: true,
         },
@@ -31,6 +31,8 @@ const ListingDetailsSixArea = async () => {
           },
         },
       });
+
+      if(list.length==0) return
 
    return (
       <>

@@ -2972,7 +2972,7 @@ iframe {
   background: url(../images/media/img_47.jpg) no-repeat center top;
   background-size: cover;
 }
-.hero-banner-six:before {
+/* .hero-banner-six:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -2984,7 +2984,7 @@ iframe {
   mix-blend-mode: overlay;
   opacity: 0.5;
   z-index: -1;
-}
+} */
 .hero-banner-six .hero-heading {
   font-size: 100px;
   line-height: 1.19em;

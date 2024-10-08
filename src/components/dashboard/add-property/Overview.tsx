@@ -1,4 +1,3 @@
-import ImagePicker from "@/components/ImagePicker/ImagePicker";
 import NiceSelect from "@/ui/NiceSelect";
 
 const Overview = () => {
@@ -71,7 +70,6 @@ const Overview = () => {
           </div>
         </div>
       </div>
-      <ImagePicker label={"Images"} selectedImageArray={[]} />
     </div>
   );
 };
