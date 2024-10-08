@@ -1,4 +1,4 @@
-"use client"
+
 import AgencyFormOne from "@/components/forms/AgencyFormOne"
 import MediaGallery from "../listing-details-1/MediaGallery"
 import SimilarProperty from "../listing-details-4/SimilarProperty"
@@ -15,10 +15,13 @@ import Review from "@/components/inner-pages/agency/agency-details/Review"
 import LoginModal from "@/modals/LoginModal"
 // import { useState } from "react"
 import NiceSelect from "@/ui/NiceSelect"
+import { serverActions } from "../../../../serveractions/commands/serverCommands"
+import prisma from "../../../../serveractions/commands/prisma"
+import { builder } from "@prisma/client"
 
-const ListingDetailsSixArea = () => {
+const ListingDetailsSixArea = async () => {
 
-   const selectHandler = (e: any) => { };
+   // const selectHandler = (e: any) => { };
 
    // const [loginModal, setLoginModal] = useState<boolean>(false);
 
@@ -44,13 +47,34 @@ const ListingDetailsSixArea = () => {
 //      }
 //    ]
 //  }
+// let data;
+// const getDetails= async ()=>{
+   // const getAllBuilder = await serverActions.builder.listAll();
+   // const length = getAllBuilder?.data?.length;
+   // data= await serverActions.builder.get(getAllBuilder?.data[Math.floor(Math.random() * (length - 0 + 1)) + 0]?.id);
+   // console.log(data.data);
+
+      const list:builder = await prisma.builder.findMany({
+        include: {
+          user: true,
+        },
+        orderBy: {
+          user: {
+            name: "asc",
+          },
+        },
+      });
+      console.log(list);
+// }
+
+// getDetails();
 
 
    return (
       <>
          <div className="listing-details-one theme-details-one mt-200 xl-mt-150 pb-150 xl-mb-120">
             <div className="container">
-               <CommonBanner style_3={true} />
+               <CommonBanner style_3={true} data={list[0]}/>
                <MediaGallery style={true} />
                <div className="row pt-80 lg-pt-50">
                   <div className="col-xl-8">
@@ -61,7 +85,7 @@ const ListingDetailsSixArea = () => {
                            reputation.They can actually generate value and create opportunities. </p>
                      </div>
                      <div className="property-feature-accordion bottom-line-dark pb-40 mb-60">
-                        <h4 className="mb-20">Property Features</h4>
+                        <h4  className="mb-20">Property Features</h4>
                         <p className="fs-20 lh-lg">Risk management and compliance, when approached strategically, have the
                            potential to go beyond mitigating threats.</p>
 
@@ -99,7 +123,7 @@ const ListingDetailsSixArea = () => {
                         </div>
                      </div>
 
-                     <div className="review-panel-one bottom-line-dark pb-40 mb-60">
+                     {/* <div className="review-panel-one bottom-line-dark pb-40 mb-60">
                         <div className="position-relative z-1">
                            <div className="d-sm-flex justify-content-between align-items-center mb-10">
                               <h4 className="m0 xs-pb-30">Reviews</h4>
@@ -114,9 +138,9 @@ const ListingDetailsSixArea = () => {
                                  name=""
                                  placeholder="" />
                            </div>
-                           {/* <Review /> */}
+                           <Review />
                         </div>
-                     </div>
+                     </div> */}
                      
                      {/* <div className="review-form">
                         <h4 className="mb-20">Leave A Reply</h4>

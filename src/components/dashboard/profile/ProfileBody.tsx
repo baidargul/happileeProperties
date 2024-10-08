@@ -53,7 +53,7 @@ const ProfileBody = () => {
   });
 
   // Example submit function
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     const formData = new FormData();
     for (var key in data) {
       formData.append(key, data[key]);
@@ -67,6 +67,9 @@ const ProfileBody = () => {
     for (const pair of formData.entries()) {
       console.log(pair[0], pair[1]);
     }
+    
+    const response = await serverActions.builder.create(formData)
+    console.log(response)
   };
 
   const handleTestClick = () => {
