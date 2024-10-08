@@ -53,9 +53,37 @@ async function create(data: any) {
   }
 }
 
+async function removeImage(id: string) {
+  const temp = await axios
+    .delete(`${apiPath}/id?id=${id}`)
+    .then(async (res: any) => {
+      const response = await res.data;
+      return response;
+    });
+
+  return temp;
+}
+
+async function addImage(data: any) {
+  const temp = await axios
+    .post(`${apiPath}/image`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then(async (res: any) => {
+      const response = await res.data;
+      return response;
+    });
+
+  return temp;
+}
+
 export const builder = {
-  listAll,
   get,
-  findByName,
   create,
+  removeImage,
+  // addImage,
+  listAll,
+  findByName,
 };

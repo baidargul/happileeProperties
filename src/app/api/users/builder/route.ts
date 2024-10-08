@@ -97,9 +97,6 @@ export async function POST(req: NextRequest) {
       formValues.images = savedImageUrls; // Store these URLs in the formValues
     }
 
-    console.log(`images-------------`);
-    console.log(formValues.images);
-    console.log(`images-------------`);
     // Create builder related to user, including image URLs in the DB if necessary
     const newBuilder = await prisma.builder.create({
       data: {
@@ -128,9 +125,99 @@ export async function POST(req: NextRequest) {
       });
     });
 
+    const user = await prisma.builder.findUnique({
+      where: {
+        id: newBuilder.id,
+      },
+      include: {
+        user: {
+          include: {
+            image: true,
+          },
+        },
+      },
+    });
+
     response.status = 200;
     response.message = "Success";
     response.data = { newUser, newBuilder, dataImages };
+    return new Response(JSON.stringify(response));
+  } catch (error: any) {
+    console.log("[SERVER ERROR]: " + error.message);
+    response.status = 500;
+    response.message = error.message;
+    return new Response(JSON.stringify(response));
+  }
+}
+
+export async function GET(req: NextRequest) {
+  const response = {
+    status: 500,
+    message: "Internal Server Error",
+    data: null,
+  };
+
+  try {
+    const builder: any = await prisma.builder.findMany({
+      include: {
+        user: {
+          include: {
+            image: true,
+          },
+        },
+      },
+    });
+
+    if (!builder) {
+      response.status = 200;
+      response.message = "No builders found";
+      return new Response(JSON.stringify(response));
+    }
+
+    response.status = 200;
+    response.message = "Success";
+    response.data = builder;
+    return new Response(JSON.stringify(response));
+  } catch (error: any) {
+    console.log("[SERVER ERROR]: " + error.message);
+    response.status = 500;
+    response.message = error.message;
+    return new Response(JSON.stringify(response));
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  const response = {
+    status: 500,
+    message: "Internal Server Error",
+    data: null,
+  };
+
+  try {
+    const data = await req.json();
+
+    const builder: any = await prisma.builder.findUnique({
+      where: {
+        id: data.id,
+      },
+      include: {
+        user: {
+          include: {
+            image: true,
+          },
+        },
+      },
+    });
+
+    if (!builder) {
+      response.status = 400;
+      response.message = "No builders found";
+      return new Response(JSON.stringify(response));
+    }
+
+    response.status = 200;
+    response.message = "Success";
+    response.data = builder;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);

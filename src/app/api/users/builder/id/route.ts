@@ -24,7 +24,11 @@ export async function GET(req: NextRequest) {
         id: id,
       },
       include: {
-        user: true,
+        user: {
+          include: {
+            image: true,
+          },
+        },
       },
     });
 

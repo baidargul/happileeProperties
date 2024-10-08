@@ -1,8 +1,9 @@
 import { NextRequest } from "next/server";
 import prisma from "../../../../../../serveractions/commands/prisma";
-import { NextApiRequest } from "next";
+import { promises as fs } from "fs"; // Use the file system promises API
+import path from "path"; // Path utility
 
-export async function GET(req: NextRequest) {
+export async function DELETE(req: NextRequest) {
   const response = {
     status: 500,
     message: "Internal Server Error",
@@ -10,36 +11,50 @@ export async function GET(req: NextRequest) {
   };
 
   try {
-    const id = req.nextUrl.searchParams.get("name");
+    const data = await req.json();
 
-    if (!id) {
+    if (!data) {
       response.status = 400;
       response.message = "Invalid request";
       response.data = null;
       return new Response(JSON.stringify(response));
     }
 
-    const builder = await prisma.builder.findMany({
+    const image = await prisma.image.findUnique({
       where: {
-        user: {
-          name: id,
-        },
+        id: data.id,
+      },
+    });
+
+    if (!image) {
+      response.status = 400;
+      response.message = "No image found";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    await prisma.image.delete({
+      where: {
+        id: data.id,
+      },
+    });
+
+    const images = await prisma.image.findMany({
+      where: {
+        userId: image.userId,
       },
       include: {
         user: {
           include: {
-            image: true,
+            builder: true,
           },
         },
       },
     });
 
     response.status = 200;
-    response.message =
-      builder.length > 0
-        ? `Found ${builder.length} builders.`
-        : "No builder found!";
-    response.data = builder;
+    response.message = "Success";
+    response.data = images;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
