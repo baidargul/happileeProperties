@@ -16,15 +16,15 @@ model builder {
 }
 
 model user {
-  id      String    @id @default(uuid())
-  email   String?   @unique
-  address String?
-  phone   String?   @unique
-  name    String
+  id       String        @id @default(uuid())
+  email    String?       @unique
+  address  String?
+  phone    String?       @unique
+  name     String
   password String
-  builder builder[]
-  status accountStatus @default(UNDEFINED)
-  image   image[]
+  status   accountStatus @default(UNDEFINED)
+  builder  builder[]
+  image    image[]
 }
 
 model image {

@@ -16,6 +16,7 @@ const LoginModal = ({ loginModal, setLoginModal }: any) => {
    const handleTabClick = (index: any) => {
       setActiveTab(index);
    };
+   
 
    return (
       <>

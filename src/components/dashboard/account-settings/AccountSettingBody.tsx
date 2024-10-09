@@ -41,8 +41,8 @@ const AccountSettingBody = () => {
 
   // Example submit function
   const onSubmit = async (data: any) => {
-    const response = await serverActions.builder.create(data);
-    console.log(response);
+    // const response = await serverActions.builder.create(data);
+    // console.log(response);
   };
 
   return (

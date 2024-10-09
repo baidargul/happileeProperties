@@ -17,7 +17,7 @@ import LoginModal from "@/modals/LoginModal"
 import NiceSelect from "@/ui/NiceSelect"
 import { serverActions } from "../../../../serveractions/commands/serverCommands"
 import prisma from "../../../../serveractions/commands/prisma"
-import { builder } from "@prisma/client"
+import { accountStatus, builder } from "@prisma/client"
 import Banner from "@/app/builder/[id]/Banner"
 
 const ListingDetailsSixArea = async () => {
@@ -32,6 +32,10 @@ const ListingDetailsSixArea = async () => {
         },
       });
 
+
+      // const temp:accountStatus;
+
+      // console.log()
       if(list.length==0) return
 
    return (

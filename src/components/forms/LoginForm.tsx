@@ -8,6 +8,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Image from "next/image";
 
 import OpenEye from "@/assets/images/icon/icon_68.svg";
+import { useRouter } from "next/navigation";
+import { serverActions } from "../../../serveractions/commands/serverCommands";
 
 interface FormData {
    email: string;
@@ -15,7 +17,7 @@ interface FormData {
 }
 
 const LoginForm = () => {
-
+   const router = useRouter();
    const schema = yup
       .object({
          email: yup.string().required().email().label("Email"),
@@ -24,10 +26,16 @@ const LoginForm = () => {
       .required();
 
    const { register, handleSubmit, reset, formState: { errors }, } = useForm<FormData>({ resolver: yupResolver(schema), });
-   const onSubmit = (data: FormData) => {
-      const notify = () => toast('Login successfully', { position: 'top-center' });
-      notify();
-      reset();
+   const onSubmit = async (data: FormData) => {
+
+      const res = await serverActions.user.signIn(
+         data.email,data.password
+      )
+      console.log(res);
+      // reset();
+      // reset();
+
+      // router.push("/dashboard/profile");
    };
 
    const [isPasswordVisible, setPasswordVisibility] = useState(false);
