@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
     let isExists: any;
 
-    isExists = await prisma.user.findMany({
+    isExists = await prisma.user.findUnique({
       where: {
         email: data.email,
       },
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    isExists = await prisma.user.findMany({
+    isExists = await prisma.user.findUnique({
       where: {
         phone: data.phone,
       },
