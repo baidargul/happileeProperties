@@ -60,6 +60,7 @@ export async function POST(req: NextRequest) {
         email: formValues.email,
         phone: formValues.phoneNumber,
         address: formValues.address,
+        password: formValues.password,
       },
     });
 

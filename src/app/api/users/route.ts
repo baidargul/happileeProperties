@@ -13,15 +13,8 @@ export async function GET(req: NextRequest) {
     data: null as any,
   };
 
-  type dataProps = {
-    name: string;
-    email: string;
-    phone: string;
-    password: string;
-  };
-
   try {
-    const data: dataProps = await req.json();
+    const data = await req.json();
 
     let isExists: any;
 
@@ -47,6 +40,13 @@ export async function GET(req: NextRequest) {
     if (isExists) {
       response.status = 400;
       response.message = "User already with this phone number exists";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    if (!data.name || !data.email || !data.phone || !data.password) {
+      response.status = 400;
+      response.message = "All fields are required";
       response.data = null;
       return new Response(JSON.stringify(response));
     }

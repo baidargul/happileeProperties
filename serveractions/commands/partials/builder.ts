@@ -81,7 +81,7 @@ async function addImage(data: any) {
 
 export const builder = {
   get,
-  create,
+  // create,
   removeImage,
   // addImage,
   listAll,
