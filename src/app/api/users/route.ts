@@ -180,7 +180,12 @@ export async function PATCH(req: NextRequest) {
     response.status = 200;
     response.message = "User logged in successfully";
     response.data = serializedCookie;
-    return new Response(JSON.stringify(response));
+    return new Response(JSON.stringify(response), {
+      headers: {
+        "Set-Cookie": serializedCookie, // Set the cookie in the response
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
     response.status = 500;
