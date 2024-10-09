@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
     let isExists: any;
 
-    isExists = await prisma.user.findUnique({
+    isExists = await prisma.user.findMany({
       where: {
         email: data.email,
       },
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    isExists = await prisma.user.findUnique({
+    isExists = await prisma.user.findMany({
       where: {
         phone: data.phone,
       },
@@ -92,6 +92,92 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
       },
     });
+  } catch (error: any) {
+    console.log("[SERVER ERROR]: " + error.message);
+    response.status = 500;
+    response.message = error.message;
+    response.data = null;
+    return new Response(JSON.stringify(response));
+  }
+}
+
+export async function PATH(req: NextRequest) {
+  const response = {
+    status: 500,
+    message: "Internal Server Error",
+    data: null as any,
+  };
+
+  try {
+    const data = await req.json();
+
+    let isExists: any;
+
+    isExists = await prisma.user.findUnique({
+      where: {
+        email: data.email,
+      },
+    });
+
+    if (!isExists) {
+      isExists = await prisma.user.findUnique({
+        where: {
+          phone: data.phone,
+        },
+      });
+    }
+
+    if (!isExists) {
+      response.status = 400;
+      response.message = "No account registered with these details";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    if (!data.password) {
+      response.status = 400;
+      response.message = "All fields are required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      data.password,
+      isExists.password
+    );
+
+    if (!isPasswordValid) {
+      response.status = 400;
+      response.message = "Invalid password";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    // write login logic
+
+    // Create a JWT token
+    const token = jwt.sign(
+      { id: isExists.id, email: isExists.email },
+      JWT_SECRET,
+      {
+        expiresIn: "1h", // Set token expiration time
+      }
+    );
+
+    // Set the cookie
+    const cookieOptions = {
+      httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+      secure: process.env.NODE_ENV === "production", // Set to true in production
+      maxAge: 3600, // Cookie expiration time in seconds
+      path: "/", // Path where the cookie is accessible
+    };
+
+    const serializedCookie = cookie.serialize("token", token, cookieOptions);
+
+    response.status = 200;
+    response.message = "User logged in successfully";
+    response.data = serializedCookie;
+    return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
     response.status = 500;
