@@ -12,16 +12,18 @@ model builder {
   userId      String
   description String?
   gst         String?
-  user        user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "builder_userId_fkey")
+  user        user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "builder_userId_fkey")
 }
 
 model user {
   id      String    @id @default(uuid())
-  email   String?
+  email   String?   @unique
   address String?
-  phone   String?
+  phone   String?   @unique
   name    String
+  password String
   builder builder[]
+  status accountStatus @default(UNDEFINED)
   image   image[]
 }
 
@@ -29,5 +31,13 @@ model image {
   id     String @id(map: "images_pkey") @default(uuid())
   userId String
   url    String
-  user   user   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "images_userId_fkey")
+  user   user   @relation(fields: [userId], references: [id], onDelete: Cascade, map: "images_userId_fkey")
+}
+
+enum accountStatus {
+  UNDEFINED
+  INCOMPLETE
+  PENDING
+  ACTIVE
+  SUSPENDED
 }
