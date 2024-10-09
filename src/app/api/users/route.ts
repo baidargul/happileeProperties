@@ -6,7 +6,7 @@ import cookie from "cookie"; // Import cookie
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key"; // Make sure to define your secret key
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const response = {
     status: 500,
     message: "Internal Server Error",
