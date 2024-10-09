@@ -2,11 +2,12 @@ import prisma from "../../../../serveractions/commands/prisma";
 import { NextRequest } from "next/server";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"; // Import jwt
-import cookie from "cookie"; // Import cookie
+import cookie from "cookie";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key"; // Make sure to define your secret key
 
 export async function POST(req: NextRequest) {
+  const cookie = require("cookie");
   const response = {
     status: 500,
     message: "Internal Server Error",
@@ -16,53 +17,52 @@ export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
 
-    let isExists: any;
-
-    isExists = await prisma.user.findUnique({
+    // Check for existing user by email
+    const emailExists = await prisma.user.findUnique({
       where: {
         email: data.email,
       },
     });
 
-    if (isExists) {
+    if (emailExists) {
       response.status = 400;
       response.message = "User already with this email exists";
       response.data = null;
-      return new Response(JSON.stringify(response));
+      return new Response(JSON.stringify(response), { status: 400 });
     }
 
-    isExists = await prisma.user.findUnique({
+    // Check for existing user by phone
+    const phoneExists = await prisma.user.findUnique({
       where: {
         phone: data.phone,
       },
     });
 
-    if (isExists) {
+    if (phoneExists) {
       response.status = 400;
       response.message = "User already with this phone number exists";
       response.data = null;
-      return new Response(JSON.stringify(response));
+      return new Response(JSON.stringify(response), { status: 400 });
     }
 
+    // Check for required fields
     if (!data.name || !data.email || !data.phone || !data.password) {
       response.status = 400;
       response.message = "All fields are required";
       response.data = null;
-      return new Response(JSON.stringify(response));
+      return new Response(JSON.stringify(response), { status: 400 });
     }
 
+    // Hash the password
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
+    // Create a new user
     const user = await prisma.user.create({
       data: {
         name: data.name,
         email: data.email,
         phone: data.phone,
         password: hashedPassword,
-      },
-      include: {
-        builder: true,
-        image: true,
       },
     });
 
@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
       expiresIn: "1h", // Set token expiration time
     });
 
-    // Set the cookie
+    // Set the cookie options
     const cookieOptions = {
       httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
       secure: process.env.NODE_ENV === "production", // Set to true in production
@@ -79,8 +79,10 @@ export async function POST(req: NextRequest) {
       path: "/", // Path where the cookie is accessible
     };
 
+    // Serialize the cookie
     const serializedCookie = cookie.serialize("token", token, cookieOptions);
 
+    // Prepare the response
     response.status = 200;
     response.message = "User created successfully";
     response.data = user;
@@ -97,11 +99,12 @@ export async function POST(req: NextRequest) {
     response.status = 500;
     response.message = error.message;
     response.data = null;
-    return new Response(JSON.stringify(response));
+    return new Response(JSON.stringify(response), { status: 500 });
   }
 }
 
-export async function PATH(req: NextRequest) {
+export async function PATCH(req: NextRequest) {
+  const cookie = require("cookie");
   const response = {
     status: 500,
     message: "Internal Server Error",
