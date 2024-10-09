@@ -23,6 +23,21 @@ async function signUp(
   return response;
 }
 
+async function signIn(email: string, password: string) {
+  const data = {
+    email: email,
+    password: password,
+  };
+
+  const response = await axios.patch(apiPath, data).then(async (res) => {
+    const response = await res.data;
+    return response;
+  });
+
+  return response;
+}
+
 export const user = {
+  signIn,
   signUp,
 };
