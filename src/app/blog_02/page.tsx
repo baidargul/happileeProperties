@@ -2,7 +2,7 @@ import BlogTwo from "@/components/blogs/blog-two";
 import Wrapper from "@/layouts/Wrapper";
 
 export const metadata = {
-   title: "Blog Two Homy - Real Estate React Next js Template",
+   title: "Blog Two Happilee  ",
 };
 const index = () => {
    return (

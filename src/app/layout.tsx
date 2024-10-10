@@ -21,14 +21,14 @@ export default function RootLayout({
         />
         <meta
           name="description"
-          content="Homy is a beautiful website template designed for Real Estate Agency."
+          content="Happilee is a beautiful website template designed for Real Estate Agency."
         />
-        <meta property="og:site_name" content="Homy" />
+        <meta property="og:site_name" content="Happilee" />
         <meta property="og:url" content="https://creativegigstf.com" />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Homy - Real Estate React Next js Template"
+          content="Happilee  "
         />
         <meta name="og:image" content="images/assets/ogg.png" />
         {/* For IE  */}

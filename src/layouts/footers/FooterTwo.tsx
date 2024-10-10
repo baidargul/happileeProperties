@@ -22,7 +22,7 @@ const footer_content: ContentType = {
    title: "Our Newsletter",
    desc_1: "Get instant news by subscribe to our newsletter",
    desc_2: "11910 Clyde Rapid Suite 210, Wil, Virginia, USA",
-   email: "homyreal@demo.com",
+   email: "Happileereal@demo.com",
    number: "+757 699-4478",
    icon: ["facebook-f", "twitter", "instagram"],
 }
@@ -113,7 +113,7 @@ const FooterTwo = () => {
                      <li><Link href="/faq">Cookies</Link></li>
                      <li><Link href="/contact">Contact Us</Link></li>
                   </ul>
-                  <p className="mb-15 text-center text-lg-start order-md-first">Copyright @2024 Homy inc.</p>
+                  <p className="mb-15 text-center text-lg-start order-md-first">Copyright @2024 Happilee inc.</p>
                </div>
             </div>
          </div>

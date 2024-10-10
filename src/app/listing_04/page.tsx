@@ -2,7 +2,7 @@ import ListingFour from "@/components/inner-listing/listing-04";
 import Wrapper from "@/layouts/Wrapper";
 
 export const metadata = {
-   title: "Listing Four Homy - Real Estate React Next js Template",
+   title: "Listing Four Happilee  ",
 };
 const index = () => {
    return (
