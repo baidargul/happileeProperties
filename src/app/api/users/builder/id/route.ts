@@ -35,9 +35,22 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    const user = await prisma.user.findUnique({
+      where: {
+        id: builder?.user.id,
+      },
+      include: {
+        image: true,
+        builder: true,
+      },
+      omit: {
+        password: true,
+      },
+    });
+
     response.status = 200;
     response.message = builder ? "Found builder" : "No builder found";
-    response.data = builder;
+    response.data = user;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);

@@ -153,14 +153,30 @@ export async function POST(req: NextRequest) {
           include: {
             image: true,
           },
+          omit: {
+            password: true,
+          },
         },
+      },
+    });
+
+    const actUser = await prisma.user.findUnique({
+      where: {
+        id: user?.userId,
+      },
+      include: {
+        builder: true,
+        image: true,
+      },
+      omit: {
+        password: true,
       },
     });
 
     response.status = 200;
     response.message = "Success";
     // response.data = { newUser, newBuilder, dataImages };
-    response.data = user;
+    response.data = actUser;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
