@@ -66,6 +66,9 @@ export async function PATCH(req: NextRequest) {
         builder: true,
         image: true,
       },
+      omit: {
+        password: true,
+      },
     });
 
     response.status = 200;

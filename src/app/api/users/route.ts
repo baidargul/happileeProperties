@@ -64,16 +64,11 @@ export async function POST(req: NextRequest) {
         phone: data.phone,
         password: hashedPassword,
       },
-      select: {
-        password: false,
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        address: true,
+      omit: {
+        password: true,
+      },
+      include: {
         builder: true,
-        status: true,
-        type: true,
         image: true,
       },
     });
@@ -132,18 +127,6 @@ export async function PATCH(req: NextRequest) {
       where: {
         email: data.email,
       },
-      select: {
-        password: false,
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        address: true,
-        builder: true,
-        status: true,
-        type: true,
-        image: true,
-      },
     });
 
     if (!isExists) {
@@ -201,9 +184,22 @@ export async function PATCH(req: NextRequest) {
 
     const serializedCookie = cookie.serialize("token", token, cookieOptions);
 
+    const user = await prisma.user.findUnique({
+      where: {
+        id: isExists.id,
+      },
+      include: {
+        builder: true,
+        image: true,
+      },
+      omit: {
+        password: true,
+      },
+    });
+
     response.status = 200;
     response.message = "User logged in successfully";
-    response.data = serializedCookie;
+    response.data = user;
     return new Response(JSON.stringify(response), {
       headers: {
         "Set-Cookie": serializedCookie, // Set the cookie in the response
