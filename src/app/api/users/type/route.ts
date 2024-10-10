@@ -61,6 +61,7 @@ export async function PATCH(req: NextRequest) {
       },
       data: {
         type: data.type,
+        updatedAt: new Date(),
       },
       include: {
         builder: true,
