@@ -64,6 +64,18 @@ export async function POST(req: NextRequest) {
         phone: data.phone,
         password: hashedPassword,
       },
+      select: {
+        password: false,
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        address: true,
+        builder: true,
+        status: true,
+        type: true,
+        image: true,
+      },
     });
 
     // Create a JWT token
@@ -119,6 +131,18 @@ export async function PATCH(req: NextRequest) {
     isExists = await prisma.user.findUnique({
       where: {
         email: data.email,
+      },
+      select: {
+        password: false,
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        address: true,
+        builder: true,
+        status: true,
+        type: true,
+        image: true,
       },
     });
 
