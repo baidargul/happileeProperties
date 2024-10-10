@@ -22,6 +22,7 @@ model user {
   phone    String?       @unique
   name     String
   password String
+  type accountTypes @default(UNDEFINED)
   status   accountStatus @default(UNDEFINED)
   builder  builder[]
   image    image[]
@@ -40,4 +41,13 @@ enum accountStatus {
   PENDING
   ACTIVE
   SUSPENDED
+}
+
+enum accountTypes {
+  UNDEFINED
+  BUYER
+  BUILDER
+  AGENT
+  ADMIN
+  SUPERADMIN
 }

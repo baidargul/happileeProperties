@@ -1,3 +1,4 @@
+import { accountTypes } from "@prisma/client";
 import axios from "axios";
 
 const apiPath = "/api/users";
@@ -37,7 +38,24 @@ async function signIn(email: string, password: string) {
   return response;
 }
 
+async function changeType(id: string, type: accountTypes) {
+  const data = {
+    id: id,
+    type: type,
+  };
+
+  const response = await axios
+    .patch(`${apiPath}/type`, data)
+    .then(async (res) => {
+      const response = await res.data;
+      return response;
+    });
+
+  return response;
+}
+
 export const user = {
   signIn,
   signUp,
+  changeType,
 };
