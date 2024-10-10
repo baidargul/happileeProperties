@@ -18,7 +18,32 @@ export async function PATCH(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    await prisma.user.delete({
+    let isExists: any = await prisma.user.findUnique({
+      where: {
+        id: data.id,
+      },
+    });
+
+    if (!isExists) {
+      response.status = 400;
+      response.message = "No account registered with these details";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    await prisma.image.deleteMany({
+      where: {
+        userId: data.id,
+      },
+    });
+
+    await prisma.builder.deleteMany({
+      where: {
+        id: data.id,
+      },
+    });
+
+    await prisma.user.deleteMany({
       where: {
         id: data.id,
       },
@@ -45,6 +70,12 @@ export async function POST(req: NextRequest) {
   };
 
   try {
+    await prisma.image.deleteMany({});
+
+    await prisma.builder.deleteMany({});
+
+    await prisma.user.deleteMany({});
+
     await prisma.user.deleteMany({});
 
     response.status = 200;

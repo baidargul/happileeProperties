@@ -129,13 +129,13 @@ export async function PATCH(req: NextRequest) {
       },
     });
 
-    if (!isExists) {
-      isExists = await prisma.user.findUnique({
-        where: {
-          phone: data.phone,
-        },
-      });
-    }
+    // if (!isExists) {
+    //   isExists = await prisma.user.findUnique({
+    //     where: {
+    //       phone: data.phone,
+    //     },
+    //   });
+    // }
 
     if (!isExists) {
       response.status = 400;
