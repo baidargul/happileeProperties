@@ -43,32 +43,45 @@ export async function POST(req: NextRequest) {
     //   return new Response(JSON.stringify(response));
     // }
 
-    isExists = await prisma.user.findMany({
-      where: { phone: formValues.phoneNumber },
+    // isExists = await prisma.user.findMany({
+    //   where: { phone: formValues.phoneNumber },
+    // });
+
+    // if (isExists.length > 0) {
+    //   response.status = 400;
+    //   response.message = "User with this phone number already exists";
+    //   return new Response(JSON.stringify(response));
+    // }
+
+    isExists = await prisma.user.findUnique({
+      where: {
+        id: formValues.id,
+      },
     });
 
-    if (isExists.length > 0) {
+    if (!isExists) {
       response.status = 400;
-      response.message = "User with this phone number already exists";
+      response.message = "User not found";
+      response.data = null;
       return new Response(JSON.stringify(response));
     }
 
     // Create a new user
-    const newUser = await prisma.user.create({
-      data: {
-        name: formValues.name,
-        email: formValues.email,
-        phone: formValues.phoneNumber,
-        address: formValues.address,
-        password: formValues.password,
-      },
-    });
+    // const newUser = await prisma.user.create({
+    //   data: {
+    //     name: formValues.name,
+    //     email: formValues.email,
+    //     phone: formValues.phoneNumber,
+    //     address: formValues.address,
+    //     password: formValues.password,
+    //   },
+    // });
 
-    if (!newUser) {
-      response.status = 400;
-      response.message = "Failed to create user";
-      return new Response(JSON.stringify(response));
-    }
+    // if (!newUser) {
+    //   response.status = 400;
+    //   response.message = "Failed to create user";
+    //   return new Response(JSON.stringify(response));
+    // }
 
     // Save the images to the server and generate URLs
     if (imageUrls.length > 0) {
@@ -101,7 +114,7 @@ export async function POST(req: NextRequest) {
     // Create builder related to user, including image URLs in the DB if necessary
     const newBuilder = await prisma.builder.create({
       data: {
-        userId: newUser.id,
+        userId: isExists.id,
         description: formValues.description,
         gst: formValues.gst,
         // images: formValues.images, // Store image URLs in the builder record
@@ -109,7 +122,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!newBuilder) {
-      await prisma.user.delete({ where: { id: newUser.id } });
+      await prisma.user.delete({ where: { id: isExists.id } });
       response.status = 400;
       response.message = "Failed to create builder";
       return new Response(JSON.stringify(response));
@@ -120,7 +133,7 @@ export async function POST(req: NextRequest) {
     formValues.images.forEach(async (item: any) => {
       await prisma.image.create({
         data: {
-          userId: newUser.id,
+          userId: isExists.id,
           url: item,
         },
       });
