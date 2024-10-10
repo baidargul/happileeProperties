@@ -2,7 +2,7 @@ import HomeSix from "@/components/homes/home-six";
 import Wrapper from "@/layouts/Wrapper";
 
 export const metadata = {
-  title: "Homy - Real Estate React Next js Template",
+  title: "Happilee  ",
 };
 const index = () => {
   return (

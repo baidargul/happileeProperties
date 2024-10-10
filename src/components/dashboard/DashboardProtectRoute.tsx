@@ -18,11 +18,11 @@ export default function DashboardProtectRoute({
   const router = useRouter();
   const pathname = usePathname();
 
-  
+
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
   const userProfile =useSelector((state: RootState) => state.user.userProfile);
 
-  if ((!isLoggedIn || userProfile?.status === 'UNDEFINED') && !pathname.includes('/profile')) {
+  if ((!isLoggedIn || userProfile?.status === 'INCOMPLETE') && !pathname.includes('/profile')) {
     router.push("/");
     return (
 		<div className="vh-100 d-flex align-items-center justify-content-center">

@@ -8,7 +8,7 @@ import DashboardHeaderOne from "./DashboardHeaderOne";
 
 import dashboardIcon_1 from "@/assets/images/dashboard/icon/icon_43.svg";
 import dashboardIcon_2 from "@/assets/images/dashboard/icon/icon_11.svg";
-import dashboardAvatar from "@/assets/images/dashboard/avatar_01.jpg";
+import dashboardAvatar from "@/assets/images/dashboard/user.jpg";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 

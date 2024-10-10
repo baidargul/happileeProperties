@@ -45,7 +45,7 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
 
    if(!isLoggedIn) return router.push('/');
 
-   if(userProfile?.status === 'UNDEFINED'|| userProfile?.type === 'UNDEFINED'){
+   if(userProfile?.status === 'INCOMPLETE'|| userProfile?.type === 'UNDEFINED'){
       return (
          <aside className={`dash-aside-navbar ${isActive ? "show" : ""}`}>
          <div className="position-relative h-100">

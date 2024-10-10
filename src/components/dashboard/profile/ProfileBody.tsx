@@ -13,7 +13,7 @@ import { z } from "zod";
 import FormInput from "@/components/forms/reactHookInputs/FormInput";
 import ImagePicker from "@/components/ImagePicker/ImagePicker";
 import FormTextArea from "@/components/forms/reactHookInputs/FormTextArea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { serverActions } from "../../../../serveractions/commands/serverCommands";
 import { user } from "../../../../serveractions/commands/partials/user";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,7 +38,20 @@ const ProfileBody = () => {
 
   const [selectedImageArray, setSelectedImageArray] = useState([]);
   const [removedImageArray, setRemovedImageArray] = useState([]);
-  const {state,type,id} =useSelector((state:RootState)=>state.user.userProfile)
+  const {state,type,id,name,address,description,gst} =useSelector((state:RootState)=>state.user.userProfile)
+
+  
+  const getUserDetails = async () => {
+    const response = await serverActions.user.list(id);
+    if (response.status === 200) {
+      dispatch(userLogin(response.data));
+      // console.log(response)
+    }
+  };
+
+  useEffect(() => {
+      getUserDetails();
+  },[])
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
@@ -55,10 +68,10 @@ const ProfileBody = () => {
   // Set up the form with default values
   const { control, handleSubmit, setValue } = useForm({
     defaultValues: {
-      name: "",
-      description: "",
-      gst: "",
-      address: "",
+      name: name??"",
+      description: description??"",
+      gst: gst??"",
+      address: address??"",
     },
     resolver: zodResolver(formSchema),
   });

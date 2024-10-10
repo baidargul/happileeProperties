@@ -2,7 +2,7 @@ import HomeFour from "@/components/homes/home-four";
 import Wrapper from "@/layouts/Wrapper";
 
 export const metadata = {
-  title: "Home Four Homy - Real Estate React Next js Template",
+  title: "Home Four Happilee  ",
 };
 const index = () => {
   return (
