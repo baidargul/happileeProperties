@@ -54,8 +54,53 @@ async function changeType(id: string, type: accountTypes) {
   return response;
 }
 
+async function deleteUser(id: string) {
+  const data = {
+    id: id,
+  };
+
+  const response = await axios
+    .patch(`${apiPath}/delete`, data)
+    .then(async (res) => {
+      const response = await res.data;
+      return response;
+    });
+
+  return response;
+}
+async function deleteAllUsers() {
+  const response = await axios.post(`${apiPath}/delete`).then(async (res) => {
+    const response = await res.data;
+    return response;
+  });
+
+  return response;
+}
+async function listAll() {
+  const response = await axios.get(apiPath).then(async (res) => {
+    const response = await res.data;
+    return response;
+  });
+  return response;
+}
+
+async function list(id: string) {
+  const data = {
+    id: id,
+  };
+  const response = await axios.put(apiPath, data).then(async (res) => {
+    const response = await res.data;
+    return response;
+  });
+  return response;
+}
+
 export const user = {
   signIn,
   signUp,
+  list,
+  listAll,
   changeType,
+  deleteUser,
+  deleteAllUsers,
 };
