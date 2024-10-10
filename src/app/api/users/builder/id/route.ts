@@ -35,9 +35,16 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    if (!builder) {
+      response.status = 400;
+      response.message = "No builder found";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     const user = await prisma.user.findUnique({
       where: {
-        id: builder?.user.id,
+        id: builder.userId,
       },
       include: {
         image: true,

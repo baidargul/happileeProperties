@@ -10,14 +10,14 @@ datasource db {
 
 model builder {
   id          String  @id @default(uuid())
-  userId      String
+  userId      String  @unique  // This field will link the builder to the user, and it must be unique to enforce the one-to-one relation
   description String?
   gst         String?
-  user        user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "builder_userId_fkey")
+  user        user    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model user {
-  id        String        @id @default(uuid())
+  id        String        @id @default(uuid())  // User will have its own unique ID
   email     String?       @unique
   address   String?
   phone     String?       @unique
@@ -27,8 +27,8 @@ model user {
   type      accountTypes  @default(UNDEFINED)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @default(now())
-  builder   builder[]
   image     image[]
+  builder   builder?      // One-to-one relationship
 }
 
 model image {

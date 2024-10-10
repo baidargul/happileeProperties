@@ -69,10 +69,6 @@ export async function POST(req: NextRequest) {
       omit: {
         password: true,
       },
-      include: {
-        builder: true,
-        image: true,
-      },
     });
 
     // Create a JWT token

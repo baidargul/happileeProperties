@@ -34,25 +34,32 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    const user = await prisma.user.findUnique({
-      where: {
-        id: builder[0].user.id,
-      },
-      include: {
-        image: true,
-        builder: true,
-      },
-      omit: {
-        password: true,
-      },
-    });
+    let users: any = [];
+
+    if (builder) {
+      builder.forEach(async (item: any) => {
+        const user = await prisma.user.findUnique({
+          where: {
+            id: item.user.id,
+          },
+          include: {
+            builder: true,
+            image: true,
+          },
+          omit: {
+            password: true,
+          },
+        });
+        users.push(user);
+      });
+    }
 
     response.status = 200;
     response.message =
       builder.length > 0
         ? `Found ${builder.length} builders.`
         : "No builder found!";
-    response.data = user;
+    response.data = users;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
