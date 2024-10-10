@@ -1,12 +1,13 @@
 import DashboardHeaderOne from "@/layouts/headers/dashboard/DashboardHeaderOne"
 import PropertyListBody from "./PropertyListBody"
+import DashboardProtectRoute from "../DashboardProtectRoute"
 
 const PropertyList = () => {
    return (
-      <>
-         <DashboardHeaderOne />
-         <PropertyListBody />
-      </>
+      <DashboardProtectRoute>
+            <DashboardHeaderOne />
+            <PropertyListBody />
+      </DashboardProtectRoute>
    )
 }
 

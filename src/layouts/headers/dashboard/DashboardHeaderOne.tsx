@@ -25,9 +25,56 @@ import dashboardIcon_9 from "@/assets/images/dashboard/icon/icon_9.svg";
 import dashboardIconActive_10 from "@/assets/images/dashboard/icon/icon_10_active.svg";
 import dashboardIcon_10 from "@/assets/images/dashboard/icon/icon_10.svg";
 import dashboardIcon_11 from "@/assets/images/dashboard/icon/icon_41.svg";
+import { serverActions } from "../../../../serveractions/commands/serverCommands";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+
+interface RootState {
+   user: {
+     userProfile: any;
+     isLoggedIn: boolean;
+   }
+ }
 
 const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
+   const router =useRouter()
+
+   const  {userProfile,isLoggedIn} = useSelector((state: RootState)=>state.user)
+
    const pathname = usePathname();
+
+   if(!isLoggedIn) return router.push('/');
+
+   if(userProfile?.status === 'UNDEFINED'|| userProfile?.type === 'UNDEFINED'){
+      return (
+         <aside className={`dash-aside-navbar ${isActive ? "show" : ""}`}>
+         <div className="position-relative h-100">
+            <div className="logo d-md-block d-flex align-items-center justify-content-between plr bottom-line pb-30">
+               <Link href="/dashboard-index">
+                  <Image src={dashboardLogo} alt="" />
+               </Link>
+               <button onClick={() => setIsActive(false)} className="close-btn d-block d-md-none"><i className="fa-light fa-circle-xmark"></i></button>
+            </div>
+            <nav className="dasboard-main-nav pt-30 pb-30">
+               <ul className="style-none">
+                  {/* <li className="bottom-line pt-30 lg-pt-20 mb-40 lg-mb-30"></li> */}
+                  <li><div className="nav-title">Profile</div></li>
+                  <li className="plr"><Link href="/dashboard/profile" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/profile' ? 'active' : ''}`}>
+                     <Image src={pathname === '/dashboard/profile' ? dashboardIconActive_3 : dashboardIcon_3} alt="" />
+                     <span>Profile</span>
+                  </Link></li>
+               </ul>
+            </nav>
+            <div className="plr">
+               <Link href="#" className="d-flex w-100 align-items-center logout-btn bottom-0 position-absolute bottom-0">
+                  <div className="icon tran3s d-flex align-items-center justify-content-center rounded-circle"><Image src={dashboardIcon_11} alt="" /></div>
+                  <span>Logout</span>
+               </Link>
+            </div>
+         </div>
+      </aside>
+      )
+   }
 
    return (
       <aside className={`dash-aside-navbar ${isActive ? "show" : ""}`}>

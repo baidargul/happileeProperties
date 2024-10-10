@@ -1,10 +1,12 @@
 import DashboardBody from "./DashboardBody"
+import DashboardProtectRoute from "../DashboardProtectRoute";
+
 
 const DashboardIndex = () => {
   return (
-    <>
-      <DashboardBody/>
-    </>
+    <DashboardProtectRoute>
+        <DashboardBody/>
+    </DashboardProtectRoute>
   )
 }
 

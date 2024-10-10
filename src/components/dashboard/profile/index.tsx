@@ -1,12 +1,13 @@
 import DashboardHeaderOne from "@/layouts/headers/dashboard/DashboardHeaderOne"
 import ProfileBody from "./ProfileBody"
+import DashboardProtectRoute from "../DashboardProtectRoute"
 
 const DashboardProfile = () => {
    return (
-      <>
-         <DashboardHeaderOne />
-         <ProfileBody />
-      </>
+      <DashboardProtectRoute>
+            <DashboardHeaderOne />
+            <ProfileBody />
+      </DashboardProtectRoute>
    )
 }
 
