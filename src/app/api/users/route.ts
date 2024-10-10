@@ -62,6 +62,7 @@ export async function POST(req: NextRequest) {
         name: data.name,
         email: data.email,
         phone: data.phone,
+        address: data.address,
         password: hashedPassword,
         createdAt: new Date(),
       },
