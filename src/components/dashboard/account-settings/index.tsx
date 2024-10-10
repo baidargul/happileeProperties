@@ -1,12 +1,14 @@
 import DashboardHeaderOne from "@/layouts/headers/dashboard/DashboardHeaderOne";
 import AccountSettingBody from "./AccountSettingBody";
+import DashboardProtectRoute from "../DashboardProtectRoute";
+
 
 const DashboardAccountSetting = () => {
    return (
-      <>
-         <DashboardHeaderOne />
-         <AccountSettingBody />
-      </>
+      <DashboardProtectRoute>
+            <DashboardHeaderOne />
+            <AccountSettingBody />
+      </DashboardProtectRoute>
    )
 }
 

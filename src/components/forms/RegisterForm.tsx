@@ -1,5 +1,5 @@
 "use client"
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, use, useState } from "react";
 import Link from "next/link";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -9,6 +9,9 @@ import Image from "next/image";
 import OpenEye from "@/assets/images/icon/icon_68.svg";
 import { useRouter } from "next/navigation";
 import { serverActions } from "../../../serveractions/commands/serverCommands";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { userLogin } from "@/redux/features/userSlice";
 
 interface FormData {
    name: string;
@@ -17,8 +20,13 @@ interface FormData {
    phoneNumber: string;
 }
 
-const RegisterForm = () => {
+interface RegisterFormProps {
+   close: () => void;
+}
+
+const RegisterForm = ({close}: RegisterFormProps) => {
    const router=useRouter()
+   const dispatch = useDispatch();
 
    const schema = yup
    .object({
@@ -53,14 +61,29 @@ const RegisterForm = () => {
 
    const { register, handleSubmit, reset, formState: { errors }, } = useForm<FormData>({ resolver: yupResolver(schema), });
 
-   const onSubmit = async (data: FormData) => {
-      if(!checkbox) return
-      const res = await serverActions.user.signUp(
-         data.name,data.email,data.phoneNumber,data.password
-      )
-      console.log(res);
-      reset();
-      // router.push('/dashboard/profile')
+   const onSubmit = async (formData: FormData) => {
+      if (!checkbox) return;
+
+      try {
+         const { data, status, message } = await serverActions.user.signUp(
+            formData.name,
+            formData.email,
+            formData.phoneNumber,
+            formData.password,
+         );
+
+         if (status === 200) {
+            dispatch(userLogin(data));
+            reset();
+            close();
+            router.push('/dashboard/profile');
+         } else {
+            console.log(message);
+            toast(message);
+         }
+      } catch (err) {
+         toast(err.response.data.message);
+      }
    };
 
    const [isPasswordVisible, setPasswordVisibility] = useState(false);

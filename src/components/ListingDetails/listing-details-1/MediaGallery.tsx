@@ -25,7 +25,7 @@ const gallery_data: DataType = {
 
 const { big_carousel, small_carousel } = gallery_data;
 
-const MediaGallery = ({ style }: any) => {
+const MediaGallery = ({ style,image }: any) => {
   return (
     <div className="media-gallery mt-100 xl-mt-80 lg-mt-60">
       <div id="media_slider" className="carousel slide row">
@@ -33,7 +33,7 @@ const MediaGallery = ({ style }: any) => {
           <div className={` bg-white border-20 md-mb-20 ${style ? "" : "shadow4 p-30"}`}>
             <div className="position-relative z-1 overflow-hidden border-20">
               <div className="img-fancy-btn border-10 fw-500 fs-16 color-dark">
-                Sell all 37 Photos
+                Sell all {image?.length} Photos
                 <Fancybox
                   options={{
                     Carousel: {
@@ -41,16 +41,16 @@ const MediaGallery = ({ style }: any) => {
                     },
                   }}
                 >
-                  {largeThumb.map((thumb: any, index: any) => (
-                    <a key={index} className="d-block" data-fancybox="img2" href={`/assets/images/listing/img_large_0${thumb}.jpg`}></a>
+                  {image?.map((item: any, index: any) => (
+                    <a key={index} className="d-block" data-fancybox="img2" href={`${item?.url}`}></a>
                   ))}
                 </Fancybox>
               </div>
 
               <div className="carousel-inner">
-                {big_carousel.map((carousel, index) => (
+                {image?.map((carousel, index) => (
                   <div key={index} className="carousel-item active">
-                    <Image src={carousel} alt="" className="w-100 border-20" />
+                    <Image src={carousel?.url} alt="" className="w-100 border-20" />
                   </div>
                 ))}
               </div>
@@ -70,10 +70,10 @@ const MediaGallery = ({ style }: any) => {
 
         <div className="col-lg-2">
           <div className={`carousel-indicators position-relative p-15 w-100 h-100 ${style ? "" : "border-15 bg-white shadow4"}`}>
-            {small_carousel.map((carousel, i) => (
+            {image?.map((carousel, i) => (
               <button key={i} type="button" data-bs-target="#media_slider" data-bs-slide-to={`${i}`} className="active"
                 aria-current="true" aria-label="Slide 1">
-                <Image src={carousel} alt="" className="w-100 border-10" />
+                <Image src={carousel?.url} alt="" className="w-100 border-10" />
               </button>
             ))}
           </div>

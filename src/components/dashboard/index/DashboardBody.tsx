@@ -9,6 +9,8 @@ import icon_2 from "@/assets/images/dashboard/icon/icon_13.svg"
 import icon_3 from "@/assets/images/dashboard/icon/icon_14.svg"
 import icon_4 from "@/assets/images/dashboard/icon/icon_15.svg"
 import DashboardChart from "./DashboardChart"
+import { useSelector } from "react-redux"
+import { useRouter } from "next/navigation"
 
 interface DataType {
    id: number;
@@ -17,6 +19,10 @@ interface DataType {
    value: string;
    class_name?: string;
 }
+
+interface RootState {
+   user: any;
+ }
 
 const dashboard_card_data: DataType[] = [
    {
@@ -47,7 +53,12 @@ const dashboard_card_data: DataType[] = [
 ]
 
 const DashboardBody = () => {
-
+   const router = useRouter();
+   const isLoggedIn = useSelector((state:RootState) => state.user.isLoggedIn)
+   console.log(isLoggedIn)
+   if(!isLoggedIn) {
+     router.push('/')
+   }  
    const selectHandler = (e: any) => { };
 
    return (

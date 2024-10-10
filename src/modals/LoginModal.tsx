@@ -16,7 +16,13 @@ const LoginModal = ({ loginModal, setLoginModal }: any) => {
    const handleTabClick = (index: any) => {
       setActiveTab(index);
    };
-   
+
+   const handleCloseModal = () => {
+      const closeButton = document.querySelector('#closeModalButton')as HTMLButtonElement;
+      if (closeButton) {
+        closeButton.click(); // Simulate clicking the close button
+      }
+   };
 
    return (
       <>
@@ -24,7 +30,7 @@ const LoginModal = ({ loginModal, setLoginModal }: any) => {
             <div className="modal-dialog modal-fullscreen modal-dialog-centered">
                <div className="container">
                   <div className="user-data-form modal-content">
-                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     <button type="button" className="btn-close" id="closeModalButton" data-bs-dismiss="modal" aria-label="Close"></button>
                      <div className="form-wrapper m-auto">
                         <ul className="nav nav-tabs w-100">
                            {tab_title.map((tab, index) => (
@@ -36,18 +42,18 @@ const LoginModal = ({ loginModal, setLoginModal }: any) => {
                         <div className="tab-content mt-30">
                            <div className={`tab-pane fade ${activeTab === 0 ? 'show active' : ''}`}>
                               <div className="text-center mb-20">
-                                 <h2>Welcome Back!</h2>
-                                 <p className="fs-20 color-dark">Still don&apos;t have an account? <Link href="#">Sign up</Link></p>
+                                 <h2 >Welcome Back!</h2>
+                                 {/* <p className="fs-20 color-dark">Still don&apos;t have an account? <Link href="#">Sign up</Link></p> */}
                               </div>
-                              <LoginForm />
+                              <LoginForm close={handleCloseModal}/>
                            </div>
 
                            <div className={`tab-pane fade ${activeTab === 1 ? 'show active' : ''}`}>
                               <div className="text-center mb-20">
                                  <h2>Register</h2>
-                                 <p className="fs-20 color-dark">Already have an account? <Link href="#">Login</Link></p>
+                                 {/* <p className="fs-20 color-dark">Already have an account? <Link href="#">Login</Link></p> */}
                               </div>
-                              <RegisterForm />
+                              <RegisterForm close={handleCloseModal}/>
                            </div>
                         </div>
 

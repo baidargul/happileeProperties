@@ -23,7 +23,14 @@ import Banner from "@/app/builder/[id]/Banner"
 const ListingDetailsSixArea = async () => {
       const list:any = await prisma.builder.findMany({
         include: {
-          user: true,
+          user:{
+            include:{
+              image:true
+            },
+            omit:{
+               password:true
+            }
+          },
         },
         orderBy: {
           user: {
@@ -35,15 +42,16 @@ const ListingDetailsSixArea = async () => {
 
       // const temp:accountStatus;
 
-      // console.log()
-      if(list.length==0) return
+      console.log(list[0]?.user?.image)
+      const images=list[0]?.user?.image;
+   if(list.length==0) return
 
    return (
       <>
          <div className="listing-details-one theme-details-one mt-200 xl-mt-150">
             <div className="container">
                <Banner style_3={true} data={list[0]}/>
-               <MediaGallery style={true} />
+               <MediaGallery style={true} images={images}/>
                <div className="row pt-80 lg-pt-50">
                   <div className="col-xl-8">
                      <div className="property-overview bottom-line-dark">

@@ -1,7 +1,6 @@
 "use client"
 import { useState } from "react";
 import Link from "next/link";
-import { toast } from 'react-toastify';
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,14 +9,23 @@ import Image from "next/image";
 import OpenEye from "@/assets/images/icon/icon_68.svg";
 import { useRouter } from "next/navigation";
 import { serverActions } from "../../../serveractions/commands/serverCommands";
+import { userLogin } from "@/redux/features/userSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 
 interface FormData {
    email: string;
    password: string;
 }
 
-const LoginForm = () => {
+interface LoginFormProps {
+   close: () => void;
+}
+
+const LoginForm = ({close}: LoginFormProps) => {
    const router = useRouter();
+   const dispatch = useDispatch();
+
    const schema = yup
       .object({
          email: yup.string().required().email().label("Email"),
@@ -26,16 +34,25 @@ const LoginForm = () => {
       .required();
 
    const { register, handleSubmit, reset, formState: { errors }, } = useForm<FormData>({ resolver: yupResolver(schema), });
-   const onSubmit = async (data: FormData) => {
 
-      const res = await serverActions.user.signIn(
-         data.email,data.password
-      )
-      console.log(res);
-      // reset();
-      // reset();
+   const onSubmit = async (formData: FormData) => {
+      try {
+         const { data, status, message } = await serverActions.user.signIn(
+            formData.email,formData.password
+         );
 
-      // router.push("/dashboard/profile");
+         if (status === 200) {
+            dispatch(userLogin(data));
+            reset();
+            close();
+            router.push('/dashboard/profile');
+         } else {
+            console.log(message);
+            toast(message);
+         }
+      } catch (err) {
+         toast(err.response.data.message);
+      }
    };
 
    const [isPasswordVisible, setPasswordVisibility] = useState(false);

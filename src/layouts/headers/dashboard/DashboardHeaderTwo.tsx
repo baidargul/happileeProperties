@@ -9,11 +9,20 @@ import DashboardHeaderOne from "./DashboardHeaderOne";
 import dashboardIcon_1 from "@/assets/images/dashboard/icon/icon_43.svg";
 import dashboardIcon_2 from "@/assets/images/dashboard/icon/icon_11.svg";
 import dashboardAvatar from "@/assets/images/dashboard/avatar_01.jpg";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+
+interface   RootState {
+   user: {
+      isLoggedIn: boolean,
+   }
+}
 
 const DashboardHeaderTwo = ({title}:any) => {
-
+   const router = useRouter();
+   const isLoggedIn = useSelector((state:RootState) => state.user.isLoggedIn);
    const [isActive, setIsActive] = useState<boolean>(false);
-
+   if(!isLoggedIn) return router.push('/');
    return (
       <>
          <header className="dashboard-header">
@@ -33,14 +42,14 @@ const DashboardHeaderTwo = ({title}:any) => {
                   </button>
                   <Notification />
                </div>
-               <div className="d-none d-md-block me-3">
+               {/* <div className="d-none d-md-block me-3">
                   <Link href="/add-property" className="btn-two"><span>Add Listing</span> <i className="fa-thin fa-arrow-up-right"></i></Link>
-               </div>
+               </div> */}
                <div className="user-data position-relative">
                   <button className="user-avatar online position-relative rounded-circle dropdown-toggle" type="button" id="profile-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                      <Image src={dashboardAvatar} alt="" className="lazy-img" />
                   </button>
-                  <Profile />
+                  <Profile/>
                </div>
             </div>
          </header>

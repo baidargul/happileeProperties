@@ -1,12 +1,14 @@
 import DashboardHeaderOne from "@/layouts/headers/dashboard/DashboardHeaderOne"
 import AddPropertyBody from "./AddPropertyBody"
+import DashboardProtectRoute from "../DashboardProtectRoute"
+
 
 const DashboardAddProperty = () => {
    return (
-      <>
-         <DashboardHeaderOne />
-         <AddPropertyBody />
-      </>
+      <DashboardProtectRoute>
+            <DashboardHeaderOne />
+            <AddPropertyBody />
+      </DashboardProtectRoute>
    )
 }
 
