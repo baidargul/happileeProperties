@@ -45,6 +45,9 @@ export async function DELETE(req: NextRequest) {
       },
       include: {
         user: {
+          omit: {
+            password: true,
+          },
           include: {
             builder: true,
           },

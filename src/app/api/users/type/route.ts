@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import prisma from "../../../../../serveractions/commands/prisma";
-import { accountTypes } from "@prisma/client";
+import { accountStatus, accountTypes } from "@prisma/client";
 
 export async function PATCH(req: NextRequest) {
   const response = {
@@ -61,11 +61,15 @@ export async function PATCH(req: NextRequest) {
       },
       data: {
         type: data.type,
+        status:
+          data.type === accountTypes.UNDEFINED
+            ? accountStatus.UNDEFINED
+            : accountStatus.INCOMPLETE,
         updatedAt: new Date(),
       },
       include: {
         builder: true,
-        image: true,
+        image: data.type === accountTypes.BUILDER ? true : false,
       },
       omit: {
         password: true,

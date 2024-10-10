@@ -90,9 +90,7 @@ export async function POST(req: NextRequest) {
       const savedImageUrls: string[] = [];
 
       for (const image of imageUrls) {
-        const fileName = `${Date.now()}-${Math.random()
-          .toString(36)
-          .substr(2, 9)}.png`; // Unique file name
+        const fileName = `${Date.now()}-${Math.random().toString(36)}.png`; // Unique file name
         const filePath = path.join(UPLOAD_DIR, fileName);
         const arrayBuffer = await image.arrayBuffer(); // Blob to ArrayBuffer
         const buffer: any = Buffer.from(arrayBuffer);
@@ -101,9 +99,7 @@ export async function POST(req: NextRequest) {
         await fs.writeFile(filePath, buffer);
 
         // Generate the URL to be stored in the database
-        const imageUrl = `/uploads/${Math.random().toString(
-          36
-        )}-${new Date().getMilliseconds()}-${new Date().getMonth()}-${new Date().getFullYear()}${fileName}`;
+        const imageUrl = `/uploads/${fileName}`;
         savedImageUrls.push(imageUrl);
       }
 
@@ -137,6 +133,15 @@ export async function POST(req: NextRequest) {
           url: item,
         },
       });
+    });
+
+    await prisma.user.update({
+      where: {
+        id: isExists.id,
+      },
+      data: {
+        status: "PENDING",
+      },
     });
 
     const user = await prisma.builder.findUnique({
