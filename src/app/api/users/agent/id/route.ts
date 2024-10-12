@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
       },
       include: {
         image: true,
-        builder: true,
+        agent: true,
       },
       omit: {
         password: true,
