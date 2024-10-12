@@ -44,7 +44,6 @@ export async function GET(req: NextRequest) {
         id: agent.userId,
       },
       include: {
-        image: true,
         agent: true,
       },
       omit: {
