@@ -43,6 +43,12 @@ export async function PATCH(req: NextRequest) {
       },
     });
 
+    await prisma.agent.deleteMany({
+      where: {
+        id: data.id,
+      },
+    });
+
     await prisma.user.deleteMany({
       where: {
         id: data.id,
@@ -73,6 +79,8 @@ export async function POST(req: NextRequest) {
     await prisma.image.deleteMany({});
 
     await prisma.builder.deleteMany({});
+
+    await prisma.agent.deleteMany({});
 
     await prisma.user.deleteMany({});
 

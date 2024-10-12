@@ -27,6 +27,7 @@ model user {
   type      accountTypes  @default(UNDEFINED)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @default(now())
+  agent     agent?
   builder   builder?
   image     image[]
 }
@@ -36,6 +37,14 @@ model image {
   userId String
   url    String
   user   user   @relation(fields: [userId], references: [id], onDelete: Cascade, map: "images_userId_fkey")
+}
+
+model agent {
+  id          String   @id @default(uuid())
+  userId      String  @unique
+  description String?
+  experience  Decimal? @default(0) @db.Decimal
+  user        user    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum accountStatus {
