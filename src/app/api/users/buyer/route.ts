@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import prisma from "../../../../../serveractions/commands/prisma";
-import { accountTypes } from "@prisma/client";
+import { accountStatus, accountTypes } from "@prisma/client";
 
 export async function POST(req: NextRequest) {
   const response = {
@@ -44,6 +44,15 @@ export async function POST(req: NextRequest) {
         userId: data.id,
         address: data.address ? data.address : null,
         description: data.description ? data.description : null,
+      },
+    });
+
+    await prisma.user.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        status: accountStatus.PENDING,
       },
     });
 
