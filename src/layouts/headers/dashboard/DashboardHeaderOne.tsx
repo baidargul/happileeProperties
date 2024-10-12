@@ -45,7 +45,7 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
 
    if(!isLoggedIn) return router.push('/');
 
-   if(userProfile?.status === 'INCOMPLETE'|| userProfile?.type === 'UNDEFINED'){
+   if((!isLoggedIn || userProfile?.status === 'UNDEFINED') && pathname.includes('/profile')){
       return (
          <aside className={`dash-aside-navbar ${isActive ? "show" : ""}`}>
          <div className="position-relative h-100">
@@ -78,7 +78,7 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
 
    return (
       <aside className={`dash-aside-navbar ${isActive ? "show" : ""}`}>
-         <div className="position-relative">
+         <div className="position-relative h-100">
             <div className="logo d-md-block d-flex align-items-center justify-content-between plr bottom-line pb-30">
                <Link href="/dashboard-index">
                   <Image src={dashboardLogo} alt="" />
@@ -133,16 +133,16 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
                   </Link></li>
                </ul>
             </nav>
-            <div className="profile-complete-status bottom-line pb-35 plr">
+            {/* <div className="profile-complete-status bottom-line pb-35 plr">
                <div className="progress-value fw-500">82%</div>
                <div className="progress-line position-relative">
                   <div className="inner-line" style={{ width: "80%" }}></div>
                </div>
                <p>Profile Complete</p>
-            </div>
+            </div> */}
 
             <div className="plr">
-               <Link href="#" className="d-flex w-100 align-items-center logout-btn">
+               <Link href="#" className="d-flex w-100 align-items-center logout-btn position-absolute bottom-0">
                   <div className="icon tran3s d-flex align-items-center justify-content-center rounded-circle"><Image src={dashboardIcon_11} alt="" /></div>
                   <span>Logout</span>
                </Link>

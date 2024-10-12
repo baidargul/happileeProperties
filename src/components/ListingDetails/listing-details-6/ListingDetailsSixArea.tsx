@@ -34,7 +34,7 @@ const ListingDetailsSixArea = async () => {
         },
         orderBy: {
           user: {
-            name: "asc",
+            createdAt: "desc",
           },
         },
       });
@@ -42,7 +42,7 @@ const ListingDetailsSixArea = async () => {
 
       // const temp:accountStatus;
 
-      console.log(list[0]?.user?.image)
+      console.log(list[0])
       const images=list[0]?.user?.image;
    if(list.length==0) return
 

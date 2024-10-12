@@ -38,7 +38,9 @@ const ProfileBody = () => {
 
   const [selectedImageArray, setSelectedImageArray] = useState([]);
   const [removedImageArray, setRemovedImageArray] = useState([]);
-  const {state,type,id,name,address,description,gst} =useSelector((state:RootState)=>state.user.userProfile)
+  const userProfile = useSelector((state: RootState) => state.user.userProfile) || {};
+
+  const { state, type, id, name, address, description, gst } = userProfile;
 
   
   const getUserDetails = async () => {
@@ -120,12 +122,13 @@ const ProfileBody = () => {
   const [userType, setUserType] = useState<accountTypes>();
 
   const handleTypeChange = async (value:accountTypes) =>{
-    const res = serverActions.user.changeType(id,value)
-    // console.log(res)
-    dispatch(userLogin(res))
-    // if(res){
-    //   setUserType(value)
-    // }
+    const res = await serverActions.user.changeType(id,value)
+    console.log(res)
+    // dispatch(userLogin(res.data))
+    if(res.status==200){
+      console.log(res.data)
+      dispatch(userLogin(res.data))
+    }
   }
 
   return (

@@ -2,8 +2,7 @@ import Link from "next/link"
 
 const Banner = ({ style_3,data }: any) => {
    const {
-      description,
-      user
+      user,builder
    }=data;
    return (
       <div className="row">
@@ -11,7 +10,7 @@ const Banner = ({ style_3,data }: any) => {
             <h3 className="property-titlee">{user?.name??'Luxury Apartments on California.'}</h3>
             <div className="d-flex flex-wrap mt-10">
                {/* <div className={`list-type text-uppercase mt-15 me-3 ${style_3 ? "bg-white text-dark fw-500" : "text-uppercase border-20"}`}>FOR SELL</div> */}
-               <div className="address mt-15"><i className="bi bi-geo-alt"></i> {user?.address??'3891 Ranchview Dr. Richardson, California'}
+               <div className="address mt-15"><i className="bi bi-geo-alt"></i> {user?.builder?.address??'3891 Ranchview Dr. Richardson, California'}
                </div>
             </div>
          </div>
