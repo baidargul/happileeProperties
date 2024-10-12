@@ -2,7 +2,7 @@
 import NavMenu from "./Menu/NavMenu";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UseSticky from "@/hooks/UseSticky";
 import LoginModal from "@/modals/LoginModal";
 import HeaderSearchbar from "./Menu/HeaderSearchbar";
@@ -19,9 +19,16 @@ interface RootState {
 const HeaderFour = () => {
   const { sticky } = UseSticky();
   const isloggedin = useSelector((state: RootState) => state.user.isLoggedIn);
+  const [isMounted,setIsMounted]=useState(false)
+
+  useEffect(()=>{
+    setIsMounted(true)
+  },[])
+
+
 
   return (
-    <>
+    isMounted &&<>
       <header
         className={`theme-main-menu menu-overlay menu-style-six sticky-menu ${
           sticky ? "fixed" : ""
