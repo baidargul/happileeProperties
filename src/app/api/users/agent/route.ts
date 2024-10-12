@@ -19,6 +19,13 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    if (!data.rera) {
+      response.status = 400;
+      response.message = "Rera is required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     let isExists: user | null = await prisma.user.findUnique({
       where: {
         id: data.id,
@@ -42,6 +49,7 @@ export async function POST(req: NextRequest) {
     const user = await prisma.agent.create({
       data: {
         userId: data.id,
+        rera: data.rera,
         description: data.description ? data.description : "",
         experience: data.experience ? Number(data.experience).toFixed(0) : 0,
       },
@@ -54,6 +62,9 @@ export async function POST(req: NextRequest) {
       include: {
         agent: true,
       },
+      omit: {
+        password: true,
+      },
     });
 
     response.status = 200;
@@ -65,6 +76,47 @@ export async function POST(req: NextRequest) {
     response.status = 500;
     response.message = error.message;
     response.data = null;
+    return new Response(JSON.stringify(response));
+  }
+}
+
+export async function GET(req: NextRequest) {
+  const response = {
+    status: 500,
+    message: "Internal Server Error",
+    data: null,
+  };
+
+  try {
+    const users: any = await prisma.user.findMany({
+      where: {
+        type: accountTypes.AGENT,
+      },
+      orderBy: {
+        name: "asc",
+      },
+      include: {
+        agent: true,
+      },
+      omit: {
+        password: true,
+      },
+    });
+
+    if (users.length < 1) {
+      response.status = 200;
+      response.message = "No agents found";
+      return new Response(JSON.stringify(response));
+    }
+
+    response.status = 200;
+    response.message = `Found (${users.length}) agents`;
+    response.data = users;
+    return new Response(JSON.stringify(response));
+  } catch (error: any) {
+    console.log("[SERVER ERROR]: " + error.message);
+    response.status = 500;
+    response.message = error.message;
     return new Response(JSON.stringify(response));
   }
 }

@@ -44,6 +44,7 @@ model agent {
   userId      String  @unique
   description String?
   experience  Decimal? @default(0) @db.Decimal
+  rera        String   @unique
   user        user    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
