@@ -29,6 +29,7 @@ model user {
   updatedAt DateTime      @default(now())
   agent     agent?
   builder   builder?
+  buyer     buyer?
   image     image[]
 }
 
@@ -41,11 +42,19 @@ model image {
 
 model agent {
   id          String   @id @default(uuid())
-  userId      String  @unique
+  userId      String   @unique
   description String?
   experience  Decimal? @default(0) @db.Decimal
   rera        String   @unique
-  user        user    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model buyer {
+  id          String  @id @default(uuid())
+  userId      String  @unique
+  description String?
+  address     String?
+  user        user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 enum accountStatus {

@@ -19,6 +19,25 @@ export async function GET(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    const buyer = await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        buyer: true,
+      },
+      omit: {
+        password: true,
+      },
+    });
+
+    if (!buyer) {
+      response.status = 400;
+      response.message = "No buyer found";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     const user = await prisma.user.findUnique({
       where: {
         id: id,
@@ -31,15 +50,8 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    if (!user) {
-      response.status = 400;
-      response.message = "No agent found";
-      response.data = null;
-      return new Response(JSON.stringify(response));
-    }
-
     response.status = 200;
-    response.message = user ? "Found Agent" : "No agent found";
+    response.message = buyer ? "Found Agent" : "No agent found";
     response.data = user;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
