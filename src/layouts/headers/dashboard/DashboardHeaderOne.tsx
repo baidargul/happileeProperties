@@ -43,9 +43,11 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
 
    const pathname = usePathname();
 
-   if(!isLoggedIn) return router.push('/');
+   if(!isLoggedIn) {
+      router.push('/')
+   };
 
-   if((!isLoggedIn || userProfile?.status === 'UNDEFINED') && pathname.includes('/profile')){
+   if((!isLoggedIn || userProfile?.status === 'UNDEFINED' || userProfile?.status === 'INCOMPLETE' || userProfile?.status === 'PENDING') && pathname.includes('/profile')){
       return (
          <aside className={`dash-aside-navbar ${isActive ? "show" : ""}`}>
          <div className="position-relative h-100">
