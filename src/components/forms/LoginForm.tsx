@@ -50,7 +50,7 @@ const LoginForm = ({close}: LoginFormProps) => {
             console.log(message);
             toast(message);
          }
-      } catch (err) {
+      } catch (err: Error | any) {
          toast(err.response.data.message);
       }
    };

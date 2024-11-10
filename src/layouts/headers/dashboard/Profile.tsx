@@ -7,7 +7,7 @@ import profileIcon_2 from "@/assets/images/dashboard/icon/icon_24.svg";
 import profileIcon_3 from "@/assets/images/dashboard/icon/icon_41_dark.svg";
 
 const Profile = () => {
-   const liStyle = {
+   const liStyle:React.CSSProperties = {
       textTransform: 'capitalize',
       lineHeight: '35px',
       padding: '0 0 0 20px',

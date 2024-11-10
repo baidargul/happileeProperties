@@ -5,8 +5,20 @@ import infoAvatar from "@/assets/images/agent/user-tie.svg"
 import { serverActions } from "../../../../serveractions/commands/serverCommands";
 import { useEffect, useState } from "react";
 
+
+interface AgentData {
+   name?: string;
+   agent?: {
+      description?: string;
+   };
+   address?: string;
+   email?: string;
+   phone?: string;
+}
+
+
 const SidebarInfo = () => {
-   const [agentData, setAgentData] = useState([]);
+   const [agentData, setAgentData] = useState<AgentData | null>(null);
 
 const getData= async ()=>{
    const res = await serverActions.agent.listAll();

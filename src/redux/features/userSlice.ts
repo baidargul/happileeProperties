@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-	isLoggedIn:typeof window !== "undefined" ? JSON.parse(localStorage.getItem('isLoggedIn')) : false,
-	userProfile:typeof window !== "undefined" ? JSON.parse(localStorage.getItem('user')) : {}
+	isLoggedIn: typeof window !== "undefined" ? JSON.parse(localStorage.getItem('isLoggedIn') ?? 'false') : false,
+	userProfile: typeof window !== "undefined" ? JSON.parse(localStorage.getItem('user')?.toString() ?? '{}') : {}
 }
 
 const userSlice=createSlice({

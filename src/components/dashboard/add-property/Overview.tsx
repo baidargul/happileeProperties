@@ -32,8 +32,8 @@ const Overview = () => {
 
       <div className="container mb-3">
   {/* Allotment Type Section */}
-  <div className="row row-cols-auto g-5">
-    {data?.allotmentType?.map((item) => (
+  {/* <div className="row row-cols-auto g-5">
+    {data.length>0 && data?.allotmentType?.map((item) => (
       <div
         key={item.id}
         className={`border border-2 ${
@@ -45,10 +45,10 @@ const Overview = () => {
         <p className="mb-0 fs-6 fw-semibold">{item.name}</p>
       </div>
     ))}
-  </div>
+  </div> */}
 
   {/* Looking For Section */}
-  <div className="row row-cols-auto g-3 mt-3">
+  {/* <div className="row row-cols-auto g-3 mt-3">
     {data?.lookingFor?.allotmentFor?.map((item) => (
       <div
         key={item.id}
@@ -61,10 +61,10 @@ const Overview = () => {
         <p className="mb-0 fs-6 fw-semibold">{item.name}</p>
       </div>
     ))}
-  </div>
+  </div> */}
 
   {/* Property Type Section */}
-  <div className="row row-cols-auto g-3 mt-3">
+  {/* <div className="row row-cols-auto g-3 mt-3">
     {data?.lookingFor?.propertyType
       ?.filter((item) => item.allotmentTypeId === allotment)
       .map((item) => (
@@ -79,7 +79,7 @@ const Overview = () => {
           <p className="mb-0 fs-6 fw-semibold">{item.name}</p>
         </div>
       ))}
-  </div>
+  </div> */}
 </div>
 
 

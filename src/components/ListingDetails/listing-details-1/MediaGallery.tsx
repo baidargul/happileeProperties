@@ -14,16 +14,13 @@ import smallCarousel_4 from "@/assets/images/listing/img_46_s.jpg"
 const largeThumb: string[] = ["1", "2", "3"];
 
 interface DataType {
-  big_carousel: StaticImageData[];
+  big_carousel: StaticImageData&{
+    src: string;
+    url: string;
+  };
   small_carousel: StaticImageData[];
 }
 
-const gallery_data: DataType = {
-  big_carousel: [bigCarousel_1, bigCarousel_2, bigCarousel_3, bigCarousel_4],
-  small_carousel: [smallCarousel_1, smallCarousel_2, smallCarousel_3, smallCarousel_4],
-}
-
-const { big_carousel, small_carousel } = gallery_data;
 
 const MediaGallery = ({ style,images }: any) => {
   return (
@@ -48,7 +45,7 @@ const MediaGallery = ({ style,images }: any) => {
               </div>
 
               <div className="carousel-inner">
-                {images?.map((carousel, index) => (
+                {images?.map((carousel:any, index:number) => (
                   <div key={index} className="carousel-item active">
                     <Image src={carousel?.url} alt="" className="w-100 border-20 object-fit-cover" width={1120} height={700}
                     />
@@ -71,7 +68,7 @@ const MediaGallery = ({ style,images }: any) => {
 
         <div className="col-lg-2">
           <div className={`carousel-indicators position-relative p-15 w-100 h-100 ${style ? "" : "border-15 bg-white shadow4"}`}>
-            {images?.map((carousel, i) => (
+            {images?.map((carousel: any, i: number) => (
               <button key={i} type="button" data-bs-target="#media_slider" data-bs-slide-to={`${i}`} className="active"
                 aria-current="true" aria-label="Slide 1">
                 <Image src={carousel?.url} alt="" className="w-100 border-10 object-fit-cover" width={187} height={161}/>

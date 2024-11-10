@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { serverActions } from "../../../../serveractions/commands/serverCommands";
 import { user } from "../../../../serveractions/commands/partials/user";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@reduxjs/toolkit/query";
+// import { RootState } from "@reduxjs/toolkit/query";
 import { accountTypes } from "@prisma/client";
 import { userLogin } from "@/redux/features/userSlice";
 import UserTypeForm from "./UserTypeForm";
