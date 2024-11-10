@@ -22,7 +22,9 @@ const DashboardHeaderTwo = ({title}:any) => {
    const router = useRouter();
    const isLoggedIn = useSelector((state:RootState) => state.user.isLoggedIn);
    const [isActive, setIsActive] = useState<boolean>(false);
-   if(!isLoggedIn) return router.push('/');
+   if(!isLoggedIn){
+      router.push('/');
+   }
    return (
       <>
          <header className="dashboard-header">

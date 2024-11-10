@@ -5,17 +5,19 @@ import ListingDetails from "./ListingDetails"
 import Link from "next/link"
 import SelectAmenities from "./SelectAmenities"
 import AddressAndLocation from "../profile/AddressAndLocation"
+import { serverActions } from "../../../../serveractions/commands/serverCommands"
 
 const AddPropertyBody = () => {
+
    return (
       <div className="dashboard-body">
          <div className="position-relative">
             <DashboardHeaderTwo title="Add New Property" />
             <h2 className="main-title d-block d-lg-none">Add New Property</h2>
             <Overview />
-            <ListingDetails />
+            {/* <ListingDetails /> */}
 
-            <div className="bg-white card-box border-20 mt-40">
+            {/* <div className="bg-white card-box border-20 mt-40">
                <h4 className="dash-title-three">Photo & Video Attachment</h4>
                <div className="dash-input-wrapper mb-20">
                   <label htmlFor="">File Attachment*</label>
@@ -35,9 +37,9 @@ const AddPropertyBody = () => {
                   <input type="file" id="uploadCV" name="uploadCV" placeholder="" />
                </div>
                <small>Upload file .jpg, .png, .mp4</small>
-            </div>
-            <SelectAmenities />
-            <AddressAndLocation />
+            </div> */}
+            {/* <SelectAmenities />
+            <AddressAndLocation /> */}
 
             <div className="button-group d-inline-flex align-items-center mt-30">
                <Link href="#" className="dash-btn-two tran3s me-3">Submit Property</Link>
