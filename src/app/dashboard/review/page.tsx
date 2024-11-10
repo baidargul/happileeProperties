@@ -1,15 +1,23 @@
+"use client";
 import DashboardReview from "@/components/dashboard/review";
 import Wrapper from "@/layouts/Wrapper";
+import { useEffect, useState } from "react";
 
-export const metadata = {
-   title: "Dashboard Review Happilee  ",
+const Page = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+  return (
+    <Wrapper>
+      <DashboardReview />
+    </Wrapper>
+  );
 };
-const index = () => {
-   return (
-      <Wrapper>
-         <DashboardReview />
-      </Wrapper>
-   )
-}
 
-export default index
+export default Page;

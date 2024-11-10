@@ -1,15 +1,23 @@
+"use client";
 import PropertyList from "@/components/dashboard/properties-list";
 import Wrapper from "@/layouts/Wrapper";
+import { useEffect, useState } from "react";
 
-export const metadata = {
-   title: "Dashboard Property List Happilee  ",
+const Page = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+  return (
+    <Wrapper>
+      <PropertyList />
+    </Wrapper>
+  );
 };
-const index = () => {
-   return (
-      <Wrapper>
-         <PropertyList />
-      </Wrapper>
-   )
-}
 
-export default index
+export default Page;

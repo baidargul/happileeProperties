@@ -1,15 +1,23 @@
+"use client";
 import DashboardProfile from "@/components/dashboard/profile";
 import Wrapper from "@/layouts/Wrapper";
+import { useEffect, useState } from "react";
 
-export const metadata = {
-   title: "Dashboard Profile Happilee  ",
+const Page = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+  return (
+    <Wrapper>
+      <DashboardProfile />
+    </Wrapper>
+  );
 };
-const index = () => {
-   return (
-      <Wrapper>
-         <DashboardProfile />
-      </Wrapper>
-   )
-}
 
-export default index
+export default Page;

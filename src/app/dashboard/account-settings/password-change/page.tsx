@@ -1,15 +1,23 @@
+"use client";
 import PasswordChange from "@/components/dashboard/account-settings/password-change";
 import Wrapper from "@/layouts/Wrapper";
+import { useEffect, useState } from "react";
 
-export const metadata = {
-   title: "Dashboard Account Password Change Happilee  ",
+const Page = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+  return (
+    <Wrapper>
+      <PasswordChange />
+    </Wrapper>
+  );
 };
-const index = () => {
-   return (
-      <Wrapper>
-         <PasswordChange />
-      </Wrapper>
-   )
-}
 
-export default index
+export default Page;

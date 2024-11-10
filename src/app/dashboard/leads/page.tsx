@@ -1,17 +1,23 @@
+"use client";
 import DashboardMessage from "@/components/dashboard/message";
 import Wrapper from "@/layouts/Wrapper";
+import { useEffect, useState } from "react";
 
-export const metadata = {
-   title: "Dashboard Message Happilee  ",
+const Page = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+  return (
+    <Wrapper>
+      <DashboardMessage />
+    </Wrapper>
+  );
 };
 
-
-const index = () => {
-   return (
-      <Wrapper>
-         <DashboardMessage />
-      </Wrapper>
-   )
-}
-
-export default index
+export default Page;

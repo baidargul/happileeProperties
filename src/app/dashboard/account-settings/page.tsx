@@ -1,15 +1,24 @@
+"use client";
 import DashboardAccountSetting from "@/components/dashboard/account-settings";
 import Wrapper from "@/layouts/Wrapper";
+import { useEffect, useState } from "react";
 
-export const metadata = {
-   title: "Dashboard Account Setting Happilee  ",
+const Page = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
+  return (
+    <Wrapper>
+      <DashboardAccountSetting />
+    </Wrapper>
+  );
 };
-const index = () => {
-   return (
-      <Wrapper>
-         <DashboardAccountSetting />
-      </Wrapper>
-   )
-}
 
-export default index
+export default Page;

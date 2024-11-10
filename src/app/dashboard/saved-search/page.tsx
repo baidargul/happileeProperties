@@ -1,15 +1,23 @@
+"use client";
 import DashboardSavedSearch from "@/components/dashboard/saved-search";
 import Wrapper from "@/layouts/Wrapper";
+import { useEffect, useState } from "react";
 
-export const metadata = {
-   title: "Dashboard Saved Search Happilee  ",
+const Page = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+  return (
+    <Wrapper>
+      <DashboardSavedSearch />
+    </Wrapper>
+  );
 };
-const index = () => {
-   return (
-      <Wrapper>
-         <DashboardSavedSearch />
-      </Wrapper>
-   )
-}
 
-export default index
+export default Page;

@@ -1,16 +1,23 @@
+"use client";
 import DashboardMembership from "@/components/dashboard/membership";
 import Wrapper from "@/layouts/Wrapper";
+import { useEffect, useState } from "react";
 
-export const metadata = {
-   title: "Dashboard Membership Happilee  ",
+const Page = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+  return (
+    <Wrapper>
+      <DashboardMembership />
+    </Wrapper>
+  );
 };
-const index = () => {
-   
-   return (
-      <Wrapper>
-         <DashboardMembership />
-      </Wrapper>
-   )
-}
 
-export default index
+export default Page;
