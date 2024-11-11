@@ -60,19 +60,30 @@ model buyer {
 model allotmentType {
   id           String         @id @default(uuid())
   name         String         @unique
-  propertyType propertyType[]
+  propertyType propertyType[]  // Residential, Commercial
 }
 
 model allotmentFor {
   id   String @id @default(uuid())
-  name String @unique
+  name String @unique  // Rent, Sell
 }
 
 model propertyType {
   id              String        @id @default(uuid())
   name            String
-  allotmentTypeId String
+  allotmentTypeId String  // Office, RetailShop, ShowRoom, Warehouse, Plot, Others
   allotmentType   allotmentType @relation(fields: [allotmentTypeId], references: [id], onDelete: Cascade)
+}
+
+model property {
+  id             String   @id @default(uuid())
+  propertyTypeId String?
+  bhkTypeId      String?
+  furnishingId   String?
+  amenitiesId    String[]
+  price          Decimal? @db.Decimal
+  area           Decimal? @db.Decimal
+  createdAt DateTime @default(now())
 }
 
 enum accountStatus {
