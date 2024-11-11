@@ -78,6 +78,7 @@ model propertyType {
 model property {
   id             String   @id @default(uuid())
   propertyTypeId String?
+  allotmentForId String
   bhkTypeId      String?
   furnishingId   String?
   amenitiesId    String[]

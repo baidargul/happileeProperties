@@ -50,3 +50,95 @@ export async function GET(req: NextRequest) {
     return new Response(JSON.stringify(response));
   }
 }
+
+export async function POST(req: NextRequest) {
+  const response = {
+    status: 500,
+    message: "Internal Server Error",
+    data: null as any,
+  };
+
+  try {
+    const data = await req.json();
+
+    if (!data) {
+      response.status = 400;
+      response.message = "Invalid request";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    if (data.allotmentTypes.length === 0) {
+      response.status = 400;
+      response.message = "Allotment types are required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    if (data.types.length === 0) {
+      response.status = 400;
+      response.message = "Property types are required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    if (data.allotmentFor.length === 0) {
+      response.status = 400;
+      response.message = "Allotment for are required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    for (const item of data.allotmentTypes) {
+      await prisma.allotmentType.create({
+        data: {
+          name: String(item).toLocaleLowerCase(),
+        },
+      });
+    }
+
+    for (const item of data.types) {
+      const allotmentType = await prisma.allotmentType.findUnique({
+        where: {
+          name: String(item.allotmentType).toLocaleLowerCase(),
+        },
+      });
+
+      if (!allotmentType) {
+        console.log(
+          `Allotment type: '${item.allotmentType}' not found for type: '${item.name}'`
+        );
+      } else {
+        await prisma.propertyType.create({
+          data: {
+            name: String(item.name).toLocaleLowerCase(),
+            allotmentType: {
+              connect: {
+                id: allotmentType.id,
+              },
+            },
+          },
+        });
+      }
+    }
+
+    for (const item of data.allotmentFor) {
+      await prisma.allotmentFor.create({
+        data: {
+          name: String(item).toLocaleLowerCase(),
+        },
+      });
+    }
+
+    response.status = 200;
+    response.message = "Property structure initialized successfully.";
+    response.data = null;
+    return new Response(JSON.stringify(response));
+  } catch (error: any) {
+    console.log("[SERVER ERROR]: " + error.message);
+    response.status = 500;
+    response.message = error.message;
+    response.data = null;
+    return new Response(JSON.stringify(response));
+  }
+}
