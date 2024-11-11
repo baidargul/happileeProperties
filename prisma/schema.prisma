@@ -105,7 +105,7 @@ model finishing {
 }
 
 model amenities {
-  id   String  @id @default(uuid())
+  id   String @id @default(uuid())
   name String @unique
 }
 

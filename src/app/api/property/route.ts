@@ -17,6 +17,7 @@ export async function GET(req: NextRequest) {
           },
         },
         bhkType: true,
+        finishing: true,
       },
       orderBy: [
         {
@@ -32,8 +33,21 @@ export async function GET(req: NextRequest) {
             name: "asc",
           },
         },
+        {
+          finishing: {
+            name: "asc",
+          },
+        },
       ],
     });
+
+    response.status = 200;
+    response.message =
+      property.length > 0
+        ? `Found ${property.length} properties`
+        : "No properties found";
+    response.data = property;
+    return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
     response.status = 500;
