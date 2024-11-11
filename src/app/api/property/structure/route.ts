@@ -96,12 +96,27 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    if (data.finishingTypes.length === 0) {
+      response.status = 400;
+      response.message = "Finishing types are required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     for (const item of data.allotmentTypes) {
-      await prisma.allotmentType.create({
-        data: {
+      const isExists = await prisma.allotmentType.findUnique({
+        where: {
           name: String(item).toLocaleLowerCase(),
         },
       });
+
+      if (isExists) {
+        await prisma.allotmentType.create({
+          data: {
+            name: String(item).toLocaleLowerCase(),
+          },
+        });
+      }
     }
 
     for (const item of data.types) {
@@ -130,11 +145,19 @@ export async function POST(req: NextRequest) {
     }
 
     for (const item of data.allotmentFor) {
-      await prisma.allotmentFor.create({
-        data: {
+      const isExists = await prisma.allotmentFor.findUnique({
+        where: {
           name: String(item).toLocaleLowerCase(),
         },
       });
+
+      if (!isExists) {
+        await prisma.allotmentFor.create({
+          data: {
+            name: String(item).toLocaleLowerCase(),
+          },
+        });
+      }
     }
 
     for (const item of data.bhkTypes) {
@@ -146,6 +169,22 @@ export async function POST(req: NextRequest) {
 
       if (!isExists) {
         await prisma.bhk.create({
+          data: {
+            name: String(item).toLocaleLowerCase(),
+          },
+        });
+      }
+    }
+
+    for (const item of data.finishingTypes) {
+      const isExists = await prisma.finishing.findUnique({
+        where: {
+          name: String(item).toLocaleLowerCase(),
+        },
+      });
+
+      if (!isExists) {
+        await prisma.finishing.create({
           data: {
             name: String(item).toLocaleLowerCase(),
           },

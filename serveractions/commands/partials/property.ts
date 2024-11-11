@@ -39,10 +39,14 @@ async function initializeDefaults() {
     "10BHK",
   ];
 
+  const finishingTypes = ["Semi Furnished", "Fully Furnished", "Unfurnished"];
+
   const data = {
     types,
     allotmentTypes,
     allotmentFor,
+    bhkTypes,
+    finishingTypes,
   };
 
   const response = await axios.post(`${apiPath}/structure`, data);

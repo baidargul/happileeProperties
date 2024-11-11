@@ -77,24 +77,31 @@ model propertyType {
 }
 
 model property {
-  id                                      String        @id @default(uuid())
-  propertyTypeId                          String?
-  bhkTypeId                               String?
-  furnishingId                            String?
-  amenitiesId                             String[]
-  price                                   Decimal?      @db.Decimal
-  area                                    Decimal?      @db.Decimal
-  createdAt                               DateTime      @default(now())
-  allotmentForId                          String
-  title                                   String
-  bhkType bhk?    @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  propertyType                            propertyType? @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id             String        @id @default(uuid())
+  propertyTypeId String?
+  bhkTypeId      String?
+  furnishingId   String?
+  amenitiesId    String[]
+  price          Decimal?      @db.Decimal
+  area           Decimal?      @db.Decimal
+  createdAt      DateTime      @default(now())
+  allotmentForId String
+  title          String
+  bhkType        bhk?          @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  finishing      finishing?    @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  propertyType   propertyType? @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model bhk {
   id                                     String     @id @default(uuid())
   name                                   String     @unique
   property_property_bhkTypeIdTobhkTypeId property[] @relation("bhkType")
+}
+
+model finishing {
+  id       String     @id @default(uuid())
+  name     String     @unique
+  property property[]
 }
 
 enum accountStatus {
