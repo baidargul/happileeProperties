@@ -103,6 +103,13 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    if (data.amenities.length === 0) {
+      response.status = 400;
+      response.message = "Amenities are required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     for (const item of data.allotmentTypes) {
       const isExists = await prisma.allotmentType.findUnique({
         where: {
@@ -185,6 +192,22 @@ export async function POST(req: NextRequest) {
 
       if (!isExists) {
         await prisma.finishing.create({
+          data: {
+            name: String(item).toLocaleLowerCase(),
+          },
+        });
+      }
+    }
+
+    for (const item of data.amenities) {
+      const isExists = await prisma.amenities.findUnique({
+        where: {
+          name: String(item).toLocaleLowerCase(),
+        },
+      });
+
+      if (!isExists) {
+        await prisma.amenities.create({
           data: {
             name: String(item).toLocaleLowerCase(),
           },

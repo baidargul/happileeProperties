@@ -104,6 +104,11 @@ model finishing {
   property property[]
 }
 
+model amenities {
+  id   String  @id @default(uuid())
+  name String @unique
+}
+
 enum accountStatus {
   UNDEFINED
   INCOMPLETE
