@@ -89,6 +89,13 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    if (data.bhkTypes.length === 0) {
+      response.status = 400;
+      response.message = "BHK types are required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     for (const item of data.allotmentTypes) {
       await prisma.allotmentType.create({
         data: {
@@ -128,6 +135,22 @@ export async function POST(req: NextRequest) {
           name: String(item).toLocaleLowerCase(),
         },
       });
+    }
+
+    for (const item of data.bhkTypes) {
+      const isExists = await prisma.bhk.findUnique({
+        where: {
+          name: String(item).toLocaleLowerCase(),
+        },
+      });
+
+      if (!isExists) {
+        await prisma.bhk.create({
+          data: {
+            name: String(item).toLocaleLowerCase(),
+          },
+        });
+      }
     }
 
     response.status = 200;

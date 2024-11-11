@@ -26,6 +26,19 @@ async function initializeDefaults() {
 
   const allotmentFor = ["Sell", "Buy", "Rent"];
 
+  const bhkTypes = [
+    "1BHK",
+    "2BHK",
+    "3BHK",
+    "4BHK",
+    "5BHK",
+    "6BHK",
+    "7BHK",
+    "8BHK",
+    "9BHK",
+    "10BHK",
+  ];
+
   const data = {
     types,
     allotmentTypes,
@@ -36,7 +49,16 @@ async function initializeDefaults() {
   return response.data;
 }
 
+async function listAll() {
+  const response = await axios.get(apiPath).then(async (res) => {
+    const response = await res.data;
+    return response;
+  });
+  return response;
+}
+
 export const property = {
   initializeDefaults,
   GET_ALLOTMENT_STRUCTURE,
+  listAll,
 };

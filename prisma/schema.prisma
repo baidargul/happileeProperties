@@ -60,31 +60,41 @@ model buyer {
 model allotmentType {
   id           String         @id @default(uuid())
   name         String         @unique
-  propertyType propertyType[]  // Residential, Commercial
+  propertyType propertyType[]
 }
 
 model allotmentFor {
   id   String @id @default(uuid())
-  name String @unique  // Rent, Sell
+  name String @unique
 }
 
 model propertyType {
   id              String        @id @default(uuid())
   name            String
-  allotmentTypeId String  // Office, RetailShop, ShowRoom, Warehouse, Plot, Others
+  allotmentTypeId String
+  property        property[]
   allotmentType   allotmentType @relation(fields: [allotmentTypeId], references: [id], onDelete: Cascade)
 }
 
 model property {
-  id             String   @id @default(uuid())
-  propertyTypeId String?
-  allotmentForId String
-  bhkTypeId      String?
-  furnishingId   String?
-  amenitiesId    String[]
-  price          Decimal? @db.Decimal
-  area           Decimal? @db.Decimal
-  createdAt DateTime @default(now())
+  id                                      String        @id @default(uuid())
+  propertyTypeId                          String?
+  bhkTypeId                               String?
+  furnishingId                            String?
+  amenitiesId                             String[]
+  price                                   Decimal?      @db.Decimal
+  area                                    Decimal?      @db.Decimal
+  createdAt                               DateTime      @default(now())
+  allotmentForId                          String
+  title                                   String
+  bhkType bhk?    @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  propertyType                            propertyType? @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model bhk {
+  id                                     String     @id @default(uuid())
+  name                                   String     @unique
+  property_property_bhkTypeIdTobhkTypeId property[] @relation("bhkType")
 }
 
 enum accountStatus {
