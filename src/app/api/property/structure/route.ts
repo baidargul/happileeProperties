@@ -32,12 +32,19 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    const bhks = await prisma.bhk.findMany({
+      orderBy: {
+        name: "asc",
+      },
+    });
+
     const final = {
       allotmentType: structure,
       lookingFor: {
         allotmentFor,
         propertyType,
       },
+      bhk: [...bhks],
     };
 
     response.status = 200;

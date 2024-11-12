@@ -72,7 +72,7 @@ model allotmentFor {
 
 model propertyType {
   id              String        @id @default(uuid())
-  name            String
+  name            String @unique
   allotmentTypeId String
   property        property[]
   allotmentType   allotmentType @relation(fields: [allotmentTypeId], references: [id], onDelete: Cascade)

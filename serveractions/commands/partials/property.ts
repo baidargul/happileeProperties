@@ -24,7 +24,7 @@ async function initializeDefaults() {
     "Others",
   ];
 
-  const allotmentFor = ["Sell", "Buy", "Rent"];
+  const allotmentFor = ["Sell", "Rent"];
 
   const bhkTypes = [
     "1BHK",

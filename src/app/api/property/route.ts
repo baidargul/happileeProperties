@@ -18,6 +18,7 @@ export async function GET(req: NextRequest) {
         },
         bhkType: true,
         finishing: true,
+        ownershipType: true,
         propertyImages: {
           include: {
             image: {
