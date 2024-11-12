@@ -112,6 +112,13 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    if (data.ownership.length === 0) {
+      response.status = 400;
+      response.message = "Ownership is required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     for (const item of data.allotmentTypes) {
       const isExists = await prisma.allotmentType.findFirst({
         where: {
@@ -210,6 +217,22 @@ export async function POST(req: NextRequest) {
 
       if (!isExists) {
         await prisma.amenities.create({
+          data: {
+            name: String(item).toLocaleLowerCase(),
+          },
+        });
+      }
+    }
+
+    for (const item of data.ownership) {
+      const isExists = await prisma.ownershipType.findUnique({
+        where: {
+          name: String(item).toLocaleLowerCase(),
+        },
+      });
+
+      if (!isExists) {
+        await prisma.ownershipType.create({
           data: {
             name: String(item).toLocaleLowerCase(),
           },

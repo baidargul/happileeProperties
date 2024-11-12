@@ -141,6 +141,14 @@ async function initializeDefaults() {
     "Fishing Pier",
   ];
 
+  const ownership = [
+    "Freehold",
+    "Leasehold",
+    "Cooperative",
+    "Society",
+    "Power of attorney",
+  ];
+
   const data = {
     types,
     allotmentTypes,
@@ -148,6 +156,7 @@ async function initializeDefaults() {
     bhkTypes,
     finishingTypes,
     amenities,
+    ownership,
   };
 
   const response = await axios.post(`${apiPath}/structure`, data);

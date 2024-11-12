@@ -37,7 +37,7 @@ model image {
   id             String           @id(map: "images_pkey") @default(uuid())
   userId         String
   url            String
-  createdAt DateTime @default(now())
+  createdAt      DateTime         @default(now())
   user           user             @relation(fields: [userId], references: [id], onDelete: Cascade, map: "images_userId_fkey")
   propertyImages propertyImages[]
 }
@@ -79,25 +79,26 @@ model propertyType {
 }
 
 model property {
-  id             String           @id @default(uuid())
-  propertyTypeId String?
-  bhkTypeId      String?
-  furnishingId   String?
-  amenitiesId    String[]
-  ownershipTypeId String
-  price          Decimal?         @db.Decimal
-  area           Decimal?         @db.Decimal
-  age Decimal
-  createdAt      DateTime         @default(now())
-  allotmentForId String
-  title          String
-  securityDeposite Decimal?
+  id                 String           @id @default(uuid())
+  propertyTypeId     String?
+  bhkTypeId          String?
+  furnishingId       String?
+  amenitiesId        String[]
+  price              Decimal?         @db.Decimal
+  area               Decimal?         @db.Decimal
+  createdAt          DateTime         @default(now())
+  allotmentForId     String
+  title              String
+  age                Decimal
+  availableDate      DateTime
   monthlyMaintenance Decimal?
-  availableDate DateTime
-  bhkType        bhk?             @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  finishing      finishing?       @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  propertyType   propertyType?    @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  propertyImages propertyImages[]
+  ownershipTypeId    String
+  securityDeposite   Decimal?
+  bhkType            bhk?             @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  finishing          finishing?       @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ownershipType      ownershipType    @relation(fields: [ownershipTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  propertyType       propertyType?    @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  propertyImages     propertyImages[]
 }
 
 model bhk {
@@ -123,6 +124,12 @@ model propertyImages {
   imageId    String
   image      image    @relation(fields: [imageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   property   property @relation(fields: [propertyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model ownershipType {
+  id       String     @id @default(uuid())
+  name     String     @unique
+  property property[]
 }
 
 enum accountStatus {
