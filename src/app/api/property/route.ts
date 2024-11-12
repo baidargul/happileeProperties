@@ -18,6 +18,15 @@ export async function GET(req: NextRequest) {
         },
         bhkType: true,
         finishing: true,
+        propertyImages: {
+          include: {
+            image: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
       },
       orderBy: [
         {

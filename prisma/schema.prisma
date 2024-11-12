@@ -34,10 +34,12 @@ model user {
 }
 
 model image {
-  id     String @id(map: "images_pkey") @default(uuid())
-  userId String
-  url    String
-  user   user   @relation(fields: [userId], references: [id], onDelete: Cascade, map: "images_userId_fkey")
+  id             String           @id(map: "images_pkey") @default(uuid())
+  userId         String
+  url            String
+  createdAt DateTime @default(now())
+  user           user             @relation(fields: [userId], references: [id], onDelete: Cascade, map: "images_userId_fkey")
+  propertyImages propertyImages[]
 }
 
 model agent {
@@ -77,19 +79,20 @@ model propertyType {
 }
 
 model property {
-  id             String        @id @default(uuid())
+  id             String           @id @default(uuid())
   propertyTypeId String?
   bhkTypeId      String?
   furnishingId   String?
   amenitiesId    String[]
-  price          Decimal?      @db.Decimal
-  area           Decimal?      @db.Decimal
-  createdAt      DateTime      @default(now())
+  price          Decimal?         @db.Decimal
+  area           Decimal?         @db.Decimal
+  createdAt      DateTime         @default(now())
   allotmentForId String
   title          String
-  bhkType        bhk?          @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  finishing      finishing?    @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  propertyType   propertyType? @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  bhkType        bhk?             @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  finishing      finishing?       @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  propertyType   propertyType?    @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  propertyImages propertyImages[]
 }
 
 model bhk {
@@ -107,6 +110,14 @@ model finishing {
 model amenities {
   id   String @id @default(uuid())
   name String @unique
+}
+
+model propertyImages {
+  id         String   @id @default(uuid())
+  propertyId String
+  imageId    String
+  image      image    @relation(fields: [imageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  property   property @relation(fields: [propertyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum accountStatus {
