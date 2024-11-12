@@ -1,6 +1,8 @@
 import { NextRequest } from "next/server";
 import prisma from "../../../../../serveractions/commands/prisma";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   const response = {
     status: 500,
@@ -59,7 +61,7 @@ export async function POST(req: NextRequest) {
   };
 
   try {
-    const data = await req.json();
+    const data: any = await req.json();
 
     if (!data) {
       response.status = 400;
@@ -111,13 +113,13 @@ export async function POST(req: NextRequest) {
     }
 
     for (const item of data.allotmentTypes) {
-      const isExists = await prisma.allotmentType.findUnique({
+      const isExists = await prisma.allotmentType.findFirst({
         where: {
           name: String(item).toLocaleLowerCase(),
         },
       });
 
-      if (isExists) {
+      if (!isExists) {
         await prisma.allotmentType.create({
           data: {
             name: String(item).toLocaleLowerCase(),
@@ -127,15 +129,15 @@ export async function POST(req: NextRequest) {
     }
 
     for (const item of data.types) {
-      const allotmentType = await prisma.allotmentType.findUnique({
+      const allotmentType = await prisma.allotmentType.findFirst({
         where: {
-          name: String(item.allotmentType).toLocaleLowerCase(),
+          name: String(item.type).toLocaleLowerCase(),
         },
       });
 
       if (!allotmentType) {
         console.log(
-          `Allotment type: '${item.allotmentType}' not found for type: '${item.name}'`
+          `Allotment type: '${item.type}' not found for type: '${item.name}'`
         );
       } else {
         await prisma.propertyType.create({
