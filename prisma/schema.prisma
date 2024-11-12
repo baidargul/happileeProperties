@@ -84,11 +84,16 @@ model property {
   bhkTypeId      String?
   furnishingId   String?
   amenitiesId    String[]
+  ownershipTypeId String
   price          Decimal?         @db.Decimal
   area           Decimal?         @db.Decimal
+  age Decimal
   createdAt      DateTime         @default(now())
   allotmentForId String
   title          String
+  securityDeposite Decimal?
+  monthlyMaintenance Decimal?
+  availableDate DateTime
   bhkType        bhk?             @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   finishing      finishing?       @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   propertyType   propertyType?    @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
