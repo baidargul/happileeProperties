@@ -32,6 +32,12 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    const amenities = await prisma.amenities.findMany({
+      orderBy: {
+        name: "asc",
+      },
+    });
+
     const bhks = await prisma.bhk.findMany({
       orderBy: {
         name: "asc",
@@ -59,6 +65,7 @@ export async function GET(req: NextRequest) {
       bhk: [...bhks],
       finishing: [...finishing],
       ownership: [...ownership],
+      amenities: [...amenities],
     };
 
     response.status = 200;
