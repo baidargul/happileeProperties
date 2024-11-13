@@ -38,6 +38,18 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    const finishing = await prisma.finishing.findMany({
+      orderBy: {
+        name: "asc",
+      },
+    });
+
+    const ownership = await prisma.ownershipType.findMany({
+      orderBy: {
+        name: "asc",
+      },
+    });
+
     const final = {
       allotmentType: structure,
       lookingFor: {
@@ -45,6 +57,8 @@ export async function GET(req: NextRequest) {
         propertyType,
       },
       bhk: [...bhks],
+      finishing: [...finishing],
+      ownership: [...ownership],
     };
 
     response.status = 200;
