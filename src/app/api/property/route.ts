@@ -169,31 +169,11 @@ export async function POST(req: NextRequest) {
         rent: Number(formData.rent),
         maintenance: Number(formData.rent),
         title: formData.title,
-        propertyType: {
-          connect: {
-            id: formData.propertyType,
-          },
-        },
-        bhkType: {
-          connect: {
-            id: formData.bhkType,
-          },
-        },
-        finishing: {
-          connect: {
-            id: formData.furnishing,
-          },
-        },
-        ownershipType: {
-          connect: {
-            id: formData.ownerShipType,
-          },
-        },
-        allotmentFor: {
-          connect: {
-            id: formData.allotmentFor.id,
-          },
-        },
+        propertyTypeId: propertyType.id,
+        bhkTypeId: bhkType.id,
+        furnishingId: furnishing.id,
+        ownershipTypeId: ownership.id,
+        allotmentForId: allotmentFor.id,
       },
     });
 
