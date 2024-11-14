@@ -126,9 +126,9 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    if (data.finishingTypes.length === 0) {
+    if (data.furnishing.length === 0) {
       response.status = 400;
-      response.message = "Finishing types are required";
+      response.message = "Furnishing types are required";
       response.data = null;
       return new Response(JSON.stringify(response));
     }
@@ -220,7 +220,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    for (const item of data.finishingTypes) {
+    for (const item of data.furnishing) {
       const isExists = await prisma.furnishing.findUnique({
         where: {
           name: String(item).toLocaleLowerCase(),

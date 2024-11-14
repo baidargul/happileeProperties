@@ -39,7 +39,7 @@ async function initializeDefaults() {
     "10BHK",
   ];
 
-  const finishingTypes = ["Semi Furnished", "Fully Furnished", "Unfurnished"];
+  const furnishing = ["Semi Furnished", "Fully Furnished", "Unfurnished"];
 
   const amenities = [
     "A/C & Heating",
@@ -154,7 +154,7 @@ async function initializeDefaults() {
     allotmentTypes,
     allotmentFor,
     bhkTypes,
-    finishingTypes,
+    furnishing,
     amenities,
     ownership,
   };
