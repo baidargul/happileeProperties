@@ -1,0 +1,41 @@
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import {SingleInput} from '../inputs/SingleInput';
+import NiceSelect from '@/ui/NiceSelect';
+import SingleSelectInput from '../inputs/SingleSelectInput';
+
+interface FormSelectInputProps {
+  label: string;
+  className?:string;
+  name:string;
+  control: any;
+  isDisabled?:boolean,
+  placeholder:string,
+  isRequired?:boolean,
+  options:any
+}
+
+const FormSelectInput: React.FC<FormSelectInputProps> = ({ label,className,control,name,isDisabled,placeholder,isRequired,options }) => {
+  return (
+    <Controller
+		control={control}
+		name={name}
+		render={({field: {value, onChange, onBlur},fieldState:{error}}) => (
+		<div className='w-full flex flex-col'>
+		<SingleSelectInput
+			label={label}
+			selectHandler={onChange}
+			onBlur={onBlur}
+			isDisabled={isDisabled}
+			placeholder={placeholder}
+			isRequired={isRequired}
+			options={options}
+		/>
+		{error&&<p className='text-red-600 text-md'>{error.message}</p>}
+		</div>
+		)}
+	/>
+  );
+}
+
+export default FormSelectInput;

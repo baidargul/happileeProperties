@@ -41,10 +41,10 @@ const AddPropertyBody = () => {
             {/* <SelectAmenities />
             <AddressAndLocation /> */}
 
-            <div className="button-group d-inline-flex align-items-center mt-30">
+            {/* <div className="button-group d-inline-flex align-items-center mt-30">
                <Link href="#" className="dash-btn-two tran3s me-3">Submit Property</Link>
                <Link href="#" className="dash-cancel-btn tran3s">Cancel</Link>
-            </div>
+            </div> */}
          </div>
       </div>
    )
