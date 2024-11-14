@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    const finishing = await prisma.finishing.findMany({
+    const furnishing = await prisma.furnishing.findMany({
       orderBy: {
         name: "asc",
       },
@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
         propertyType,
       },
       bhk: [...bhks],
-      finishing: [...finishing],
+      furnishing: [...furnishing],
       ownership: [...ownership],
       amenities: [...amenities],
     };
@@ -221,14 +221,14 @@ export async function POST(req: NextRequest) {
     }
 
     for (const item of data.finishingTypes) {
-      const isExists = await prisma.finishing.findUnique({
+      const isExists = await prisma.furnishing.findUnique({
         where: {
           name: String(item).toLocaleLowerCase(),
         },
       });
 
       if (!isExists) {
-        await prisma.finishing.create({
+        await prisma.furnishing.create({
           data: {
             name: String(item).toLocaleLowerCase(),
           },

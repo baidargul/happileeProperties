@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
           },
         },
         bhkType: true,
-        finishing: true,
+        furnishing: true,
         ownershipType: true,
         propertyImages: {
           include: {
@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
           },
         },
         {
-          finishing: {
+          furnishing: {
             name: "asc",
           },
         },
@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
     console.log(formData);
     console.log(`-------------------||`);
 
-    const furnishing = await prisma.finishing.findUnique({
+    const furnishing = await prisma.furnishing.findUnique({
       where: {
         id: formData.furnishing,
       },
