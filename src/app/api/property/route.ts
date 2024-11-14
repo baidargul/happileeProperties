@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
 
     const furnishing = await prisma.furnishing.findUnique({
       where: {
-        id: formData.furnishing,
+        id: formData.get(`furnishing`),
       },
     });
 
@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
 
     const ownership = await prisma.ownershipType.findUnique({
       where: {
-        id: formData.ownerShipType,
+        id: formData.get(`ownerShipType`),
       },
     });
 
@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
 
     const allotmentType = await prisma.allotmentType.findUnique({
       where: {
-        id: formData.allotmentType,
+        id: formData.get(`allotmentType`),
       },
     });
 
@@ -120,10 +120,11 @@ export async function POST(req: NextRequest) {
       response.data = null;
       return new Response(JSON.stringify(response));
     }
+    console.log(`Executed`);
 
     const propertyType = await prisma.propertyType.findUnique({
       where: {
-        id: formData.propertyType,
+        id: formData.get(`propertyType`),
       },
     });
 
@@ -136,7 +137,7 @@ export async function POST(req: NextRequest) {
 
     const bhkType = await prisma.bhk.findUnique({
       where: {
-        id: formData.bhkType,
+        id: formData.get(`bhkType`),
       },
     });
 
@@ -149,7 +150,7 @@ export async function POST(req: NextRequest) {
 
     const allotmentFor = await prisma.allotmentFor.findUnique({
       where: {
-        id: formData.allotmentFor.id,
+        id: formData.get(`allotmentFor.id`),
       },
     });
 
@@ -162,13 +163,13 @@ export async function POST(req: NextRequest) {
 
     const property = await prisma.property.create({
       data: {
-        age: formData.propertyAge,
-        availableDate: formData.availableDate,
-        area: Number(formData.area),
-        price: Number(formData.price),
-        rent: Number(formData.rent),
-        maintenance: Number(formData.rent),
-        title: formData.title,
+        age: formData.get(`propertyAge`),
+        availableDate: formData.get(`availableDate`),
+        area: Number(formData.get(`area`)),
+        price: Number(formData.get(`price`)),
+        rent: Number(formData.get(`rent`)),
+        maintenance: Number(formData.get(`maintenance`)),
+        title: formData.get(`title`),
         propertyTypeId: propertyType.id,
         bhkTypeId: bhkType.id,
         furnishingId: furnishing.id,
