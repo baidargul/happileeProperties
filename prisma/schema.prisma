@@ -66,8 +66,9 @@ model allotmentType {
 }
 
 model allotmentFor {
-  id   String @id @default(uuid())
-  name String @unique
+  id       String     @id @default(uuid())
+  name     String     @unique
+  property property[]
 }
 
 model propertyType {
@@ -84,7 +85,9 @@ model property {
   bhkTypeId          String?
   furnishingId       String?
   price              Decimal?            @db.Decimal
+  rent              Decimal?            @db.Decimal
   area               Decimal?            @db.Decimal
+  maintenance               Decimal?            @db.Decimal
   createdAt          DateTime            @default(now())
   allotmentForId     String
   title              String
@@ -93,6 +96,7 @@ model property {
   monthlyMaintenance Decimal?
   ownershipTypeId    String
   securityDeposite   Decimal?
+  allotmentFor       allotmentFor        @relation(fields: [allotmentForId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   bhkType            bhk?                @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   finishing          finishing?          @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   ownershipType      ownershipType       @relation(fields: [ownershipTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
