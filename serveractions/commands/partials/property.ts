@@ -171,8 +171,29 @@ async function listAll() {
   return response;
 }
 
+async function create(data: any) {
+  try {
+    const res = await axios.post(apiPath, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const response = await res.data;
+    return response;
+  } catch (error: any) {
+    console.error("Error while creating user:", error);
+    console.error("ERROR:", error.message);
+    return {
+      status: 500,
+      message: error.message,
+      data: null,
+    };
+  }
+}
+
 export const property = {
   initializeDefaults,
   GET_ALLOTMENT_STRUCTURE,
+  create,
   listAll,
 };
