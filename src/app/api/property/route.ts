@@ -135,11 +135,13 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    let temp = formData.get(`bhk`);
     const bhkType = await prisma.bhk.findUnique({
       where: {
-        id: formData.get(`bhkType`),
+        id: temp,
       },
     });
+    temp = null;
 
     if (!bhkType) {
       response.status = 400;
@@ -148,6 +150,7 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    temp = formData.get(`allotmentFor`);
     const allotmentFor = await prisma.allotmentFor.findUnique({
       where: {
         id: formData.get(`allotmentFor.id`),
