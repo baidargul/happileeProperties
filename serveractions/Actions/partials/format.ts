@@ -38,7 +38,7 @@ async function formattedProperty(id: string) {
 
   const final = {
     ...property,
-    ...amenities,
+    amenities: { ...amenities },
   };
 
   return final;
