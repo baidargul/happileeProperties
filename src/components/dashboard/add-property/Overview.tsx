@@ -103,9 +103,10 @@ const Overview = () => {
     Object.entries(data).forEach(([key, value]) => {
       if (Array.isArray(value)) {
         // If the value is an array, append each item individually (e.g., for `amenities`)
-        value.forEach((item) => {
-          formData.append(`${key}[]`, item);
-        });
+        // value.forEach((item) => {
+        //   formData.append(`${key}[]`, item);
+        // });
+        formData.append(key, JSON.stringify(value));
       } else {
         // Otherwise, just append the value
         formData.append(key, value);
