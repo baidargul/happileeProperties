@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import prisma from "../../../../serveractions/commands/prisma";
 import { SERVER_ACTIONS } from "../../../../serveractions/Actions/SERVER_ACTIONS";
+import { ImageHandler } from "../../../../serveractions/Actions/partials/ImageHandler";
 
 export async function GET(req: NextRequest) {
   const response = {
@@ -204,9 +205,41 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    const imageBlobs: Blob[] = [];
+    const formValues: { [key: string]: any } = {};
+    // Parse form data
+    formData.forEach((value: any, key: any) => {
+      if (key === "images" && value instanceof Blob) {
+        if (ImageHandler.isValidImage(value)) {
+          imageBlobs.push(value);
+        }
+      } else {
+        formValues[key] = value;
+      }
+    });
+
+    // Save images and get URLs
+    const imageUrls = await ImageHandler.saveImages(imageBlobs);
+
+    for (const url of imageUrls) {
+      const image = await prisma.image.create({
+        data: {
+          url: url,
+          userId: "1",
+        },
+      });
+
+      if (image) {
+        await prisma.propertyImages.create({
+          data: {
+            imageId: image.id,
+            propertyId: property.id,
+          },
+        });
+      }
+    }
+
     const final = await SERVER_ACTIONS.formatter.formattedProperty(property.id);
-    console.log(`Property created:`);
-    console.log(final);
 
     response.status = 200;
     response.message = "Property created successfully";
