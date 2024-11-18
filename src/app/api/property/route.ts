@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import prisma from "../../../../serveractions/commands/prisma";
+import { SERVER_ACTIONS } from "../../../../serveractions/Actions/SERVER_ACTIONS";
 
 export async function GET(req: NextRequest) {
   const response = {
@@ -77,10 +78,10 @@ export async function POST(req: NextRequest) {
   try {
     const formData: any = await req.formData();
 
-    console.log(`CREATE PROPERTY API EXECUTION`);
-    console.log(`-------------------||`);
-    console.log(formData);
-    console.log(`-------------------||`);
+    // console.log(`CREATE PROPERTY API EXECUTION`);
+    // console.log(`-------------------||`);
+    // console.log(formData);
+    // console.log(`-------------------||`);
 
     const furnishing = await prisma.furnishing.findUnique({
       where: {
@@ -120,7 +121,6 @@ export async function POST(req: NextRequest) {
       response.data = null;
       return new Response(JSON.stringify(response));
     }
-    console.log(`Executed`);
 
     const propertyType = await prisma.propertyType.findUnique({
       where: {
@@ -181,9 +181,36 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    const amenitiesRAW: { id: string; name: string }[] | null = JSON.parse(
+      formData.get(`amenities`)
+    );
+
+    if (amenitiesRAW) {
+      for (const item of amenitiesRAW) {
+        const isValid = await prisma.amenities.findUnique({
+          where: {
+            name: item.name,
+          },
+        });
+
+        if (isValid) {
+          const entry = await prisma.amenitiesregister.create({
+            data: {
+              propertyId: property.id,
+              amentitiesId: isValid.id,
+            },
+          });
+        }
+      }
+    }
+
+    const final = await SERVER_ACTIONS.formatter.formattedProperty(property.id);
+    console.log(`Property created:`);
+    console.log(final);
+
     response.status = 200;
-    response.message = "In development";
-    response.data = property;
+    response.message = "Property created successfully";
+    response.data = final;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
