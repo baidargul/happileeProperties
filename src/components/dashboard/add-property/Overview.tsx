@@ -93,11 +93,11 @@ const Overview = () => {
   const onSubmit = async (data: any) => {
     // Process form data here
     data.allotmentType = allotment?.id;
-    data.allotmentFor = lookingFor;
+    data.allotmentFor = lookingFor?.id;
     data.propertyType = propertyType?.id;
     data.bhk = bhk?.id;
     data.amenities = amenities;
-
+    console.log(data);
     const formData = new FormData();
 
     Object.entries(data).forEach(([key, value]) => {
@@ -124,8 +124,8 @@ const Overview = () => {
 
   };
 
-
-  console.log(amenities)
+console.log(propertyType)
+  // console.log(amenities)
   return (
     data?.furnishing?.length > 0 && (
       <div className="bg-white card-box border-20">
