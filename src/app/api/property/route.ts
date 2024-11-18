@@ -153,7 +153,7 @@ export async function POST(req: NextRequest) {
     temp = formData.get(`allotmentFor`);
     const allotmentFor = await prisma.allotmentFor.findUnique({
       where: {
-        id: formData.get(`allotmentFor.id`),
+        id: formData.get(`allotmentFor`),
       },
     });
 
@@ -167,10 +167,10 @@ export async function POST(req: NextRequest) {
     const property = await prisma.property.create({
       data: {
         age: formData.get(`propertyAge`),
-        availableDate: formData.get(`availableDate`),
+        availableDate: new Date(formData.get(`availableDate`)).toISOString(),
         area: Number(formData.get(`area`)),
         price: Number(formData.get(`price`)),
-        rent: Number(formData.get(`rent`)),
+        rent: Number(formData.get(`price`)),
         maintenance: Number(formData.get(`maintenance`)),
         title: formData.get(`title`),
         propertyTypeId: propertyType.id,

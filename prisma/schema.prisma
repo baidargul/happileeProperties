@@ -96,6 +96,7 @@ model property {
   securityDeposite   Decimal?
   rent               Decimal?            @db.Decimal
   maintenance        Decimal?            @db.Decimal
+  amenitiesregister  amenitiesregister[]
   allotmentFor       allotmentFor        @relation(fields: [allotmentForId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   bhkType            bhk?                @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   furnishing         furnishing?         @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -120,6 +121,7 @@ model furnishing {
 model amenities {
   id                String              @id @default(uuid())
   name              String              @unique
+  amenitiesregister amenitiesregister[]
   propertyAmenities propertyAmenities[]
 }
 
@@ -143,6 +145,14 @@ model propertyAmenities {
   amenityId  String
   amenities  amenities @relation(fields: [amenityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   property   property  @relation(fields: [propertyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model amenitiesregister {
+  id           String    @id @default(uuid())
+  propertyId   String
+  amentitiesId String
+  amenities    amenities @relation(fields: [amentitiesId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  property     property  @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 enum accountStatus {
