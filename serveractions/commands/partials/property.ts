@@ -191,9 +191,20 @@ async function create(data: any) {
   }
 }
 
+async function list(id: string) {
+  const response = await axios
+    .get(`${apiPath}/id?id=${id}`)
+    .then(async (res) => {
+      const response = await res.data;
+      return response;
+    });
+  return response;
+}
+
 export const property = {
   initializeDefaults,
   GET_ALLOTMENT_STRUCTURE,
   create,
   listAll,
+  list,
 };
