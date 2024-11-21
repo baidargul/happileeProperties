@@ -19,9 +19,9 @@ const Overview = () => {
   //   console.log(res)
   // }
 
-// useEffect(() => {
-//   rest()
-// },[])
+  // useEffect(() => {
+  //   rest()
+  // },[])
   const [data, setData] = useState<any>([]);
   const [allotment, setAllotment] = useState({});
   const [lookingFor, setLookingFor] = useState({});
@@ -117,38 +117,55 @@ const Overview = () => {
       formData.append(`images`, imageFile);
     });
 
-
     // console.log("Form Data:", data);
 
     const response = await serverActions.property.create(formData);
     // console.log(response);
-
   };
 
-console.log(propertyType)
+  console.log(propertyType);
   // console.log(amenities)
   return (
     data?.furnishing?.length > 0 && (
       <div className="bg-white card-box border-20">
-        <h4 className="dash-title-three">Overview</h4>
+        <h4 className="dash-title-three">Add Property</h4>
 
         <div className="container mb-3">
           {/* Allotment Type Section */}
-          <div className="row row-cols-auto gap-3 mt-3">
-            {data?.allotmentType?.map((item) => (
-              <SelectionCard
-                key={item.id}
-                setItem={() => setAllotment(item)}
-                item={allotment?.id}
-                name={item.name}
-                id={item.id}
-                className="text-capitalize"
-              />
-            ))}
+          <div className="d-flex align-items-center justify-content-start flex-column mt-3">
+            <p style={{
+              fontSize: "15px",
+              fontWeight:500,
+              textAlign: "left",
+              width: "100%",
+              color: "#000",
+            }}>Property type*</p>
+            <div className="w-100 row gap-3">
+              {data?.allotmentType?.map((item) => (
+                <SelectionCard
+                  key={item.id}
+                  setItem={() => setAllotment(item)}
+                  item={allotment?.id}
+                  name={item.name}
+                  id={item.id}
+                  className="text-capitalize"
+                />
+              ))}
+            </div>
           </div>
 
+
+
           {/* Looking For Section */}
-          <div className="row row-cols-auto gap-3 mt-3">
+          <div className="d-flex align-items-center justify-content-start flex-column mt-3">
+            <p style={{
+              fontSize: "15px",
+              fontWeight:500,
+              textAlign: "left",
+              width: "100%",
+              color: "#000",
+            }}>Looking to*</p>
+            <div className="w-100 row gap-3">
             {data?.lookingFor?.allotmentFor?.map((item) => (
               <SelectionCard
                 key={item.id}
@@ -159,23 +176,22 @@ console.log(propertyType)
                 className="text-capitalize"
               />
             ))}
+            </div>
           </div>
 
-          {/* Property Type Section */}
-          <div className="row row-cols-auto gap-3 mt-3">
+{/*Property Type Section */}
+          <div className="d-flex align-items-center justify-content-start flex-column mt-3">
+            <p style={{
+              fontSize: "15px",
+              fontWeight:500,
+              textAlign: "left",
+              width: "100%",
+              color: "#000",
+            }}>Property type*</p>
+            <div className="w-100 row gap-3">
             {data?.lookingFor?.propertyType
               ?.filter((item) => item.allotmentTypeId === allotment?.id)
               .map((item) => (
-                // <div
-                //   key={item.id}
-                //   className={`border border-2 ${
-                //     propertyType === item.id ? "bg-primary text-white" : ""
-                //   } rounded-2 text-center p-2`}
-                //   style={{ cursor: "pointer" }}
-                //   onClick={() => setPropertyType(item.id)}
-                // >
-                //   <p className="mb-0 fs-6 fw-semibold">{item.name}</p>
-                // </div>
                 <SelectionCard
                   key={item.id}
                   setItem={() => setPropertyType(item)}
@@ -185,22 +201,20 @@ console.log(propertyType)
                   className="text-capitalize"
                 />
               ))}
+            </div>
           </div>
 
-          {/* Property Type Section */}
-          {allotment?.name?.toLowerCase() === "residential" && (
-            <div className="row row-cols-auto gap-3 mt-3">
-              {data?.bhk?.map((item) => (
-                // <div
-                //   key={item.id}
-                //   className={`border border-2 ${
-                //     propertyType === item.id ? "bg-primary text-white" : ""
-                //   } rounded-2 text-center p-2`}
-                //   style={{ cursor: "pointer" }}
-                //   onClick={() => setPropertyType(item.id)}
-                // >
-                //   <p className="mb-0 fs-6 fw-semibold">{item.name}</p>
-                // </div>
+          {/*BHK Section */}
+          {allotment?.name?.toLowerCase() === "residential" &&<div className="d-flex align-items-center justify-content-start flex-column mt-3">
+            <p style={{
+              fontSize: "15px",
+              fontWeight:500,
+              textAlign: "left",
+              width: "100%",
+              color: "#000",
+            }}>BHK*</p>
+            <div className="w-100 row gap-3">
+            {data?.bhk?.map((item) => (
                 <SelectionCard
                   key={item.id}
                   setItem={() => setBhk(item)}
@@ -211,13 +225,9 @@ console.log(propertyType)
                 />
               ))}
             </div>
-          )}
+          </div>}
 
-          <form onSubmit={handleSubmit(onSubmit)} className="row">
-            {/* <FormInput type="text" label={"Allotment Type"} control={control} name="allotmentType" placeholder="Residential or Commercial" />
-    <FormInput type="text" label={"Allotment For"} control={control} name="allotmentFor" placeholder="Sell or Rent" />
-    <FormInput type="text" label={"Property Type"} control={control} name="propertyType" placeholder="Villa, Apartment, etc." /> */}
-            {/* <FormInput type="text" label={"BHK"} control={control} name="bhk" placeholder="e.g., 3 BHK" /> */}
+          <form onSubmit={handleSubmit(onSubmit)} className="row mt-3">
             <FormInput
               type="text"
               label={"Title"}
@@ -271,31 +281,33 @@ console.log(propertyType)
               />
             </div>
             {allotment?.name?.toLowerCase() === "residential" && (
-              <div className="row row-cols-auto gap-3 mt-3">
-                {data?.amenities?.map((item) => (
-                  <div
-                    key={item.id}
-                    className={`border border-2 ${
-                      amenities.some((amenity) => amenity.id === item.id)
-                        ? "bg-primary text-white"
-                        : ""
-                    } rounded-2 text-center p-2`}
-                    style={{ cursor: "pointer", width: "10rem" }}
-                    onClick={() => {
-                      setAmenities(
-                        (prev) =>
-                          prev.some((amenity) => amenity.id === item.id)
-                            ? prev.filter((amenity) => amenity.id !== item.id) // Remove if already selected
-                            : [...prev, item] // Add if not selected
-                      );
-                    }}
-                  >
-                    <p className="mb-0 fs-6 fw-normal text-capitalize">
-                      {item.name}
-                    </p>
-                  </div>
+              <div className="d-flex align-items-center justify-content-start flex-column mt-3 mb-3">
+              <p style={{
+                fontSize: "15px",
+                fontWeight:500,
+                textAlign: "left",
+                width: "100%",
+                color: "#000",
+              }}>Amenities*</p>
+              <div className="w-100 row gap-2">
+              {data?.amenities?.slice(0, 9).map((item) => (
+                <div  key={item.id}
+                  className={`border border-2 col-1 d-flex align-items-center justify-content-center ${
+                    amenities?.some((amenity) => amenity.id === item.id) ? "bg-primary text-white" : ""
+                  } rounded-2 text-center p-2`}
+                  style={{ cursor: "pointer",width:"100%",height:"2.5rem" }}
+                  onClick={() => setAmenities(
+                    (prev) =>
+                      prev.some((amenity) => amenity.id === item.id)
+                        ? prev.filter((amenity) => amenity.id !== item.id) // Remove if already selected
+                        : [...prev, item] // Add if not selected
+                  )}
+                >
+                  <p className={`mb-0 fs-6 fw-normal text-capitalize`}>{item.name}</p>
+              </div>
                 ))}
               </div>
+            </div>
             )}
             <div className="col-md-4">
               <FormInput

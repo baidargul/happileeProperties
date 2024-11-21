@@ -1,10 +1,75 @@
-import property_data from "@/data/home-data/PropertyData"
+// "use client"
+// import property_data from "@/data/home-data/PropertyData"
 import Image from "next/image"
 import Link from "next/link"
 
 import titleShape from "@/assets/images/shape/title_shape_03.svg"
+import "@fancyapps/ui/dist/carousel/carousel.css";
+import prisma from "../../../../serveractions/commands/prisma";
+// import { Carousel } from "@fancyapps/ui";
+// import { useEffect } from "react"
+// import { serverActions } from "../../../../serveractions/commands/serverCommands"
 
-const PropertyOne = ({ style_1, style_2 }: any) => {
+
+const PropertyOne = async ({ style_1, style_2 }: any) => {
+
+   // useEffect(() => {
+   //    const container = document.getElementById("myCarousel");
+   //    new Carousel(container, {
+   //       infinite: false, // Loop through slides
+   //    });
+   //  }, []);
+
+   //  const getListing = async () => {
+   //     const res = await serverActions.property.listAll();
+   //     console.log(res)
+   //  }
+
+   //  getListing();
+
+   let property_data: any = await prisma.property.findMany({
+      include: {
+        propertyType: {
+          include: {
+            allotmentType: true,
+          },
+        },
+        bhkType: true,
+        furnishing: true,
+        ownershipType: true,
+        propertyImages: {
+          include: {
+            image: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: [
+        {
+          title: "asc",
+        },
+        {
+          propertyType: {
+            name: "asc",
+          },
+        },
+        {
+          bhkType: {
+            name: "asc",
+          },
+        },
+        {
+          furnishing: {
+            name: "asc",
+          },
+        },
+      ],
+    });
+    
+    console.log(property_data)
    return (
       <div className="property-listing-five mt-170 xl-mt-120">
          <div className="container container-large">
@@ -15,10 +80,12 @@ const PropertyOne = ({ style_1, style_2 }: any) => {
                   <p className="fs-22">Explore latest and featured properties for sale, rent & mortgage.</p>
                </div>
 
-               <div className="row gx-xxl-5">
-                  {property_data.filter((items) => items.page === "home_2").map((item) => (
-                     <div key={item.id} className="col-lg-4 col-md-6 d-flex mt-40 wow fadeInUp">
-                        <div className="listing-card-one style-two shadow-none h-100 w-100">
+               <div id="myCarousel" className="f-carousel" >
+                  {property_data.map((item) => (
+                     <div key={item.id} className="d-flex mt-40 wow fadeInUp f-carousel__slide" 
+                     // style={{margin:"10px 5px",width: window.innerWidth >= 992 ? "25%" : "75%",}}
+                     >
+                        <div className="listing-card-one style-two shadow-none h-100 w-100 bg-light" style={{borderRadius:'10px'}}>
                            <div className="img-gallery">
                               <div className="position-relative overflow-hidden">
                                  <div className="tag fw-500">{item.tag}</div>
@@ -38,19 +105,19 @@ const PropertyOne = ({ style_1, style_2 }: any) => {
                                  </div>
                               </div>
                            </div>
-                           <div className="property-info pt-20">
+                           <div className="property-info" style={{padding:'10px'}}>
                               <Link href="/listing_details_03" className="title tran3s">{item.title}</Link>
                               <div className="address">{item.address}</div>
-                              <ul className="style-none feature d-flex flex-wrap align-items-center justify-content-between pb-15 pt-5">
+                              {/* <ul className="style-none feature d-flex flex-wrap align-items-center justify-content-between pb-15 pt-5">
                                  {item.property_info.map((info, index) => (
                                     <li key={index} className="d-flex align-items-center">
                                        <Image src={info.icon} alt="" className="lazy-img icon me-2" />
                                        <span className="fs-16">{info.total_feature} {info.feature}</span>
                                     </li>
                                  ))}
-                              </ul>
+                              </ul> */}
                               <div className="pl-footer top-border bottom-border d-flex align-items-center justify-content-between">
-                                 <strong className="price fw-500 color-dark">${item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
+                                 <strong className="price fw-500 color-dark">{Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(item.price)}</strong>
                                  <Link href="/listing_details_03" className="btn-four"><i className="bi bi-arrow-up-right"></i></Link>
                               </div>
                            </div>

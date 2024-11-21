@@ -151,8 +151,8 @@ model amenitiesregister {
   id           String    @id @default(uuid())
   propertyId   String
   amentitiesId String
-  amenities    amenities @relation(fields: [amentitiesId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  property     property  @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  amenities    amenities @relation(fields: [amentitiesId], references: [id], onDelete: Cascade)
+  property     property  @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 enum accountStatus {

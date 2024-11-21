@@ -128,3 +128,26 @@ p {line-height: 1.777em;}
   transition: all 0.6s ease-in-out;
 }
 
+.f-carousel {
+	--f-carousel-spacing: 8px;
+  }
+
+  .f-carousel {
+	--f-carousel-spacing: 8px;
+	--f-carousel-slide-width: calc((100% - 16px) / 3);
+  }
+
+  .f-button.is-next{
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  .f-button:hover:not([disabled]){
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    
+  }
+
+  .f-button.is-prev{
+    background-color: white;
+    border-radius: 50%;
+  }
