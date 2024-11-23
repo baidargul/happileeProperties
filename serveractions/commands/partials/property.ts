@@ -1,4 +1,5 @@
 import axios from "axios";
+import { favourite } from "./favourite";
 const apiPath = `/api/property`;
 async function GET_ALLOTMENT_STRUCTURE() {
   const response = await axios.get(`${apiPath}/structure`);
@@ -207,4 +208,5 @@ export const property = {
   create,
   listAll,
   list,
+  favourite,
 };

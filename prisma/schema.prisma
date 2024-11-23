@@ -17,20 +17,21 @@ model builder {
 }
 
 model user {
-  id        String        @id @default(uuid())
-  email     String?       @unique
-  address   String?
-  phone     String?       @unique
-  name      String
-  password  String
-  status    accountStatus @default(UNDEFINED)
-  type      accountTypes  @default(UNDEFINED)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @default(now())
-  agent     agent?
-  builder   builder?
-  buyer     buyer?
-  image     image[]
+  id                  String                @id @default(uuid())
+  email               String?               @unique
+  address             String?
+  phone               String?               @unique
+  name                String
+  password            String
+  status              accountStatus         @default(UNDEFINED)
+  type                accountTypes          @default(UNDEFINED)
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @default(now())
+  agent               agent?
+  builder             builder?
+  buyer               buyer?
+  favouriteProperties favouriteProperties[]
+  image               image[]
 }
 
 model image {
@@ -80,30 +81,31 @@ model propertyType {
 }
 
 model property {
-  id                 String              @id @default(uuid())
-  propertyTypeId     String?
-  bhkTypeId          String?
-  furnishingId       String?
-  price              Decimal?            @db.Decimal
-  area               Decimal?            @db.Decimal
-  createdAt          DateTime            @default(now())
-  allotmentForId     String
-  title              String
-  age                Decimal
-  availableDate      DateTime
-  monthlyMaintenance Decimal?
-  ownershipTypeId    String
-  securityDeposite   Decimal?
-  rent               Decimal?            @db.Decimal
-  maintenance        Decimal?            @db.Decimal
-  amenitiesregister  amenitiesregister[]
-  allotmentFor       allotmentFor        @relation(fields: [allotmentForId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  bhkType            bhk?                @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  furnishing         furnishing?         @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  ownershipType      ownershipType       @relation(fields: [ownershipTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  propertyType       propertyType?       @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  propertyAmenities  propertyAmenities[]
-  propertyImages     propertyImages[]
+  id                  String                @id @default(uuid())
+  propertyTypeId      String?
+  bhkTypeId           String?
+  furnishingId        String?
+  price               Decimal?              @db.Decimal
+  area                Decimal?              @db.Decimal
+  createdAt           DateTime              @default(now())
+  allotmentForId      String
+  title               String
+  age                 Decimal
+  availableDate       DateTime
+  monthlyMaintenance  Decimal?
+  ownershipTypeId     String
+  securityDeposite    Decimal?
+  rent                Decimal?              @db.Decimal
+  maintenance         Decimal?              @db.Decimal
+  amenitiesregister   amenitiesregister[]
+  favouriteProperties favouriteProperties[]
+  allotmentFor        allotmentFor          @relation(fields: [allotmentForId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  bhkType             bhk?                  @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  furnishing          furnishing?           @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ownershipType       ownershipType         @relation(fields: [ownershipTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  propertyType        propertyType?         @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  propertyAmenities   propertyAmenities[]
+  propertyImages      propertyImages[]
 }
 
 model bhk {
@@ -131,6 +133,15 @@ model propertyImages {
   imageId    String
   image      image    @relation(fields: [imageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   property   property @relation(fields: [propertyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model favouriteProperties {
+  id         String   @id @default(uuid())
+  propertyId String
+  userId     String
+  added      DateTime @default(now())
+  property   property @relation(fields: [propertyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user       user     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model ownershipType {
