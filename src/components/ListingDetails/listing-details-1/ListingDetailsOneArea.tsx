@@ -25,6 +25,8 @@ const ListingDetailsOneArea = async (props:Props) => {
 
    const property = await formatter.formattedProperty(props.id);
 
+   console.log(property);
+
    return (
       <div className="listing-details-one theme-details-one bg-pink pt-180 lg-pt-150 pb-150 xl-pb-120">
          <div className="container">
@@ -32,7 +34,7 @@ const ListingDetailsOneArea = async (props:Props) => {
             <MediaGallery images={property?.propertyImages} />
             <div className="property-feature-list bg-white shadow4 border-20 p-40 mt-50 mb-60">
                <h4 className="sub-title-one mb-40 lg-mb-20">Property Overview</h4>
-               <CommonPropertyOverview />
+               <CommonPropertyOverview property={property} />
             </div>
             <div className="row">
                <div className="col-xl-8">
@@ -42,24 +44,24 @@ const ListingDetailsOneArea = async (props:Props) => {
                         dignissim tincidunt. Aliquam accumsan laoreet ultricies tincidunt faucibus fames augue in
                         sociis. Nisl enim integer neque nec.</p>
                   </div>
-                  <div className="property-feature-accordion bg-white shadow4 border-20 p-40 mb-50">
+                  {/* <div className="property-feature-accordion bg-white shadow4 border-20 p-40 mb-50">
                      <h4 className="mb-20">Property Features</h4>
                      <p className="fs-20 lh-lg">Risk management and compliance, when approached strategically, have the potential to go beyond mitigating threats.</p>
                      <div className="accordion-style-two mt-45">
                         <CommonPropertyFeatureList />
                      </div>
-                  </div>
+                  </div> */}
                   <div className="property-amenities bg-white shadow4 border-20 p-40 mb-50">
-                     <CommonAmenities />
+                     <CommonAmenities data={property?.amenities} />
                   </div>
-                  <div className="property-video-tour mb-50">
+                  {/* <div className="property-video-tour mb-50">
                      <CommonPropertyVideoTour />
-                  </div>
-                  <CommonPropertyFloorPlan style={false} />
-                  <div className="property-nearby bg-white shadow4 border-20 p-40 mb-50">
+                  </div> */}
+                  {/* <CommonPropertyFloorPlan style={false} /> */}
+                  {/* <div className="property-nearby bg-white shadow4 border-20 p-40 mb-50">
                      <CommonNearbyList />
-                  </div>
-                  <CommonSimilarProperty />
+                  </div> */}
+                  {/* <CommonSimilarProperty /> */}
                   <div className="property-score bg-white shadow4 border-20 p-40 mb-50">
                      <CommonProPertyScore />
                   </div>

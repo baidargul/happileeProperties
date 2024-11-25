@@ -11,17 +11,17 @@ const CommonBanner = ({ style_3,data}: any) => {
                </div>
             </div>
          </div>
-         <div className="col-lg-6 text-lg-end">
-            <div className="d-flex flex-wrap md-mt-40">
-               <div className="price color-dark fw-500">Price: {Intl.NumberFormat("en-IN", {
+         <div className="col-lg-6 ">
+            <div className="d-flex flex-column align-items-end md-mt-40">
+               <div className="price color-dark fw-500 align-self-start align-self-sm-end">{Intl.NumberFormat("en-IN", {
             style: "currency",
             currency: "INR",
           }).format(data?.price)}</div>
-               <div className="est-price fs-20 mt-25 mb-35 md-mb-30">Est. Payment <span
+               <div className="est-price fs-20 mb-35 md-mb-30 align-self-start align-self-sm-end"><span
                   className="fw-500 color-dark">{Intl.NumberFormat("en-IN", {
                      style: "currency",
                      currency: "INR",
-                   }).format(4567)}/mo*</span></div>
+                   }).format(data?.maintenance??"4567")}/mo*</span></div>
                <ul className="style-none d-flex align-items-center action-btns">
                   <li className="me-auto fw-500 color-dark"></li>
                   <li><Link href="#"

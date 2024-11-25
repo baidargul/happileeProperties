@@ -10,15 +10,15 @@ const Sidebar = () => {
             <div className="agent-info bg-white border-20 p-30 mb-40">
                <SidebarInfo />
             </div>
-            <div className="tour-schedule bg-white border-20 p-30 mb-40">
+            {/* <div className="tour-schedule bg-white border-20 p-30 mb-40">
                <h5 className="mb-40">Schedule Tour</h5>
                <ScheduleForm />
-            </div>
-            <div className="mortgage-calculator bg-white border-20 p-30 mb-40">
+            </div> */}
+            {/* <div className="mortgage-calculator bg-white border-20 p-30 mb-40">
                <h5 className="mb-40">Mortgage Calculator</h5>
                <MortgageCalculator />
-            </div>
-            <FeatureListing />
+            </div> */}
+            {/* <FeatureListing /> */}
          </div>
       </div>
    )
