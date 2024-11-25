@@ -6616,7 +6616,7 @@ iframe {
   width: 90px;
   line-height: 26px;
   border: 1px solid #000;
-  background: #000;
+  background:#0091ff;
   text-align: center;
 }
 .theme-details-one .price {
@@ -6690,7 +6690,7 @@ iframe {
   transition: all 0.3s ease-in-out 0s;
 }
 .theme-details-one .media-gallery .carousel .carousel-control-next:hover, .theme-details-one .media-gallery .carousel .carousel-control-prev:hover {
-  background: #000;
+  background:#0091ff;
   color: #fff;
 }
 .theme-details-one .media-gallery .carousel .carousel-control-prev {
@@ -6757,7 +6757,7 @@ iframe {
   transition: all 0.3s ease-in-out 0s;
 }
 .theme-details-one .media-gallery .slider-arrows li:hover {
-  background: #000;
+  background:#0091ff;
   color: #fff;
 }
 .theme-details-one .img-fancy-btn {

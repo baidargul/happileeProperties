@@ -24,7 +24,7 @@ interface DataType {
 
 const MediaGallery = ({ style,images }: any) => {
   return (
-    <div className="media-gallery mt-100 xl-mt-80 lg-mt-60">
+    <div className="media-gallery mt-30">
       <div id="media_slider" className="carousel slide row">
         <div className="col-lg-10">
           <div className={` bg-white border-20 md-mb-20 ${style ? "" : "shadow4 p-30"}`}>
@@ -39,7 +39,7 @@ const MediaGallery = ({ style,images }: any) => {
                   }}
                 >
                   {images?.map((item: any, index: any) => (
-                    <a key={index} className="d-block" data-fancybox="img2" href={`${item?.url}`}></a>
+                    <a key={index} className="d-block" data-fancybox="img2" href={`${item?.image?.url}`}></a>
                   ))}
                 </Fancybox>
               </div>
@@ -47,7 +47,7 @@ const MediaGallery = ({ style,images }: any) => {
               <div className="carousel-inner">
                 {images?.map((carousel:any, index:number) => (
                   <div key={index} className="carousel-item active">
-                    <Image src={carousel?.url} alt="" className="w-100 border-20 object-fit-cover" width={1120} height={700}
+                    <Image src={carousel?.image?.url} alt="" className="w-100 border-20 object-fit-cover" width={1120} height={700}
                     />
                   </div>
                 ))}
@@ -71,7 +71,7 @@ const MediaGallery = ({ style,images }: any) => {
             {images?.map((carousel: any, i: number) => (
               <button key={i} type="button" data-bs-target="#media_slider" data-bs-slide-to={`${i}`} className="active"
                 aria-current="true" aria-label="Slide 1">
-                <Image src={carousel?.url} alt="" className="w-100 border-10 object-fit-cover" width={187} height={161}/>
+                <Image src={carousel?.image?.url} alt="" className="w-100 border-10 object-fit-cover" width={187} height={161}/>
               </button>
             ))}
           </div>

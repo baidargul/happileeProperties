@@ -1,4 +1,3 @@
-"use client"
 import NiceSelect from "@/ui/NiceSelect"
 import MediaGallery from "./MediaGallery"
 import Review from "@/components/inner-pages/agency/agency-details/Review"
@@ -14,16 +13,23 @@ import CommonSimilarProperty from "../listing-details-common/CommonSimilarProper
 import CommonProPertyScore from "../listing-details-common/CommonProPertyScore"
 import CommonLocation from "../listing-details-common/CommonLocation"
 import CommonReviewForm from "../listing-details-common/CommonReviewForm"
+import { formatter } from "../../../../serveractions/Actions/partials/format"
 
-const ListingDetailsOneArea = () => {
+interface Props {
+   id: string
+}
 
-   const selectHandler = (e: any) => { };
+const ListingDetailsOneArea = async (props:Props) => {
+
+   // const selectHandler = (e: any) => { };
+
+   const property = await formatter.formattedProperty(props.id);
 
    return (
       <div className="listing-details-one theme-details-one bg-pink pt-180 lg-pt-150 pb-150 xl-pb-120">
          <div className="container">
-            <CommonBanner />
-            <MediaGallery />
+            <CommonBanner data={property} />
+            <MediaGallery images={property?.propertyImages} />
             <div className="property-feature-list bg-white shadow4 border-20 p-40 mt-50 mb-60">
                <h4 className="sub-title-one mb-40 lg-mb-20">Property Overview</h4>
                <CommonPropertyOverview />
@@ -61,7 +67,7 @@ const ListingDetailsOneArea = () => {
                      <CommonLocation />
                   </div>
 
-                  <div className="review-panel-one bg-white shadow4 border-20 p-40 mb-50">
+                  {/* <div className="review-panel-one bg-white shadow4 border-20 p-40 mb-50">
                      <div className="position-relative z-1">
                         <div className="d-sm-flex justify-content-between align-items-center mb-10">
                            <h4 className="m0 xs-pb-30">Reviews</h4>
@@ -78,10 +84,10 @@ const ListingDetailsOneArea = () => {
                         </div>
                         <Review style={true} />
                      </div>
-                  </div>
-                  <div className="review-form bg-white shadow4 border-20 p-40">
+                  </div> */}
+                  {/* <div className="review-form bg-white shadow4 border-20 p-40">
                      <CommonReviewForm />
-                  </div>
+                  </div> */}
                </div>
                <Sidebar />
             </div>

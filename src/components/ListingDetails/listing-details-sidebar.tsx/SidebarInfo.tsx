@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -33,13 +34,13 @@ useEffect(()=>{
 },[])
 
    return (
-      agentData&&<>
+         <>
          <Image src={infoAvatar} alt=""
             className="lazy-img  ms-auto me-auto mt-3 avatar" />
          <div className="text-center mt-25">
-            <h6 className="name">{agentData?.name}</h6>
+            <h6 className="name">{agentData?.name??"Jhon Deo"}</h6>
             <p className="fs-16">Property Agent & Broker</p>
-            <p className="fs-14 text-muted">{agentData?.agent?.description}</p>
+            <p className="fs-14 text-muted">{agentData?.agent?.description??"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae."}</p>
             {/* <ul className="style-none d-flex align-items-center justify-content-center social-icon">
                <li><Link href="#"><i className="fa-brands fa-facebook-f"></i></Link></li>
                <li><Link href="#"><i className="fa-brands fa-twitter"></i></Link></li>
@@ -49,10 +50,10 @@ useEffect(()=>{
          </div>
          <div className="divider-line mt-40 mb-45 pt-20">
             <ul className="style-none">
-               {agentData?.address&&<li>Location: <span>{agentData?.address}</span></li>}
-               <li>Email: <span><Link href={`mailto:${agentData?.email}`}>{agentData?.email}</Link></span>
+               {agentData?.address&&<li>Location: <span>{agentData?.address??"Lorem ipsum dolor sit amet"}</span></li>}
+               <li>Email: <span><Link href={`mailto:${agentData?.email}`}>{agentData?.email??"info@inquiry"}</Link></span>
                </li>
-               <li>Phone: <span><Link href={`tel:${agentData?.phone}`}>{agentData?.phone}</Link></span></li>
+               <li>Phone: <span><Link href={`tel:${agentData?.phone}`}>{agentData?.phone??"123-456-7890"}</Link></span></li>
             </ul>
          </div>
          <button className="btn-nine text-uppercase rounded-3 w-100 mb-10">

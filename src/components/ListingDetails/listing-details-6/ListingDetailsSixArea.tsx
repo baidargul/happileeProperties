@@ -19,44 +19,31 @@ import { serverActions } from "../../../../serveractions/commands/serverCommands
 import prisma from "../../../../serveractions/commands/prisma"
 import { accountStatus, builder } from "@prisma/client"
 import Banner from "@/app/builder/[id]/Banner"
+import { formatter } from "../../../../serveractions/Actions/partials/format"
+import { useRouter } from "next/navigation"
 
-const ListingDetailsSixArea = async () => {
-      const list:any = await prisma.builder.findMany({
-        include: {
-          user:{
-            include:{
-              image:true
-            },
-            omit:{
-               password:true
-            }
-          },
-        },
-        orderBy: {
-          user: {
-            createdAt: "desc",
-          },
-        },
-      });
+type Props={
+   id:string,
+}
+const ListingDetailsSixArea = async (props:Props) => {
+   // const { id } = params; // Extract 'id' from the dynamic route
 
+   // console.log(props.id)
 
-      // const temp:accountStatus;
-
-      console.log(list[0])
-      const images=list[0]?.user?.image;
-   // if(list.length==0) return
-
+   const property = await formatter.formattedProperty(props.id);
+   console.log(property);
+   
    return (
       <>
-         <div className="listing-details-one theme-details-one mt-200 xl-mt-150">
+         <div className="listing-details-one theme-details-one mt-200 xl-mt-150" style={{backgroundColor:"#F4FAFF", padding:"1rem 0"}}>
             <div className="container">
-               <Banner style_3={true} data={list[0]}/>
-               <MediaGallery style={true} images={images}/>
+               <Banner style_3={true} data={property}/>
+               <MediaGallery style={true} images={property?.propertyImages}/>
                <div className="row pt-80 lg-pt-50">
                   <div className="col-xl-8">
                      <div className="property-overview bottom-line-dark">
                         <h4 className="mb-20">Description</h4>
-                        <p className="fs-20 lh-lg">{list[0]?.description??`Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime illum consectetur sint minus! Molestias repellendus quisquam et eum quibusdam provident? Architecto vitae asperiores adipisci consequuntur praesentium aperiam non, illo qui.
+                        <p className="fs-20 lh-lg">{`Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime illum consectetur sint minus! Molestias repellendus quisquam et eum quibusdam provident? Architecto vitae asperiores adipisci consequuntur praesentium aperiam non, illo qui.
                         Sapiente molestias fuga dolorum fugit voluptate corrupti ratione. Similique ipsa ut pariatur dignissimos! Ipsum mollitia, dolor quae beatae quas deleniti quam nobis illo ut quaerat, necessitatibus modi sint deserunt nam!
                         Sed voluptatum rem reprehenderit, nostrum aspernatur nihil hic dolor optio nemo, incidunt sapiente saepe non quo odit, reiciendis maiores minima? Beatae quo maiores provident, cupiditate repellat quidem architecto ratione possimus!
                         Eius eum facere asperiores dolorem iste tempora expedita laudantium, dicta aperiam exercitationem quis. Inventore eos ad dolorum sapiente asperiores odit consectetur, nulla nesciunt accusantium unde voluptate sint, ipsum nemo neque!

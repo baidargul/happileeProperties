@@ -1,21 +1,18 @@
 import ListingDetailsFour from "@/components/ListingDetails/listing-details-4";
+import ListingDetailsSix from "@/components/ListingDetails/listing-details-6";
+import Wrapper from "@/layouts/Wrapper";
 import React from "react";
 
-export async function generateStaticParams() {
-  return [
-    { id: "1" },
-    { id: "2" },
-    { id: "3" },
-    { id: "4" },
-    { id: "5" },
-    { id: "6" },
-    { id: "7" },
-    { id: "8" },
-    { id: "9" },
-    { id: "10" },
-  ];
+type Props={
+  params:{
+    id:string,
+  },
 }
 
-export default async function page() {
-  return <ListingDetailsFour />;
+export default async function page(props:Props) {
+  return (
+    <Wrapper>
+      <ListingDetailsSix id={props.params.id}/>
+    </Wrapper>
+  );
 }

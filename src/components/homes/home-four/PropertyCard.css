@@ -1,0 +1,93 @@
+.property-card-container{
+	width: 25rem;
+	height: 30rem;
+	background-color: white;
+	border-radius: 10px;
+	margin-bottom: 2rem;
+}
+.property-card-img{
+	height: 65%;
+	width: 100%;
+	border-top-left-radius: 50%;
+	border-top-right-radius: 50%;
+	position: relative;
+}
+
+.property-card-title{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding-left: 10px;
+	width: 100%;
+	background: rgb(2,0,36);
+	background: -moz-linear-gradient(180deg, rgba(2,0,36,0) 0%, rgba(0,0,0,1) 100%);
+	background: -webkit-linear-gradient(180deg, rgba(2,0,36,0) 0%, rgba(0,0,0,1) 100%);
+	background: linear-gradient(180deg, rgba(2,0,36,0) 0%, rgba(0,0,0,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#000000",GradientType=1);
+}
+
+.property-card-title p{
+	font-family: "Gordita";
+	color: white;
+	font-weight:500;
+	font-size: 2rem;
+	line-height:normal;
+}
+
+.property-card-location{
+	padding: 10px 10px;
+}
+
+.property-card-bottom{
+	width: 100%;
+	padding: 10px 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.property-card-bottom p{
+	font-family: "Gordita";
+	color: black;
+	font-weight:600;
+	font-size: 2rem;
+	line-height:normal;
+	margin: 0;
+}
+.property-card-bottom button{
+	font-family: "Gordita";
+	border-radius: 3px;
+	border: solid 1px black;
+	padding: 5px 10px;
+	background-color: #016BFF;
+	color: white;
+}
+ 
+.f-carousel {
+	--f-carousel-spacing: 20px;
+	--f-carousel-slide-width: calc((100% - 16px) / 4);
+  }
+
+  .f-button.is-next{
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  .f-button:hover:not([disabled]){
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    
+  }
+
+  .f-button.is-prev{
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  .f-carousel {
+	--f-carousel-slide-width: 100%;
+  }
+  
+  @media (min-width: 768px) {
+	.f-carousel {
+	  --f-carousel-slide-width: calc(100% / 3);
+	}
+  }
