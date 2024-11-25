@@ -44,7 +44,7 @@ const ListingDetailsSixArea = async () => {
 
       console.log(list[0])
       const images=list[0]?.user?.image;
-   if(list.length==0) return
+   // if(list.length==0) return
 
    return (
       <>

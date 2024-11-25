@@ -1,24 +1,24 @@
-// "use client"
-// import property_data from "@/data/home-data/PropertyData"
+"use client"
+import property_data from "@/data/home-data/PropertyData"
 import Image from "next/image"
 import Link from "next/link"
 
 import titleShape from "@/assets/images/shape/title_shape_03.svg"
 import "@fancyapps/ui/dist/carousel/carousel.css";
 import prisma from "../../../../serveractions/commands/prisma";
-// import { Carousel } from "@fancyapps/ui";
-// import { useEffect } from "react"
+import { Carousel } from "@fancyapps/ui";
+import { useEffect } from "react"
 // import { serverActions } from "../../../../serveractions/commands/serverCommands"
 
 
-const PropertyOne = async ({ style_1, style_2 }: any) => {
+const PropertyOne = ({ style_1, style_2 }: any) => {
 
-   // useEffect(() => {
-   //    const container = document.getElementById("myCarousel");
-   //    new Carousel(container, {
-   //       infinite: false, // Loop through slides
-   //    });
-   //  }, []);
+   useEffect(() => {
+      const container = document.getElementById("myCarousel");
+      new Carousel(container, {
+         infinite: false, // Loop through slides
+      });
+    }, []);
 
    //  const getListing = async () => {
    //     const res = await serverActions.property.listAll();
@@ -27,47 +27,47 @@ const PropertyOne = async ({ style_1, style_2 }: any) => {
 
    //  getListing();
 
-   let property_data: any = await prisma.property.findMany({
-      include: {
-        propertyType: {
-          include: {
-            allotmentType: true,
-          },
-        },
-        bhkType: true,
-        furnishing: true,
-        ownershipType: true,
-        propertyImages: {
-          include: {
-            image: {
-              include: {
-                user: true,
-              },
-            },
-          },
-        },
-      },
-      orderBy: [
-        {
-          title: "asc",
-        },
-        {
-          propertyType: {
-            name: "asc",
-          },
-        },
-        {
-          bhkType: {
-            name: "asc",
-          },
-        },
-        {
-          furnishing: {
-            name: "asc",
-          },
-        },
-      ],
-    });
+   // let property_data: any = await prisma.property.findMany({
+   //    include: {
+   //      propertyType: {
+   //        include: {
+   //          allotmentType: true,
+   //        },
+   //      },
+   //      bhkType: true,
+   //      furnishing: true,
+   //      ownershipType: true,
+   //      propertyImages: {
+   //        include: {
+   //          image: {
+   //            include: {
+   //              user: true,
+   //            },
+   //          },
+   //        },
+   //      },
+   //    },
+   //    orderBy: [
+   //      {
+   //        title: "asc",
+   //      },
+   //      {
+   //        propertyType: {
+   //          name: "asc",
+   //        },
+   //      },
+   //      {
+   //        bhkType: {
+   //          name: "asc",
+   //        },
+   //      },
+   //      {
+   //        furnishing: {
+   //          name: "asc",
+   //        },
+   //      },
+   //    ],
+   //  });
     
     console.log(property_data)
    return (
@@ -82,10 +82,10 @@ const PropertyOne = async ({ style_1, style_2 }: any) => {
 
                <div id="myCarousel" className="f-carousel" >
                   {property_data.map((item) => (
-                     <div key={item.id} className="d-flex mt-40 wow fadeInUp f-carousel__slide" 
-                     // style={{margin:"10px 5px",width: window.innerWidth >= 992 ? "25%" : "75%",}}
+                     <div key={item.id} className="col-sm d-flex mt-40 wow fadeInUp mx-auto f-carousel__slide" 
+                     style={{margin:"10px 5px"}}
                      >
-                        <div className="listing-card-one style-two shadow-none h-100 w-100 bg-light" style={{borderRadius:'10px'}}>
+                        <div className="listing-card-one w-100 style-two shadow-none h-100 w-100 bg-light" style={{borderRadius:'10px'}}>
                            <div className="img-gallery">
                               <div className="position-relative overflow-hidden">
                                  <div className="tag fw-500">{item.tag}</div>
