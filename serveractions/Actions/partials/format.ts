@@ -27,6 +27,10 @@ async function formattedProperty(id: string) {
     },
   });
 
+  if (!property) {
+    return null;
+  }
+
   const amenities = await prisma.amenitiesregister.findMany({
     where: {
       propertyId: id,
@@ -36,9 +40,16 @@ async function formattedProperty(id: string) {
     },
   });
 
+  const allotmentFor = await prisma.allotmentFor.findUnique({
+    where: {
+      id: property.allotmentForId,
+    },
+  });
+
   const final = {
     ...property,
     amenities: [...amenities],
+    allotmentFor: allotmentFor,
   };
 
   return final;

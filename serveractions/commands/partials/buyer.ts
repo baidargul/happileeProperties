@@ -1,4 +1,5 @@
 import axios from "axios";
+import { favourite } from "./favourite";
 
 const apiPath = `/api/users/buyer`;
 
@@ -39,4 +40,5 @@ async function get(id: string) {
 export const buyer = {
   create,
   listAll,
+  favourite,
 };
