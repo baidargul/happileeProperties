@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 import property_data from "@/data/home-data/PropertyData"
 import Image from "next/image"
 import Link from "next/link"
@@ -11,14 +11,14 @@ import { useEffect } from "react"
 // import { serverActions } from "../../../../serveractions/commands/serverCommands"
 
 
-const PropertyOne = ({ style_1, style_2 }: any) => {
+const PropertyOne = async ({ style_1, style_2 }: any) => {
 
-   useEffect(() => {
-      const container = document.getElementById("myCarousel");
-      new Carousel(container, {
-         infinite: false, // Loop through slides
-      });
-    }, []);
+   // useEffect(() => {
+   //    const container = document.getElementById("myCarousel");
+   //    new Carousel(container, {
+   //       infinite: false, // Loop through slides
+   //    });
+   //  }, []);
 
    //  const getListing = async () => {
    //     const res = await serverActions.property.listAll();
@@ -27,49 +27,50 @@ const PropertyOne = ({ style_1, style_2 }: any) => {
 
    //  getListing();
 
-   // let property_data: any = await prisma.property.findMany({
-   //    include: {
-   //      propertyType: {
-   //        include: {
-   //          allotmentType: true,
-   //        },
-   //      },
-   //      bhkType: true,
-   //      furnishing: true,
-   //      ownershipType: true,
-   //      propertyImages: {
-   //        include: {
-   //          image: {
-   //            include: {
-   //              user: true,
-   //            },
-   //          },
-   //        },
-   //      },
-   //    },
-   //    orderBy: [
-   //      {
-   //        title: "asc",
-   //      },
-   //      {
-   //        propertyType: {
-   //          name: "asc",
-   //        },
-   //      },
-   //      {
-   //        bhkType: {
-   //          name: "asc",
-   //        },
-   //      },
-   //      {
-   //        furnishing: {
-   //          name: "asc",
-   //        },
-   //      },
-   //    ],
-   //  });
+   let property_data: any = await prisma.property.findMany({
+      include: {
+        propertyType: {
+          include: {
+            allotmentType: true,
+          },
+        },
+        bhkType: true,
+        furnishing: true,
+        ownershipType: true,
+        propertyImages: {
+          include: {
+            image: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: [
+        {
+          title: "asc",
+        },
+        {
+          propertyType: {
+            name: "asc",
+          },
+        },
+        {
+          bhkType: {
+            name: "asc",
+          },
+        },
+        {
+          furnishing: {
+            name: "asc",
+          },
+        },
+      ],
+    });
     
     console.log(property_data)
+
    return (
       <div className="property-listing-five mt-170 xl-mt-120">
          <div className="container container-large">
@@ -81,7 +82,7 @@ const PropertyOne = ({ style_1, style_2 }: any) => {
                </div>
 
                <div id="myCarousel" className="f-carousel" >
-                  {property_data.map((item) => (
+                  {property_data?.map((item) => (
                      <div key={item.id} className="col-sm d-flex mt-40 wow fadeInUp mx-auto f-carousel__slide" 
                      style={{margin:"10px 5px"}}
                      >
@@ -96,7 +97,7 @@ const PropertyOne = ({ style_1, style_2 }: any) => {
                                        <button type="button" data-bs-target={`#carousel${item.carousel}`} data-bs-slide-to="2" aria-label="Slide 3"></button>
                                     </div>
                                     <div className="carousel-inner">
-                                       {item.carousel_thumb.map((item, i) => (
+                                       {item?.carousel_thumb?.map((item, i) => (
                                           <div key={i} className={`carousel-item ${item.active}`} data-bs-interval="1000000">
                                              <Link href="/listing_details_01" className="d-block"><Image src={item.img} className="w-100" alt="..." /></Link>
                                           </div>
