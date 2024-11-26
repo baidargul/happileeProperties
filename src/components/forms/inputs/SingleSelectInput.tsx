@@ -8,7 +8,7 @@ export default function SingleSelectInput({
   onBlur,
   isDisabled,
   isRequired,
-  placeHolder
+  placeHolder,
 }) {
   return (
     <div className="dash-input-wrapper mb-30">
