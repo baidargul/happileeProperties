@@ -7,7 +7,7 @@ const CommonAmenities = ({data}: any) => {
          <p className="fs-20 lh-lg pb-25">Risk management & compliance, when approached strategically, have the
             potential</p>
          <ul className="style-none d-flex flex-wrap justify-content-between list-style-two">
-            {data.map((list: any, i: number) => (
+            {data&&data.map((list: any, i: number) => (
                <li style={{textTransform: "capitalize"}} key={i}>{list.amenities.name}</li>
             ))}
          </ul>

@@ -18,33 +18,33 @@ const CommonPropertyOverview = ({property}: any) => {
       {
          id: 1,
          icon: icon_1,
-         title: `Sqft . ${property.area}`,
+         title: `Sqft . ${property?.area??"1200"}`,
       },
       {
          id: 2,
          icon: icon_2,
-         title: `BHK. ${property.bhkType.name}`,
+         title: `BHK. ${property?.bhkType?.name??"2BHK"}`,
       },
       {
          id: 3,
          icon: icon_3,
-         title: `${property.furnishing.name}`,
+         title: `${property?.furnishing?.name??"Semi Furnished"}`,
       },
       {
          id: 4,
          icon: icon_4,
-         title: `${property.propertyType.allotmentType.name}`,
+         title: `${property?.propertyType?.allotmentType?.name??"Residential"}`,
       },
       {
          id: 5,
          icon: icon_5,
-         title: `${property?.propertyType?.name}`,
+         title: `${property?.propertyType?.name??"Apartment"}`,
       },
    ]
 
    return (
       <ul className="style-none d-flex flex-wrap align-items-center justify-content-between">
-         {property_overview_data.map((item) => (
+         {property_overview_data&&property_overview_data.map((item) => (
             <li key={item.id}>
                <Image src={item.icon} alt="" className="lazy-img icon" />
                <span className="fs-20 color-dark" style={{
