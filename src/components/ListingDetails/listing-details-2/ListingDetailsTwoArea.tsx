@@ -29,7 +29,7 @@ const ListingDetailsTwoArea = () => {
             <div className="bg-white shadow4 border-20 p-40 mt-70 lg-mt-50 mb-60">
                <CommonBanner />
                <div className="property-feature-list border-top mt-70 lg-mt-50 pt-60 lg-pt-30 pb-30 lg-pb-10">
-                  <CommonPropertyOverview />
+                  {/* <CommonPropertyOverview /> */}
                </div>
             </div>
             <div className="row">
@@ -49,7 +49,7 @@ const ListingDetailsTwoArea = () => {
                      </div>
                   </div>
                   <div className="property-amenities bg-white shadow4 border-20 p-40 mb-50">
-                     <CommonAmenities />
+                     {/* <CommonAmenities /> */}
                   </div>
                   <div className="property-video-tour mb-50">
                      <CommonPropertyVideoTour />

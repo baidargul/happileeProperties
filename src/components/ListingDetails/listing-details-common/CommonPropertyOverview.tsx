@@ -13,7 +13,7 @@ interface DataType {
 }[];
 
 
-const CommonPropertyOverview = ({property}) => {
+const CommonPropertyOverview = ({property}: any) => {
    const property_overview_data: DataType[] = [
       {
          id: 1,

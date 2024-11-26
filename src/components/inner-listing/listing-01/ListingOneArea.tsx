@@ -52,7 +52,7 @@ const ListingOneArea = () => {
                         <div className="d-flex align-items-center xs-mt-20">
                            <div className="short-filter d-flex align-items-center">
                               <div className="fs-16 me-2">Short by:</div>
-                              <NiceSelect
+                              {/* <NiceSelect
                                  className="nice-select"
                                  options={[
                                     { value: "newest", text: "Newest" },
@@ -64,7 +64,7 @@ const ListingOneArea = () => {
                                  defaultCurrent={0}
                                  onChange={handleTypeChange}
                                  name=""
-                                 placeholder="" />
+                                 placeholder="" /> */}
                            </div>
                            <Link href="/listing_02" className="tran3s layout-change rounded-circle ms-auto ms-sm-3"
                               data-bs-toggle="tooltip" title="Switch To List View">

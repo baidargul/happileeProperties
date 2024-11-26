@@ -49,7 +49,7 @@ const ListingDetailsFourArea = () => {
 							</div>
 						</div>
                      <div className="property-amenities bottom-line-dark pb-40 mb-60">
-                        <CommonAmenities />
+                        {/* <CommonAmenities /> */}
                      </div>
                      <div className="property-video-tour bottom-line-dark pb-40 mb-60">
                         <CommonPropertyVideoTour />

@@ -64,7 +64,7 @@ const PropertyOne = async ({ style_1, style_2 }: any) => {
             </p>
           </div>
           <CarouselWrapper options={{ infinite: true }}>
-            {properties?.map((item) => (
+            {properties?.map((item:any) => (
                <PropertyCard key={item.id} property={item} />
             ))}
           </CarouselWrapper>

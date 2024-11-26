@@ -28,7 +28,7 @@ const ListingDetailsThreeArea = () => {
                   <div className="bg-white shadow4 border-20">
                      <PropertyOverview />
                      <div className="property-amenities border-top p-40">
-                        <CommonAmenities />
+                        {/* <CommonAmenities /> */}
                      </div>
                      <div className="property-video-tour border-top p-40">
                         <CommonPropertyVideoTour />

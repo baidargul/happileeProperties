@@ -3,17 +3,20 @@ import React, { useState, useCallback, useRef, FC, ChangeEvent } from "react";
 import { useClickAway } from "react-use";
 
 interface Option {
-  id: string;
-  name: string;
+  value: string;
+  text: string;
 }
 
 type NiceSelectProps = {
   options: Option[];
   defaultCurrent: number;
-  placeholder: string;
+  placeholder?: string;
   className?: string;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   name: string;
+  onBlur?: () => void;
+  isDisabled?: boolean;
+  isRequired?: boolean;
 };
 
 const NiceSelect: FC<NiceSelectProps> = ({
@@ -36,7 +39,7 @@ const NiceSelect: FC<NiceSelectProps> = ({
 
   const currentHandler = (item: Option) => {
     setCurrent(item);
-    onChange({ target: { value: item.id } } as ChangeEvent<HTMLSelectElement>);
+    onChange({ target: { value: item.value } } as ChangeEvent<HTMLSelectElement>);
     onClose();
   };
 
@@ -51,7 +54,7 @@ const NiceSelect: FC<NiceSelectProps> = ({
       onKeyDown={(e) => e}
       ref={ref}
     >
-      <span className="current">{current?.name || placeholder}</span>
+      <span className="current">{current?.text || placeholder}</span>
       <ul
         className="list"
         role="menubar"
@@ -61,16 +64,16 @@ const NiceSelect: FC<NiceSelectProps> = ({
         {options?.map((item, i) => (
           <li
             key={i}
-            data-value={item.id}
+            data-value={item.value}
             className={`option ${
-              item.id === current?.id ? "selected focus" : ""
+              item.value === current?.value ? "selected focus" : ""
             }`}
             style={{ fontSize: "14px" }}
             role="menuitem"
             onClick={() => currentHandler(item)}
             onKeyDown={(e) => e}
           >
-            {item.name}
+            {item.text}
           </li>
         ))}
       </ul>

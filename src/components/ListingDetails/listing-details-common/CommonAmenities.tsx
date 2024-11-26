@@ -1,13 +1,13 @@
 const ammenities_data: string[] = ["A/C & Heating", "Garages", "Garden", "Disabled Access", "Swimming Pool", "Parking", "Wifi", "Pet Friendly", "Ceiling Height", "Fireplace", "Play Ground", "Elevator"]
 
-const CommonAmenities = ({data}) => {
+const CommonAmenities = ({data}: any) => {
    return (
       <>
          <h4 className="mb-20">Amenities</h4>
          <p className="fs-20 lh-lg pb-25">Risk management & compliance, when approached strategically, have the
             potential</p>
          <ul className="style-none d-flex flex-wrap justify-content-between list-style-two">
-            {data.map((list, i) => (
+            {data.map((list: any, i: number) => (
                <li style={{textTransform: "capitalize"}} key={i}>{list.amenities.name}</li>
             ))}
          </ul>

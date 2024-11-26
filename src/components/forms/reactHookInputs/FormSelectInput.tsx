@@ -27,7 +27,7 @@ const FormSelectInput: React.FC<FormSelectInputProps> = ({ label,className,contr
 			selectHandler={onChange}
 			onBlur={onBlur}
 			isDisabled={isDisabled}
-			placeholder={placeholder}
+			placeHolder={placeholder}
 			isRequired={isRequired}
 			options={options}
 		/>
