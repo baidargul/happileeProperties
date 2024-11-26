@@ -17,5 +17,6 @@ export async function generateStaticParams() {
 }
 
 export default async function Builder() {
-  return <ListingDetailsSix />;
+  // return <ListingDetailsSix />;
+  return <></>
 }

@@ -4,10 +4,13 @@ import Wrapper from "@/layouts/Wrapper";
 export const metadata = {
    title: "Listing Details Six Happilee  ",
 };
-const index = () => {
+interface Props{
+   id:string
+}
+const index = (props:Props) => {
    return (
       <Wrapper>
-         <ListingDetailsSix />
+         <ListingDetailsSix id={props.id}/>
       </Wrapper>
    )
 }
