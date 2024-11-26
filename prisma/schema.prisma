@@ -97,6 +97,7 @@ model property {
   securityDeposite    Decimal?
   rent                Decimal?              @db.Decimal
   maintenance         Decimal?              @db.Decimal
+  views               Decimal?              @default(0) @db.Decimal
   amenitiesregister   amenitiesregister[]
   favouriteProperties favouriteProperties[]
   allotmentFor        allotmentFor          @relation(fields: [allotmentForId], references: [id], onDelete: NoAction, onUpdate: NoAction)
