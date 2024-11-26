@@ -92,7 +92,7 @@ const DashboardBody = () => {
                         <h5 className="dash-title-two">Property View</h5>
                         <div className="short-filter d-flex align-items-center">
                            <div className="fs-16 me-2">Short by:</div>
-                           <NiceSelect className="nice-select fw-normal"
+                           {/* <NiceSelect className="nice-select fw-normal"
                               options={[
                                  { value: "1", text: "Weekly" },
                                  { value: "2", text: "Daily" },
@@ -101,7 +101,7 @@ const DashboardBody = () => {
                               defaultCurrent={0}
                               onChange={selectHandler}
                               name=""
-                              placeholder="" />
+                              placeholder="" /> */}
                         </div>
                      </div>
                      <div className="plr mt-50">

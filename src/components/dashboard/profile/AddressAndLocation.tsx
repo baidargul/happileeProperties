@@ -19,7 +19,7 @@ const AddressAndLocation = () => {
             <div className="col-lg-3">
                <div className="dash-input-wrapper mb-25">
                   <label htmlFor="">Country*</label>
-                  <NiceSelect className="nice-select"
+                  {/* <NiceSelect className="nice-select" */}
                      options={[
                         { value: "1", text: "Afghanistan" },
                         { value: "2", text: "Albania" },
@@ -51,7 +51,7 @@ const AddressAndLocation = () => {
             <div className="col-lg-3">
                <div className="dash-input-wrapper mb-25">
                   <label htmlFor="">City*</label>
-                  <NiceSelect className="nice-select"
+                  {/* <NiceSelect className="nice-select" */}
                      options={[
                         { value: "1", text: "Boston" },
                         { value: "2", text: "Tokyo" },
@@ -75,7 +75,7 @@ const AddressAndLocation = () => {
             <div className="col-lg-3">
                <div className="dash-input-wrapper mb-25">
                   <label htmlFor="">State*</label>
-                  <NiceSelect className="nice-select"
+                  {/* <NiceSelect className="nice-select" */}
                      options={[
                         { value: "1", text: "Maine" },
                         { value: "2", text: "Tokyo" },

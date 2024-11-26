@@ -74,7 +74,7 @@ const BreadcrumbThree = ({
                   <div className="col-xl-5 col-lg-5">
                     <div className="input-box-one border-left">
                       <div className="label">Location</div>
-                      <NiceSelect
+                      {/* <NiceSelect
                         className="nice-select location fw-normal"
                         options={[
                           { value: "dhaka", text: "Dhanmondi, Dhaka" },
@@ -89,7 +89,7 @@ const BreadcrumbThree = ({
                         onChange={selectHandler}
                         name=""
                         placeholder=""
-                      />
+                      /> */}
                     </div>
                   </div>
                   <div className="col-xl-2 col-lg-3">

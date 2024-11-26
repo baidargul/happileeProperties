@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormSelectInput from "@/components/forms/reactHookInputs/FormSelectInput";
 import ImagePicker from "@/components/ImagePicker/ImagePicker";
+import { allotmentFor, allotmentType, amenities, bhk, propertyType } from "@prisma/client";
 
 const Overview = () => {
   const selectHandler = (e: any) => {};
@@ -23,10 +24,10 @@ const Overview = () => {
   //   rest()
   // },[])
   const [data, setData] = useState<any>([]);
-  const [allotment, setAllotment] = useState({});
-  const [lookingFor, setLookingFor] = useState({});
-  const [propertyType, setPropertyType] = useState({});
-  const [bhk, setBhk] = useState({});
+  const [allotment, setAllotment] = useState<allotmentType|null>(null);
+  const [lookingFor, setLookingFor] = useState<allotmentFor|null>(null);
+  const [propertyType, setPropertyType] = useState<propertyType|null>(null);
+  const [bhk, setBhk] = useState<bhk|null>(null);
   const [amenities, setAmenities] = useState([]);
   const [selectedImageArray, setSelectedImageArray] = useState([]);
   const [removedImageArray, setRemovedImageArray] = useState([]);
@@ -100,7 +101,7 @@ const Overview = () => {
     console.log(data);
     const formData = new FormData();
 
-    Object.entries(data).forEach(([key, value]) => {
+    Object.entries(data).forEach(([key, value]: [string, any]) => {
       if (Array.isArray(value)) {
         // If the value is an array, append each item individually (e.g., for `amenities`)
         // value.forEach((item) => {
@@ -141,11 +142,11 @@ const Overview = () => {
               color: "#000",
             }}>Property type*</p>
             <div className="w-100 row gap-3">
-              {data?.allotmentType?.map((item) => (
+              {data?.allotmentType?.map((item:allotmentType) => (
                 <SelectionCard
                   key={item.id}
                   setItem={() => setAllotment(item)}
-                  item={allotment?.id}
+                  item={allotment?allotment.id:""}
                   name={item.name}
                   id={item.id}
                   className="text-capitalize"
@@ -166,11 +167,11 @@ const Overview = () => {
               color: "#000",
             }}>Looking to*</p>
             <div className="w-100 row gap-3">
-            {data?.lookingFor?.allotmentFor?.map((item) => (
+            {data?.lookingFor?.allotmentFor?.map((item:allotmentFor) => (
               <SelectionCard
                 key={item.id}
                 setItem={() => setLookingFor(item)}
-                item={lookingFor?.id}
+                item={lookingFor?.id??""}
                 name={item.name}
                 id={item.id}
                 className="text-capitalize"
@@ -190,12 +191,12 @@ const Overview = () => {
             }}>Property type*</p>
             <div className="w-100 row gap-3">
             {data?.lookingFor?.propertyType
-              ?.filter((item) => item.allotmentTypeId === allotment?.id)
-              .map((item) => (
+              ?.filter((item:propertyType) => item.allotmentTypeId === allotment?.id)
+              .map((item:any) => (
                 <SelectionCard
                   key={item.id}
                   setItem={() => setPropertyType(item)}
-                  item={propertyType?.id}
+                  item={propertyType?.id??""}
                   name={item.name}
                   id={item.id}
                   className="text-capitalize"
@@ -214,11 +215,11 @@ const Overview = () => {
               color: "#000",
             }}>BHK*</p>
             <div className="w-100 row gap-3">
-            {data?.bhk?.map((item) => (
+            {data?.bhk?.map((item:bhk) => (
                 <SelectionCard
                   key={item.id}
                   setItem={() => setBhk(item)}
-                  item={bhk?.id}
+                  item={bhk?.id??""}
                   name={item.name}
                   id={item.id}
                   className="text-uppercase"
@@ -290,16 +291,16 @@ const Overview = () => {
                 color: "#000",
               }}>Amenities*</p>
               <div className="w-100 row gap-2">
-              {data?.amenities?.slice(0, 9).map((item) => (
+              {data?.amenities?.slice(0, 9).map((item:any) => (
                 <div  key={item.id}
                   className={`border border-2 col-1 d-flex align-items-center justify-content-center ${
-                    amenities?.some((amenity) => amenity.id === item.id) ? "bg-primary text-white" : ""
+                    amenities?.some((amenity:amenities) => amenity.id === item.id) ? "bg-primary text-white" : ""
                   } rounded-2 text-center p-2`}
                   style={{ cursor: "pointer",width:"100%",height:"2.5rem" }}
                   onClick={() => setAmenities(
-                    (prev) =>
-                      prev.some((amenity) => amenity.id === item.id)
-                        ? prev.filter((amenity) => amenity.id !== item.id) // Remove if already selected
+                    (prev:any) =>
+                      prev.some((amenity:amenities) => amenity.id === item.id)
+                        ? prev.filter((amenity:amenities) => amenity.id !== item.id) // Remove if already selected
                         : [...prev, item] // Add if not selected
                   )}
                 >
