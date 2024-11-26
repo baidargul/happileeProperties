@@ -1,8 +1,6 @@
 import { NextRequest } from "next/server";
 import prisma from "../../../../../serveractions/commands/prisma";
 
-// export const dynamic = "force-dynamic";
-
 export async function GET(req: NextRequest) {
   const response = {
     status: 500,

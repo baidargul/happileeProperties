@@ -149,10 +149,12 @@ export async function PATCH(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    const isPasswordValid = await bcrypt.compare(
-      data.password,
-      isExists.password
-    );
+    const isPasswordValid = data.password === isExists.password;
+
+    // const isPasswordValid = await bcrypt.compare(
+    //   data.password,
+    //   isExists.password
+    // );
 
     if (!isPasswordValid) {
       response.status = 400;

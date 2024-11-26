@@ -32,6 +32,7 @@ model user {
   buyer               buyer?
   favouriteProperties favouriteProperties[]
   image               image[]
+  interested          interested[]
 }
 
 model image {
@@ -100,6 +101,7 @@ model property {
   views               Decimal?              @default(0) @db.Decimal
   amenitiesregister   amenitiesregister[]
   favouriteProperties favouriteProperties[]
+  interested          interested[]
   allotmentFor        allotmentFor          @relation(fields: [allotmentForId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   bhkType             bhk?                  @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   furnishing          furnishing?           @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -165,6 +167,15 @@ model amenitiesregister {
   amentitiesId String
   amenities    amenities @relation(fields: [amentitiesId], references: [id], onDelete: Cascade)
   property     property  @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+}
+
+model interested {
+  id         String    @id @default(uuid())
+  propertyId String
+  userId     String
+  createdAt  DateTime? @db.Date @default(now())
+  property   property  @relation(fields: [propertyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user       user      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum accountStatus {
