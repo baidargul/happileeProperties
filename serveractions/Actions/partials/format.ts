@@ -1,4 +1,5 @@
 import prisma from "../../commands/prisma";
+import { SERVER_ACTIONS } from "../SERVER_ACTIONS";
 
 async function formattedProperty(id: string) {
   const property = await prisma.property.findUnique({
@@ -32,6 +33,23 @@ async function formattedProperty(id: string) {
     return null;
   }
 
+  const lstInterest = await prisma.interested.findMany({
+    where: {
+      propertyId: id,
+    },
+    include: {
+      user: true,
+    },
+  });
+
+  let interestedUsers = [];
+  for (const item of lstInterest) {
+    const res = await SERVER_ACTIONS.formatter.formatUser(item.id);
+    interestedUsers.push(res);
+  }
+
+  const interested = interestedUsers;
+
   const amenities = await prisma.amenitiesregister.findMany({
     where: {
       propertyId: id,
@@ -51,6 +69,7 @@ async function formattedProperty(id: string) {
     ...property,
     amenities: [...amenities],
     allotmentFor: allotmentFor,
+    interested: [...interested],
   };
 
   return final;
