@@ -79,9 +79,23 @@ export async function POST(req: NextRequest) {
   try {
     const formData: any = await req.formData();
 
-    if (!formData.get(`userId`)) {
+    const userId = formData.get(`userId`);
+    if (userId) {
       response.status = 400;
       response.message = "User id is required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    let isExsits: any = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!isExsits) {
+      response.status = 400;
+      response.message = "User does not exists";
       response.data = null;
       return new Response(JSON.stringify(response));
     }
