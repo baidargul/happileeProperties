@@ -15,6 +15,7 @@ async function formattedProperty(id: string) {
       furnishing: true,
       ownershipType: true,
       allotmentFor: true,
+      interested: true,
       propertyImages: {
         include: {
           image: {
