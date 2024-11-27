@@ -24,6 +24,7 @@ const CommonBanner = ({ style_3,data}: any) => {
                    }).format(data?.maintenance??"4567")}/mo*</span></div>
                <ul className="style-none d-flex align-items-center action-btns">
                   <li className="me-auto fw-500 color-dark"></li>
+                  <li className="me-auto color-dark"><small>{data?.views} views</small></li>
                   <li><Link href="#"
                      className={`d-flex align-items-center justify-content-center tran3s ${style_3 ? "" : "rounded-circle"}`}><i
                         className="fa-solid fa-heart" style={{

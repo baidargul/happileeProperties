@@ -22,7 +22,7 @@ const menu_data: MenuItem[] = [
 
     {
         id: 1,
-        has_dropdown: true,
+        has_dropdown: false,
         title: "Home",
         link: "#",
         sub_menus: [
@@ -37,8 +37,8 @@ const menu_data: MenuItem[] = [
     },
     {
         id: 2,
-        has_dropdown: true,
-        title: "Listing",
+        has_dropdown: false,
+        title: "Properties",
         class_name:"mega-dropdown-sm",
         link: "#",
         menu_column: [
@@ -87,8 +87,8 @@ const menu_data: MenuItem[] = [
     },
     {
         id: 3,
-        has_dropdown: true,
-        title: "Pages",
+        has_dropdown: false,
+        title: "Contacts Us",
         class_name:"mega-dropdown-sm",
         link: "#",
         menu_column: [
@@ -134,8 +134,8 @@ const menu_data: MenuItem[] = [
     },
     {
         id: 4,
-        has_dropdown: true,
-        title: "Blog",
+        has_dropdown: false,
+        title: "About Us",
         link: "#",
         sub_menus: [
             { link: "/blog_01", title: "Blog Grid" },

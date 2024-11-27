@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function PropertyCard({ property }: any) {
   return (
-    <div className="property-card-container f-carousel__slide shadow-sm">
+    <div className="property-card-container f-carousel__slide wow fadeInUp shadow-sm col">
       <div className="property-card-img">
         <Image
           src={
