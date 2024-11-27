@@ -79,10 +79,12 @@ export async function POST(req: NextRequest) {
   try {
     const formData: any = await req.formData();
 
-    // console.log(`CREATE PROPERTY API EXECUTION`);
-    // console.log(`-------------------||`);
-    // console.log(formData);
-    // console.log(`-------------------||`);
+    if (!formData.get(`userId`)) {
+      response.status = 400;
+      response.message = "User id is required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
 
     const furnishing = await prisma.furnishing.findUnique({
       where: {
