@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    if (isExists) {
+    if (isExists.length > 0) {
       response.status = 200;
       response.message = "User already interested";
       response.data = null;
