@@ -16,7 +16,11 @@ async function formattedProperty(id: string) {
       furnishing: true,
       ownershipType: true,
       allotmentFor: true,
-      interested: true,
+      interested: {
+        include: {
+          user: true,
+        },
+      },
       propertyImages: {
         include: {
           image: {
@@ -33,22 +37,22 @@ async function formattedProperty(id: string) {
     return null;
   }
 
-  const lstInterest = await prisma.interested.findMany({
-    where: {
-      propertyId: id,
-    },
-    include: {
-      user: true,
-    },
-  });
+  // const lstInterest = await prisma.interested.findMany({
+  //   where: {
+  //     propertyId: id,
+  //   },
+  //   include: {
+  //     user: true,
+  //   },
+  // });
 
-  let interestedUsers = [];
-  for (const item of lstInterest) {
-    const res = await SERVER_ACTIONS.formatter.formatUser(item.id);
-    interestedUsers.push(res);
-  }
+  // let interestedUsers = [];
+  // for (const item of lstInterest) {
+  //   const res = await SERVER_ACTIONS.formatter.formatUser(item.id);
+  //   interestedUsers.push(res);
+  // }
 
-  const interested = interestedUsers;
+  // const interested = interestedUsers;
 
   const amenities = await prisma.amenitiesregister.findMany({
     where: {
@@ -69,7 +73,7 @@ async function formattedProperty(id: string) {
     ...property,
     amenities: [...amenities],
     allotmentFor: allotmentFor,
-    interested: [...interested],
+    // interested: [...interested],
   };
 
   return final;
