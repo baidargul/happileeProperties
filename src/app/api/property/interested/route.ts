@@ -49,7 +49,12 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    if (isExists) return;
+    if (isExists) {
+      response.status = 200;
+      response.message = "User already interested";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
 
     await prisma.interested.create({
       data: {
