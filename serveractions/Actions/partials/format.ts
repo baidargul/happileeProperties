@@ -55,6 +55,28 @@ async function formattedProperty(id: string) {
   return final;
 }
 
+async function formatUser(id: string) {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      builder: true,
+      image: true,
+      agent: true,
+      buyer: true,
+      favouriteProperties: true,
+      interested: true,
+    },
+    omit: {
+      password: true,
+    },
+  });
+
+  return user;
+}
+
 export const formatter = {
+  formatUser,
   formattedProperty,
 };

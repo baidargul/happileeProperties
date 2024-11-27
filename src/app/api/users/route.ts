@@ -3,6 +3,8 @@ import { NextRequest } from "next/server";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"; // Import jwt
 import cookie from "cookie";
+import { JWTUtils } from "@/lib/jwtUtils";
+import { SERVER_ACTIONS } from "../../../../serveractions/Actions/SERVER_ACTIONS";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key"; // Make sure to define your secret key
 
@@ -166,46 +168,40 @@ export async function PATCH(req: NextRequest) {
     // write login logic
 
     // Create a JWT token
-    const token = jwt.sign(
-      { id: isExists.id, email: isExists.email },
-      JWT_SECRET,
-      {
-        expiresIn: "1h", // Set token expiration time
-      }
-    );
+    // const token = jwt.sign(
+    //   { id: isExists.id, email: isExists.email },
+    //   JWT_SECRET,
+    //   {
+    //     expiresIn: "1h", // Set token expiration time
+    //   }
+    // );
 
     // Set the cookie
-    const cookieOptions = {
-      httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
-      secure: process.env.NODE_ENV === "production", // Set to true in production
-      maxAge: 3600, // Cookie expiration time in seconds
-      path: "/", // Path where the cookie is accessible
-    };
+    // const cookieOptions = {
+    //   httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+    //   secure: process.env.NODE_ENV === "production", // Set to true in production
+    //   maxAge: 3600, // Cookie expiration time in seconds
+    //   path: "/", // Path where the cookie is accessible
+    // };
 
-    const serializedCookie = cookie.serialize("token", token, cookieOptions);
+    // const serializedCookie = cookie.serialize("token", token, cookieOptions);
 
-    const user = await prisma.user.findUnique({
-      where: {
-        id: isExists.id,
-      },
-      include: {
-        builder: true,
-        image: true,
-      },
-      omit: {
-        password: true,
-      },
-    });
+    const user = await SERVER_ACTIONS.formatter.formatUser(isExists.id);
+
+    if (!user) {
+      response.status = 400;
+      response.message = "User not found";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    const token = JWTUtils.generateToken(user);
 
     response.status = 200;
     response.message = "User logged in successfully";
     response.data = user;
-    return new Response(JSON.stringify(response), {
-      headers: {
-        "Set-Cookie": serializedCookie, // Set the cookie in the response
-        "Content-Type": "application/json",
-      },
-    });
+    const newResponse = JWTUtils.createResponseHeader(response, token);
+    return newResponse;
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
     response.status = 500;

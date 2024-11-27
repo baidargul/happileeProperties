@@ -53,5 +53,5 @@ async function addInterested(propertyId: string, userId: string) {
 
 export const Views = {
   addView,
-  addInterested,
+  // addInterested,
 };

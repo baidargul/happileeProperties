@@ -1,5 +1,6 @@
 import axios from "axios";
 import { favourite } from "./favourite";
+import { interest } from "./interest";
 
 const apiPath = `/api/users/buyer`;
 
@@ -41,4 +42,5 @@ export const buyer = {
   create,
   listAll,
   favourite,
+  interest,
 };
