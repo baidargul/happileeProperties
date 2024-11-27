@@ -24,7 +24,7 @@ const ListingDetailsOneArea = async (props: Props) => {
 
   const property = await formatter.formattedProperty(props.id ? props.id : "");
 
-
+  console.log(property);
   return (
     <div className="listing-details-one theme-details-one bg-pink pt-180 lg-pt-150 pb-150 xl-pb-120">
       <div className="container">

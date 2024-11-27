@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormSelectInput from "@/components/forms/reactHookInputs/FormSelectInput";
 import ImagePicker from "@/components/ImagePicker/ImagePicker";
 import { allotmentFor, allotmentType, amenities, bhk, propertyType } from "@prisma/client";
+import { useSelector } from "react-redux";
 
 const Overview = () => {
   const selectHandler = (e: any) => {};
@@ -31,6 +32,8 @@ const Overview = () => {
   const [amenities, setAmenities] = useState([]);
   const [selectedImageArray, setSelectedImageArray] = useState([]);
   const [removedImageArray, setRemovedImageArray] = useState([]);
+
+  const userId=useSelector((state:any)=>state.user.userProfile.id);
 
   const getPropertyStructure = async () => {
     const res = await serverActions.property.GET_ALLOTMENT_STRUCTURE();
@@ -98,6 +101,7 @@ const Overview = () => {
     data.propertyType = propertyType?.id;
     data.bhk = bhk?.id;
     data.amenities = amenities;
+    data.userId=userId
     console.log(data);
     const formData = new FormData();
 

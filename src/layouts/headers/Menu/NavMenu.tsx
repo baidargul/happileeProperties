@@ -35,7 +35,16 @@ const NavMenu = () => {
             <li className="nav-item dashboard-menu">
                 <Link className="nav-link" href="/">Home</Link>
             </li>
-            {menu_data.map((menu: any) => (
+            <li className="nav-item dashboard-menu">
+                <Link className="nav-link" href="/properties">Properties</Link>
+            </li>
+            <li className="nav-item dashboard-menu">
+                <Link className="nav-link" href="/">Contact Us</Link>
+            </li>
+            <li className="nav-item dashboard-menu">
+                <Link className="nav-link" href="/">About Us</Link>
+            </li>
+            {/* {menu_data.map((menu: any) => (
                 <li key={menu.id} className={`nav-item dropdown ${menu.class_name}`}>
                     <Link href={menu.link} className={`nav-link dropdown-toggle ${pathname === menu.link ? 'active' : ''}
                      ${navTitle === menu.title ? "show" : ""}`} onClick={() => openMobileMenu(menu.title)}>
@@ -70,7 +79,7 @@ const NavMenu = () => {
                         </>
                     )}
                 </li>
-            ))}
+            ))} */}
         </ul>
     );
 };
