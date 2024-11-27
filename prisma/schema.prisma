@@ -33,6 +33,7 @@ model user {
   favouriteProperties favouriteProperties[]
   image               image[]
   interested          interested[]
+  property            property[]
 }
 
 model image {
@@ -99,6 +100,7 @@ model property {
   rent                Decimal?              @db.Decimal
   maintenance         Decimal?              @db.Decimal
   views               Decimal?              @default(0) @db.Decimal
+  userId              String?
   amenitiesregister   amenitiesregister[]
   favouriteProperties favouriteProperties[]
   interested          interested[]
@@ -107,6 +109,7 @@ model property {
   furnishing          furnishing?           @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   ownershipType       ownershipType         @relation(fields: [ownershipTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   propertyType        propertyType?         @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user                user?                 @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   propertyAmenities   propertyAmenities[]
   propertyImages      propertyImages[]
 }
@@ -173,7 +176,7 @@ model interested {
   id         String    @id @default(uuid())
   propertyId String
   userId     String
-  createdAt  DateTime? @db.Date @default(now())
+  createdAt  DateTime? @default(now()) @db.Date
   property   property  @relation(fields: [propertyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user       user      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

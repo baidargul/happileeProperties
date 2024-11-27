@@ -195,6 +195,7 @@ export async function POST(req: NextRequest) {
         furnishingId: furnishing.id,
         ownershipTypeId: ownership.id,
         allotmentForId: allotmentFor.id,
+        userId: userId,
       },
     });
 
