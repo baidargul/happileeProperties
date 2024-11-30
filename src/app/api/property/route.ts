@@ -80,7 +80,8 @@ export async function POST(req: NextRequest) {
     const formData: any = await req.formData();
 
     const userId = formData.get(`userId`);
-    if (userId) {
+
+    if (!userId) {
       response.status = 400;
       response.message = "User id is required";
       response.data = null;
