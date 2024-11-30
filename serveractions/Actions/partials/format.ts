@@ -97,7 +97,13 @@ async function formatUser(id: string) {
     },
   });
 
-  return user;
+  const properties = await prisma.property.findMany({
+    where: {
+      userId: id,
+    },
+  });
+
+  return { ...user, properties: properties };
 }
 
 export const formatter = {
