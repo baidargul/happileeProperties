@@ -2,13 +2,16 @@ import { NextRequest } from "next/server";
 import prisma from "../../../../../serveractions/commands/prisma";
 import { SERVER_ACTIONS } from "../../../../../serveractions/Actions/SERVER_ACTIONS";
 import { accountStatus } from "@prisma/client";
+import corsMiddleware from "../../middleware/Cors";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, res: any) {
   const response = {
     status: 500,
     message: "Internal Server Error",
     data: null as any,
   };
+
+  await corsMiddleware(req, res);
 
   try {
     const id = req.nextUrl.searchParams.get("id");
@@ -62,12 +65,14 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function PATCH(req: NextRequest) {
+export async function PATCH(req: NextRequest, res: any) {
   const response = {
     status: 500,
     message: "Internal Server Error",
     data: null as any,
   };
+
+  await corsMiddleware(req, res);
 
   try {
     const id = req.nextUrl.searchParams.get("id");
@@ -122,12 +127,14 @@ export async function PATCH(req: NextRequest) {
   }
 }
 
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req: NextRequest, res: any) {
   const response = {
     status: 500,
     message: "Internal Server Error",
     data: null as any,
   };
+
+  await corsMiddleware(req, res);
 
   try {
     const id = req.nextUrl.searchParams.get("id");
