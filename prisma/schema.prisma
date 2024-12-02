@@ -18,9 +18,9 @@ model builder {
 
 model user {
   id                  String                @id @default(uuid())
-  email               String?               
+  email               String?
   address             String?
-  phone               String?               
+  phone               String?
   name                String
   password            String
   status              accountStatus         @default(UNDEFINED)
