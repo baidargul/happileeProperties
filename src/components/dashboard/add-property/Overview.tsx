@@ -101,7 +101,7 @@ const Overview = () => {
     data.propertyType = propertyType?.id;
     data.bhk = bhk?.id;
     data.amenities = amenities;
-    data.userId=userId
+    data.userId = userId;
     console.log(data);
     const formData = new FormData();
 

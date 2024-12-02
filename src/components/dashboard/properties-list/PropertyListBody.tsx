@@ -6,10 +6,21 @@ import Link from "next/link";
 import Image from "next/image";
 
 import icon_1 from "@/assets/images/icon/icon_46.svg";
+import { serverActions } from "../../../../serveractions/commands/serverCommands";
+import { useSelector } from "react-redux";
 
 const PropertyListBody = () => {
   const selectHandler = (e: any) => {};
 
+  const userId = useSelector((state: any) => state.user.userProfile.id); 
+
+  const fetchProperty= async () => {
+    const res = await serverActions.user.list(userId); 
+    console.log(res);
+  }
+
+  fetchProperty();
+  
   return (
     <div className="dashboard-body">
       <div className="position-relative">

@@ -20,8 +20,8 @@ export const Listing = async ({ currentItems, style }: any) => {
   }
 
   return (
-    <div className="bg-primary w-100">
-      <div className="row gx-xxl-5">
+    <div className="w-100">
+      <div className="d-flex align-items-center justify-content-between gap-3 flex-wrap gx-xxl-5">
         {properties.map((item: any) => (
           <PropertyCard key={item.id} property={item} />
         ))}
