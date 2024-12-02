@@ -18,15 +18,16 @@ model builder {
 
 model user {
   id                  String                @id @default(uuid())
-  email               String?               @unique
+  email               String?               
   address             String?
-  phone               String?               @unique
+  phone               String?               
   name                String
   password            String
   status              accountStatus         @default(UNDEFINED)
   type                accountTypes          @default(UNDEFINED)
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @default(now())
+  deleted             Boolean?              @default(false)
   agent               agent?
   builder             builder?
   buyer               buyer?

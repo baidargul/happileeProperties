@@ -20,9 +20,13 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
 
     // Check for existing user by email
-    const emailExists = await prisma.user.findUnique({
+    const emailExists = await prisma.user.findFirst({
       where: {
         email: data.email,
+        deleted: false,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
 
@@ -34,9 +38,13 @@ export async function POST(req: NextRequest) {
     }
 
     // Check for existing user by phone
-    const phoneExists = await prisma.user.findUnique({
+    const phoneExists = await prisma.user.findFirst({
       where: {
         phone: data.phone,
+        deleted: false,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
 
@@ -123,19 +131,28 @@ export async function PATCH(req: NextRequest) {
 
     let isExists: any;
 
-    isExists = await prisma.user.findUnique({
+    isExists = await prisma.user.findFirst({
       where: {
         email: data.email,
       },
     });
 
-    // if (!isExists) {
-    //   isExists = await prisma.user.findUnique({
-    //     where: {
-    //       phone: data.phone,
-    //     },
-    //   });
-    // }
+    if (!isExists) {
+      response.status = 400;
+      response.message = "No account registered with these details";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    isExists = await prisma.user.findFirst({
+      where: {
+        email: data.email,
+        deleted: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
     if (!isExists) {
       response.status = 400;
