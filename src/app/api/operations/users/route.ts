@@ -1,17 +1,23 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../serveractions/commands/prisma";
 import { SERVER_ACTIONS } from "../../../../../serveractions/Actions/SERVER_ACTIONS";
 import { accountStatus } from "@prisma/client";
-import corsMiddleware from "../../middleware/Cors";
 
-export async function GET(req: NextRequest, res: any) {
+// Utility function to handle CORS
+function setCorsHeaders(response: Response): Response {
+  response.headers.set("Access-Control-Allow-Origin", "*");
+  response.headers.set("Access-Control-Allow-Methods", "GET, PATCH, DELETE");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+  return response;
+}
+
+// GET handler
+export async function GET(req: NextRequest) {
   const response = {
     status: 500,
     message: "Internal Server Error",
     data: null as any,
   };
-
-  await corsMiddleware(req, res);
 
   try {
     const id = req.nextUrl.searchParams.get("id");
@@ -27,20 +33,21 @@ export async function GET(req: NextRequest, res: any) {
         response.status = 400;
         response.message = `No user exists with id ${id}`;
         response.data = null;
-        return new Response(JSON.stringify(response));
+        return setCorsHeaders(
+          new Response(JSON.stringify(response), { status: 400 })
+        );
       }
 
       const formattedUser = await SERVER_ACTIONS.formatter.formatUser(user.id);
       response.status = 200;
       response.message = `User ${user.name} found!`;
       response.data = formattedUser;
-      return new Response(JSON.stringify(response));
+      return setCorsHeaders(
+        new Response(JSON.stringify(response), { status: 200 })
+      );
     }
 
     const rawUsers = await prisma.user.findMany({
-      omit: {
-        password: true,
-      },
       orderBy: {
         createdAt: "desc",
       },
@@ -55,60 +62,68 @@ export async function GET(req: NextRequest, res: any) {
     response.status = 200;
     response.message = `${users.length} users found.`;
     response.data = users;
-    return new Response(JSON.stringify(response));
+    return setCorsHeaders(
+      new Response(JSON.stringify(response), { status: 200 })
+    );
   } catch (error: any) {
-    console.log("[SERVER ERROR]: " + error.message);
+    console.error("[SERVER ERROR]: " + error.message);
     response.status = 500;
     response.message = error.message;
-    response.data = null;
-    return new Response(JSON.stringify(response));
+    return setCorsHeaders(
+      new Response(JSON.stringify(response), { status: 500 })
+    );
   }
 }
 
-export async function PATCH(req: NextRequest, res: any) {
+// PATCH handler
+export async function PATCH(req: NextRequest) {
   const response = {
     status: 500,
     message: "Internal Server Error",
     data: null as any,
   };
 
-  await corsMiddleware(req, res);
-
   try {
     const id = req.nextUrl.searchParams.get("id");
-    const status: accountStatus = await req.json();
+    const { status }: { status: accountStatus } = await req.json();
 
     if (!id) {
       response.status = 400;
       response.message = `Id is required`;
-      return new Response(JSON.stringify(response));
+      return setCorsHeaders(
+        new Response(JSON.stringify(response), { status: 400 })
+      );
     }
 
     if (!status) {
       response.status = 400;
-      response.message = `status is required`;
-      return new Response(JSON.stringify(response));
+      response.message = `Status is required`;
+      return setCorsHeaders(
+        new Response(JSON.stringify(response), { status: 400 })
+      );
     }
 
     const isExists = await prisma.user.findUnique({
       where: {
-        id: id,
+        id,
       },
     });
 
     if (!isExists) {
       response.status = 400;
-      response.message = `User with id '${id}' does not exists.`;
+      response.message = `User with id '${id}' does not exist.`;
       response.data = null;
-      return new Response(JSON.stringify(response));
+      return setCorsHeaders(
+        new Response(JSON.stringify(response), { status: 400 })
+      );
     }
 
     await prisma.user.update({
       where: {
-        id: id,
+        id,
       },
       data: {
-        status: status,
+        status,
       },
     });
 
@@ -117,51 +132,57 @@ export async function PATCH(req: NextRequest, res: any) {
     response.status = 200;
     response.message = `Status changed for user ${user.name}`;
     response.data = user;
-    return new Response(JSON.stringify(response));
+    return setCorsHeaders(
+      new Response(JSON.stringify(response), { status: 200 })
+    );
   } catch (error: any) {
-    console.log("[SERVER ERROR]: " + error.message);
+    console.error("[SERVER ERROR]: " + error.message);
     response.status = 500;
     response.message = error.message;
-    response.data = null;
-    return new Response(JSON.stringify(response));
+    return setCorsHeaders(
+      new Response(JSON.stringify(response), { status: 500 })
+    );
   }
 }
 
-export async function DELETE(req: NextRequest, res: any) {
+// DELETE handler
+export async function DELETE(req: NextRequest) {
   const response = {
     status: 500,
     message: "Internal Server Error",
     data: null as any,
   };
 
-  await corsMiddleware(req, res);
-
   try {
     const id = req.nextUrl.searchParams.get("id");
 
     if (!id) {
       response.status = 400;
-      response.message = `id is required`;
+      response.message = `Id is required`;
       response.data = null;
-      return new Response(JSON.stringify(response));
+      return setCorsHeaders(
+        new Response(JSON.stringify(response), { status: 400 })
+      );
     }
 
     const user = await prisma.user.findUnique({
       where: {
-        id: id,
+        id,
       },
     });
 
     if (!user) {
       response.status = 400;
-      response.message = `User with id '${id}' does not exists.`;
+      response.message = `User with id '${id}' does not exist.`;
       response.data = null;
-      return new Response(JSON.stringify(response));
+      return setCorsHeaders(
+        new Response(JSON.stringify(response), { status: 400 })
+      );
     }
 
     await prisma.user.update({
       where: {
-        id: id,
+        id,
       },
       data: {
         deleted: true,
@@ -169,14 +190,17 @@ export async function DELETE(req: NextRequest, res: any) {
     });
 
     response.status = 200;
-    response.message = `Status changed for user ${user.name}`;
+    response.message = `User ${user.name} marked as deleted.`;
     response.data = user;
-    return new Response(JSON.stringify(response));
+    return setCorsHeaders(
+      new Response(JSON.stringify(response), { status: 200 })
+    );
   } catch (error: any) {
-    console.log("[SERVER ERROR]: " + error.message);
+    console.error("[SERVER ERROR]: " + error.message);
     response.status = 500;
     response.message = error.message;
-    response.data = null;
-    return new Response(JSON.stringify(response));
+    return setCorsHeaders(
+      new Response(JSON.stringify(response), { status: 500 })
+    );
   }
 }
