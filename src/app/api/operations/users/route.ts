@@ -4,12 +4,6 @@ import { SERVER_ACTIONS } from "../../../../../serveractions/Actions/SERVER_ACTI
 import { accountStatus } from "@prisma/client";
 
 // Utility function to handle CORS
-function setCorsHeaders(response: Response): Response {
-  response.headers.set("Access-Control-Allow-Origin", "*");
-  response.headers.set("Access-Control-Allow-Methods", "GET, PATCH, DELETE");
-  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
-  return response;
-}
 
 // GET handler
 export async function GET(req: NextRequest) {
@@ -33,18 +27,14 @@ export async function GET(req: NextRequest) {
         response.status = 400;
         response.message = `No user exists with id ${id}`;
         response.data = null;
-        return setCorsHeaders(
-          new Response(JSON.stringify(response), { status: 400 })
-        );
+        return new Response(JSON.stringify(response), { status: 400 });
       }
 
       const formattedUser = await SERVER_ACTIONS.formatter.formatUser(user.id);
       response.status = 200;
       response.message = `User ${user.name} found!`;
       response.data = formattedUser;
-      return setCorsHeaders(
-        new Response(JSON.stringify(response), { status: 200 })
-      );
+      return new Response(JSON.stringify(response), { status: 200 });
     }
 
     const rawUsers = await prisma.user.findMany({
@@ -62,16 +52,12 @@ export async function GET(req: NextRequest) {
     response.status = 200;
     response.message = `${users.length} users found.`;
     response.data = users;
-    return setCorsHeaders(
-      new Response(JSON.stringify(response), { status: 200 })
-    );
+    return new Response(JSON.stringify(response), { status: 200 });
   } catch (error: any) {
     console.error("[SERVER ERROR]: " + error.message);
     response.status = 500;
     response.message = error.message;
-    return setCorsHeaders(
-      new Response(JSON.stringify(response), { status: 500 })
-    );
+    return new Response(JSON.stringify(response), { status: 500 });
   }
 }
 
@@ -90,17 +76,13 @@ export async function PATCH(req: NextRequest) {
     if (!id) {
       response.status = 400;
       response.message = `Id is required`;
-      return setCorsHeaders(
-        new Response(JSON.stringify(response), { status: 400 })
-      );
+      return new Response(JSON.stringify(response), { status: 400 });
     }
 
     if (!status) {
       response.status = 400;
       response.message = `Status is required`;
-      return setCorsHeaders(
-        new Response(JSON.stringify(response), { status: 400 })
-      );
+      return new Response(JSON.stringify(response), { status: 400 });
     }
 
     const isExists = await prisma.user.findUnique({
@@ -113,9 +95,7 @@ export async function PATCH(req: NextRequest) {
       response.status = 400;
       response.message = `User with id '${id}' does not exist.`;
       response.data = null;
-      return setCorsHeaders(
-        new Response(JSON.stringify(response), { status: 400 })
-      );
+      return new Response(JSON.stringify(response), { status: 400 });
     }
 
     await prisma.user.update({
@@ -132,16 +112,12 @@ export async function PATCH(req: NextRequest) {
     response.status = 200;
     response.message = `Status changed for user ${user.name}`;
     response.data = user;
-    return setCorsHeaders(
-      new Response(JSON.stringify(response), { status: 200 })
-    );
+    return new Response(JSON.stringify(response), { status: 200 });
   } catch (error: any) {
     console.error("[SERVER ERROR]: " + error.message);
     response.status = 500;
     response.message = error.message;
-    return setCorsHeaders(
-      new Response(JSON.stringify(response), { status: 500 })
-    );
+    return new Response(JSON.stringify(response), { status: 500 });
   }
 }
 
@@ -160,9 +136,7 @@ export async function DELETE(req: NextRequest) {
       response.status = 400;
       response.message = `Id is required`;
       response.data = null;
-      return setCorsHeaders(
-        new Response(JSON.stringify(response), { status: 400 })
-      );
+      return new Response(JSON.stringify(response), { status: 400 });
     }
 
     const user = await prisma.user.findUnique({
@@ -175,9 +149,7 @@ export async function DELETE(req: NextRequest) {
       response.status = 400;
       response.message = `User with id '${id}' does not exist.`;
       response.data = null;
-      return setCorsHeaders(
-        new Response(JSON.stringify(response), { status: 400 })
-      );
+      return new Response(JSON.stringify(response), { status: 400 });
     }
 
     await prisma.user.update({
@@ -192,15 +164,11 @@ export async function DELETE(req: NextRequest) {
     response.status = 200;
     response.message = `User ${user.name} marked as deleted.`;
     response.data = user;
-    return setCorsHeaders(
-      new Response(JSON.stringify(response), { status: 200 })
-    );
+    return new Response(JSON.stringify(response), { status: 200 });
   } catch (error: any) {
     console.error("[SERVER ERROR]: " + error.message);
     response.status = 500;
     response.message = error.message;
-    return setCorsHeaders(
-      new Response(JSON.stringify(response), { status: 500 })
-    );
+    return new Response(JSON.stringify(response), { status: 500 });
   }
 }
