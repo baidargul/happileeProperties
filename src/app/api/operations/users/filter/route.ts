@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   const phone = req.nextUrl.searchParams.get("phone");
   const type = req.nextUrl.searchParams.get("type");
   const status = req.nextUrl.searchParams.get("status");
-  const deleted = req.nextUrl.searchParams.get("deleted");
+  const deleted = req.nextUrl.searchParams.get("deleted")||null;
 
   try {
     const filters: any = {};
@@ -41,10 +41,12 @@ export async function GET(req: NextRequest) {
     if (status) {
       filters.status = String(status).toLocaleUpperCase();
     }
-    if (String(deleted).length > 0) {
-      filters.deleted = Boolean(deleted);
+    if (deleted!=null) {
+      // console.log(deleted)
+      // console.log(Boolean(deleted))
+      filters.deleted = JSON.parse(deleted);
     }
-
+    // console.log(filters)
     const users = await prisma.user.findMany({
       where: filters,
     });
