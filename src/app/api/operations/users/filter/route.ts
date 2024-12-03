@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
     if (status) {
       filters.status = String(status).toLocaleUpperCase();
     }
-    if (deleted) {
+    if (String(deleted).length > 0) {
       filters.deleted = Boolean(deleted);
     }
 
