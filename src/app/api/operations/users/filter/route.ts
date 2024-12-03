@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     message: "Internal Server Error",
     data: null as any,
   };
-  // Retrieve query parameters
+
   const name = req.nextUrl.searchParams.get("name");
   const email = req.nextUrl.searchParams.get("email");
   const phone = req.nextUrl.searchParams.get("phone");
