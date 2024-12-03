@@ -20,29 +20,29 @@ export async function GET(req: NextRequest) {
 
     if (name) {
       filters.name = {
-        contains: name,
+        contains: String(name),
         mode: "insensitive",
       };
     }
     if (email) {
       filters.email = {
-        contains: email,
+        contains: String(email),
         mode: "insensitive",
       };
     }
     if (phone) {
       filters.phone = {
-        contains: phone,
+        contains: String(phone),
       };
     }
     if (type) {
-      filters.type = type;
+      filters.type = String(type).toLocaleUpperCase();
     }
     if (status) {
-      filters.status = status;
+      filters.status = String(status).toLocaleUpperCase();
     }
     if (deleted) {
-      filters.deleted = deleted;
+      filters.deleted = Boolean(deleted);
     }
 
     const users = await prisma.user.findMany({
