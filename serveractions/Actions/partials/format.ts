@@ -86,7 +86,7 @@ async function formattedProperty(id: string) {
 }
 
 async function formatUser(id: string) {
-  const user = await prisma.user.findUnique({
+  let user: any = await prisma.user.findUnique({
     where: {
       id: id,
     },
@@ -102,6 +102,16 @@ async function formatUser(id: string) {
       password: true,
     },
   });
+
+  const interestedProperties: any = [];
+  for (const item of user.interested) {
+    const property = await SERVER_ACTIONS.formatter.formattedProperty(
+      item.propertyId
+    );
+    interestedProperties.push(property);
+  }
+
+  user = { ...user, interested: interestedProperties };
 
   const properties = await prisma.property.findMany({
     where: {
