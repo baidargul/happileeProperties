@@ -14,6 +14,7 @@ export async function GET(req: NextRequest) {
   const type = req.nextUrl.searchParams.get("type");
   const status = req.nextUrl.searchParams.get("status");
   const deleted = req.nextUrl.searchParams.get("deleted");
+  const del = deleted === "true" ? true : false;
 
   try {
     const filters: any = {};
@@ -42,7 +43,7 @@ export async function GET(req: NextRequest) {
       filters.status = String(status).toLocaleUpperCase();
     }
     if (String(deleted).length > 0) {
-      filters.deleted = Boolean(deleted);
+      filters.deleted = del;
     }
 
     const users = await prisma.user.findMany({
