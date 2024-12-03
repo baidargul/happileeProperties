@@ -13,10 +13,13 @@ export async function GET(req: NextRequest) {
   const phone = req.nextUrl.searchParams.get("phone");
   const type = req.nextUrl.searchParams.get("type");
   const status = req.nextUrl.searchParams.get("status");
-  const deleted = req.nextUrl.searchParams.get("deleted")||null;
-
+  const deleted = req.nextUrl.searchParams.get("deleted") || null;
+  const sortBy = req.nextUrl.searchParams.get("sortBy") || null;
   try {
     const filters: any = {};
+    filters.orderBy = {
+      createdAt: "desc",
+    };
 
     if (name) {
       filters.name = {
@@ -41,14 +44,21 @@ export async function GET(req: NextRequest) {
     if (status) {
       filters.status = String(status).toLocaleUpperCase();
     }
-    if (deleted!=null) {
-      // console.log(deleted)
-      // console.log(Boolean(deleted))
+    if (deleted != null) {
       filters.deleted = JSON.parse(deleted);
     }
-    // console.log(filters)
+
+    if (sortBy) {
+      const sortOrder = sortBy.startsWith("-") ? "desc" : "asc";
+      const sortField = sortBy.replace("-", "");
+      filters.orderBy = {
+        [sortField]: sortOrder,
+      };
+    }
+
     const users = await prisma.user.findMany({
       where: filters,
+      orderBy: filters.orderBy,
     });
 
     response.status = 200;
