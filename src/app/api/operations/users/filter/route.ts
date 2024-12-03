@@ -13,7 +13,12 @@ export async function GET(req: NextRequest) {
   const phone = req.nextUrl.searchParams.get("phone");
   const type = req.nextUrl.searchParams.get("type");
   const status = req.nextUrl.searchParams.get("status");
+<<<<<<< HEAD
   const deleted = req.nextUrl.searchParams.get("deleted")||null;
+=======
+  const deleted = req.nextUrl.searchParams.get("deleted");
+  const del = deleted === "true" ? true : false;
+>>>>>>> c4e64b559d8e01b4d31f4036c5a20ee2de8184b3
 
   try {
     const filters: any = {};
