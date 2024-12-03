@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
   const sortBy = req.nextUrl.searchParams.get("sortBy") || null;
   try {
     const filters: any = {};
-    filters.orderBy = {
+    let sortingOrder: any = {
       createdAt: "desc",
     };
 
@@ -51,14 +51,14 @@ export async function GET(req: NextRequest) {
     if (sortBy) {
       const sortOrder = sortBy.startsWith("-") ? "desc" : "asc";
       const sortField = sortBy.replace("-", "");
-      filters.orderBy = {
+      sortingOrder = {
         [sortField]: sortOrder,
       };
     }
 
     const users = await prisma.user.findMany({
       where: filters,
-      orderBy: filters.orderBy,
+      orderBy: sortingOrder,
     });
 
     response.status = 200;
