@@ -20,10 +20,13 @@ export async function GET(req: NextRequest) {
     };
 
     if (title) filters.title = { contains: String(title), mode: "insensitive" };
-    if (type)
+    if (type) {
       filters.propertyType = {
         name: { contains: String(type), mode: "insensitive" },
       };
+    }
+
+    console.log(filters);
 
     let property: any = await prisma.property.findMany({
       include: {
