@@ -11,6 +11,20 @@ export async function GET(req: NextRequest) {
   };
 
   try {
+    const title = req.nextUrl.searchParams.get("title");
+    const type = req.nextUrl.searchParams.get("type");
+
+    const filters: any = {};
+    let sortingOrder: any = {
+      createdAt: "desc",
+    };
+
+    if (title) filters.title = { contains: String(title), mode: "insensitive" };
+    if (type)
+      filters.propertyType = {
+        name: { contains: String(type), mode: "insensitive" },
+      };
+
     let property: any = await prisma.property.findMany({
       include: {
         propertyType: {
