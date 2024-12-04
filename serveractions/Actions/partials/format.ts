@@ -1,5 +1,4 @@
 import prisma from "../../commands/prisma";
-import { SERVER_ACTIONS } from "../SERVER_ACTIONS";
 
 async function formattedProperty(id: string) {
   const property = await prisma.property.findUnique({
@@ -105,9 +104,7 @@ async function formatUser(id: string) {
 
   const interestedProperties: any = [];
   for (const item of user.interested) {
-    const property = await SERVER_ACTIONS.formatter.formattedProperty(
-      item.propertyId
-    );
+    const property = await formattedProperty(item.propertyId);
     interestedProperties.push(property);
   }
 
