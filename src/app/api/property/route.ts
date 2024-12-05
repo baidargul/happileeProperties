@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
   };
 
   try {
+    const status = req.nextUrl.searchParams.get("status");
     const title = req.nextUrl.searchParams.get("title");
     const type = req.nextUrl.searchParams.get("type");
     const allotmentFor = req.nextUrl.searchParams.get("for");
@@ -114,6 +115,10 @@ export async function GET(req: NextRequest) {
 
     if (availableDate) {
       filters.availableDate = new Date(availableDate);
+    }
+
+    if (status) {
+      filters.status = String(status);
     }
 
     let property: any = await prisma.property.findMany({

@@ -105,6 +105,7 @@ model property {
   amenitiesregister   amenitiesregister[]
   favouriteProperties favouriteProperties[]
   interested          interested[]
+  status              propertyStatus @default(PENDING)
   allotmentFor        allotmentFor          @relation(fields: [allotmentForId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   bhkType             bhk?                  @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   furnishing          furnishing?           @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -197,4 +198,10 @@ enum accountTypes {
   AGENT
   ADMIN
   SUPERADMIN
+}
+
+enum propertyStatus {
+  PENDING
+  PUBLISHED
+  SUSPENDED
 }
