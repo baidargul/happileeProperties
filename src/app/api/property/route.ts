@@ -13,11 +13,33 @@ export async function GET(req: NextRequest) {
   try {
     const title = req.nextUrl.searchParams.get("title");
     const type = req.nextUrl.searchParams.get("type");
+    const allotmentFor = req.nextUrl.searchParams.get("for");
+    const minPrice = req.nextUrl.searchParams.get("minPrice");
+    const maxPrice = req.nextUrl.searchParams.get("maxPrice");
+    const price = req.nextUrl.searchParams.get("price");
+    const allotmentType = req.nextUrl.searchParams.get("allotmentType");
+    const ownership = req.nextUrl.searchParams.get("ownership");
+    const bhk = req.nextUrl.searchParams.get("bhk");
+    const minAge = req.nextUrl.searchParams.get("minAge");
+    const maxAge = req.nextUrl.searchParams.get("maxAge");
+    const age = req.nextUrl.searchParams.get("age");
+    const minAvailableDate = req.nextUrl.searchParams.get("availableFrom");
+    const maxAvailableDate = req.nextUrl.searchParams.get("availableUpto");
+    const availableDate = req.nextUrl.searchParams.get("availableDate");
+    const sortBy = req.nextUrl.searchParams.get("sortBy");
 
     const filters: any = {};
     let sortingOrder: any = {
       createdAt: "desc",
     };
+
+    if (sortBy) {
+      const sortOrder = sortBy.startsWith("-") ? "desc" : "asc";
+      const sortField = sortBy.replace("-", "");
+      sortingOrder = {
+        [sortField]: sortOrder,
+      };
+    }
 
     if (title) filters.title = { contains: String(title), mode: "insensitive" };
     if (type) {
@@ -25,8 +47,74 @@ export async function GET(req: NextRequest) {
         name: { contains: String(type), mode: "insensitive" },
       };
     }
+    if (allotmentFor) {
+      filters.allotmentFor = {
+        name: { contains: String(allotmentFor), mode: "insensitive" },
+      };
+    }
 
-    console.log(filters);
+    if (minPrice) {
+      filters.price = { gte: Number(minPrice) };
+      filters.rent = { gte: Number(minPrice) };
+    }
+
+    if (maxPrice) {
+      if (minPrice) {
+        filters.price = { gte: Number(minPrice), lte: Number(maxPrice) };
+        filters.rent = { gte: Number(minPrice), lte: Number(maxPrice) };
+      } else {
+        filters.price = { lte: Number(maxPrice) };
+        filters.rent = { lte: Number(maxPrice) };
+      }
+    }
+
+    if (price) {
+      filters.price = Number(price);
+      filters.rent = Number(price);
+    }
+
+    if (allotmentType) {
+      filters.propertyType.allotmentType = {
+        name: { contains: String(allotmentType), mode: "insensitive" },
+      };
+    }
+
+    if (ownership) {
+      filters.ownershipType = {
+        name: { contains: String(ownership), mode: "insensitive" },
+      };
+    }
+
+    if (bhk) {
+      filters.bhkType = {
+        name: { contains: String(bhk), mode: "insensitive" },
+      };
+    }
+
+    if (minAge) filters.age = { gte: Number(minAge) };
+    if (maxAge) {
+      if (minAge) filters.age = { gte: Number(minAge), lte: Number(maxAge) };
+      else filters.age = { lte: Number(maxAge) };
+    }
+
+    if (age) {
+      filters.age = Number(age);
+    }
+
+    if (minAvailableDate)
+      filters.availableDate = { gte: new Date(minAvailableDate) };
+    if (maxAvailableDate) {
+      if (minAvailableDate)
+        filters.availableDate = {
+          gte: new Date(minAvailableDate),
+          lte: new Date(maxAvailableDate),
+        };
+      else filters.availableDate = { lte: new Date(maxAvailableDate) };
+    }
+
+    if (availableDate) {
+      filters.availableDate = new Date(availableDate);
+    }
 
     let property: any = await prisma.property.findMany({
       include: {
@@ -47,6 +135,9 @@ export async function GET(req: NextRequest) {
             },
           },
         },
+      },
+      where: {
+        ...filters,
       },
       orderBy: [
         {
