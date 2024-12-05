@@ -1,6 +1,7 @@
 import axios from "axios";
 import { favourite } from "./favourite";
 import { interest } from "./interest";
+import { propertyStatus } from "@prisma/client";
 const apiPath = `/api/property`;
 async function GET_ALLOTMENT_STRUCTURE() {
   const response = await axios.get(`${apiPath}/structure`);
@@ -193,6 +194,15 @@ async function create(data: any) {
   }
 }
 
+async function changeStatus(id: string, status: propertyStatus) {
+  const data = {
+    id: id,
+    status: status,
+  };
+  const response = await axios.patch(`${apiPath}/status`, data);
+  return response;
+}
+
 async function list(id: string) {
   const response = await axios
     .get(`${apiPath}/id?id=${id}`)
@@ -209,6 +219,7 @@ export const property = {
   create,
   listAll,
   list,
+  changeStatus,
   favourite,
   interest,
 };
