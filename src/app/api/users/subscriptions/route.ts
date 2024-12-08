@@ -141,3 +141,88 @@ export async function POST(req: NextRequest) {
     return new Response(JSON.stringify(response));
   }
 }
+
+export async function PATCH(req: NextRequest) {
+  const response = {
+    status: 500,
+    message: "Internal Server Error",
+    data: null as any,
+  };
+
+  try {
+    let data = await req.json();
+
+    if (!data.id) {
+      response.status = 400;
+      response.message = "UserId is required.";
+      return new Response(JSON.stringify(response));
+    }
+
+    if (!data.subscriptionName) {
+      response.status = 400;
+      response.message = "Subscription name is required.";
+      return new Response(JSON.stringify(response));
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: data.id,
+      },
+      include: {
+        subscriptionRegister: true,
+      },
+    });
+
+    if (!user) {
+      response.status = 400;
+      response.message = "User does not exist.";
+      return new Response(JSON.stringify(response));
+    }
+
+    const subscription = await prisma.subscription.findFirst({
+      where: {
+        name: data.subscriptionName,
+        accountType: user.type,
+      },
+    });
+
+    if (!subscription) {
+      response.status = 400;
+      response.message =
+        "Subscription does not exist or does not belong to the user type.";
+      return new Response(JSON.stringify(response));
+    }
+
+    const details = await prisma.subscriptionDetails.findMany({
+      where: {
+        subscriptionId: subscription.id,
+      },
+    });
+
+    await prisma.subscriptionRegister.deleteMany({
+      where: {
+        userId: user.id,
+      },
+    });
+
+    for (const item of details) {
+      await prisma.subscriptionRegister.create({
+        data: {
+          userId: user.id,
+          detaildId: item.id,
+          value: 0,
+        },
+      });
+    }
+
+    response.status = 200;
+    response.message = "Subscription updated successfully";
+    response.data = null;
+    return new Response(JSON.stringify(response));
+  } catch (error: any) {
+    console.error("[SERVER ERROR]: " + error.message);
+    response.status = 500;
+    response.message = error.message;
+    return new Response(JSON.stringify(response));
+  }
+}

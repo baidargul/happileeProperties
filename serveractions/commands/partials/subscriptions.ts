@@ -21,6 +21,23 @@ const property = {
     const response = await axios.post(propertyApiPath, data);
     return response.data;
   },
+
+  changeLimit: async (
+    subscriptionName: string,
+    type: accountTypes,
+    propertyName: string,
+    limit: number
+  ) => {
+    const data = {
+      subscriptionName: subscriptionName,
+      type: type,
+      propertyName: propertyName,
+      limit: limit,
+    };
+
+    const response = await axios.patch(`${propertyApiPath}/limit`, data);
+    return response.data;
+  },
 };
 
 async function listAll() {
@@ -39,8 +56,31 @@ async function create(name: string, type: accountTypes, price: number) {
   return response.data;
 }
 
+async function changePrice(
+  subscriptionName: string,
+  type: string,
+  price: number
+) {
+  const data = {
+    subscriptionName: subscriptionName,
+    type: type,
+    price: price,
+  };
+
+  const response = await axios.patch(`${apiPath}/price`, data);
+  return response.data;
+}
+
+async function change(userId: string, subscriptionName: string) {
+  const data = {
+    id: userId,
+    subscriptionName: subscriptionName,
+  };
+}
+
 export const subscription = {
   listAll,
   create,
+  changePrice,
   property,
 };
