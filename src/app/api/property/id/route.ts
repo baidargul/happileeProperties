@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    const final = SERVER_ACTIONS.formatter.formattedProperty(property.id);
+    const final = await SERVER_ACTIONS.formatter.formattedProperty(property.id);
 
     response.status = 200;
     response.message = "Property found";
