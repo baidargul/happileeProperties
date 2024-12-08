@@ -102,6 +102,62 @@ async function formatUser(id: string) {
     },
   });
 
+  // const subscription = await prisma.subscriptionRegister.findMany({
+  //   where: {
+  //     userId: id,
+  //   },
+  //   include: {
+  //     subscriptionDetails: {
+  //       include: {
+  //         subscription: true,
+  //       },
+  //     },
+  //   },
+  // });
+
+  // user = { ...user, subscription: subscription };
+
+  const rawSubscription = await prisma.subscription.findMany({
+    where: {
+      accountType: user.type,
+      subscriptionDetails: {},
+    },
+    include: {
+      subscriptionDetails: {
+        include: {
+          subscriptionRegister: true,
+        },
+      },
+    },
+  });
+
+  let subscription: any;
+  for (const item of rawSubscription) {
+    if (item.subscriptionDetails[0].subscriptionRegister.length > 0) {
+      subscription = {
+        id: item.id,
+        name: item.name,
+        type: item.accountType,
+      };
+
+      for (const prop of item.subscriptionDetails) {
+        subscription = {
+          ...subscription,
+          properties: {
+            ...subscription.properties,
+            [prop.label]: {
+              id: prop.id,
+              limit: Number(prop.value),
+              current: Number(prop.subscriptionRegister[0].value),
+            },
+          },
+        };
+      }
+    }
+  }
+
+  user = { ...user, subscription: subscription };
+
   const interestedProperties: any = [];
   for (const item of user.interested) {
     const property = await formattedProperty(item.propertyId);

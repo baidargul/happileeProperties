@@ -17,24 +17,25 @@ model builder {
 }
 
 model user {
-  id                  String                @id @default(uuid())
-  email               String?
-  address             String?
-  phone               String?
-  name                String
-  password            String
-  status              accountStatus         @default(UNDEFINED)
-  type                accountTypes          @default(UNDEFINED)
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime              @default(now())
-  deleted             Boolean?              @default(false)
-  agent               agent?
-  builder             builder?
-  buyer               buyer?
-  favouriteProperties favouriteProperties[]
-  image               image[]
-  interested          interested[]
-  property            property[]
+  id                   String                 @id @default(uuid())
+  email                String?
+  address              String?
+  phone                String?
+  name                 String
+  password             String
+  status               accountStatus          @default(UNDEFINED)
+  type                 accountTypes           @default(UNDEFINED)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @default(now())
+  deleted              Boolean?               @default(false)
+  agent                agent?
+  builder              builder?
+  buyer                buyer?
+  favouriteProperties  favouriteProperties[]
+  image                image[]
+  interested           interested[]
+  property             property[]
+  subscriptionRegister subscriptionRegister[]
 }
 
 model image {
@@ -102,10 +103,10 @@ model property {
   maintenance         Decimal?              @db.Decimal
   views               Decimal?              @default(0) @db.Decimal
   userId              String?
+  status              propertyStatus        @default(PENDING)
   amenitiesregister   amenitiesregister[]
   favouriteProperties favouriteProperties[]
   interested          interested[]
-  status              propertyStatus @default(PENDING)
   allotmentFor        allotmentFor          @relation(fields: [allotmentForId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   bhkType             bhk?                  @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   furnishing          furnishing?           @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -181,6 +182,31 @@ model interested {
   createdAt  DateTime? @default(now()) @db.Date
   property   property  @relation(fields: [propertyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user       user      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model subscription {
+  id                  String                @id @default(uuid())
+  name                String
+  accountType         accountTypes          @default(BUYER)
+  subscriptionDetails subscriptionDetails[]
+}
+
+model subscriptionDetails {
+  id                   String                 @id @default(uuid())
+  subscriptionId       String
+  label                String
+  value                Decimal?               @default(0) @db.Decimal
+  subscription         subscription           @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  subscriptionRegister subscriptionRegister[]
+}
+
+model subscriptionRegister {
+  id                  String              @id @default(uuid())
+  detaildId           String
+  value               Decimal?            @default(0) @db.Decimal
+  userId              String
+  subscriptionDetails subscriptionDetails @relation(fields: [detaildId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user                user                @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum accountStatus {
