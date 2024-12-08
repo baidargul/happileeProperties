@@ -71,3 +71,52 @@ export async function GET(req: NextRequest) {
     return new Response(JSON.stringify(response));
   }
 }
+
+export async function POST(req: NextRequest) {
+  const response = {
+    status: 500,
+    message: "Internal Server Error",
+    data: null as any,
+  };
+
+  try {
+    let data = await req.json();
+
+    if (!data.name) {
+      response.status = 400;
+      response.message = "Name is required.";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    if (!data.type) {
+      response.status = 400;
+      response.message = "Type is required.";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    if (!data.price) {
+      data = { ...data, price: 0 };
+    }
+
+    const subscription = await prisma.subscription.create({
+      data: {
+        name: data.name,
+        accountType: data.type,
+        price: data.price,
+      },
+    });
+
+    response.status = 200;
+    response.message = "Subscription created successfully";
+    response.data = subscription;
+    return new Response(JSON.stringify(response));
+  } catch (error: any) {
+    console.log("[SERVER ERROR]: " + error.message);
+    response.status = 500;
+    response.message = error.message;
+    response.data = null;
+    return new Response(JSON.stringify(response));
+  }
+}
