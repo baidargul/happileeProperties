@@ -221,6 +221,7 @@ enum accountStatus {
 enum accountTypes {
   UNDEFINED
   BUYER
+  SELLER
   BUILDER
   AGENT
   ADMIN

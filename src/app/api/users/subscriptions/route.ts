@@ -13,6 +13,7 @@ export async function GET(req: NextRequest) {
     const types: any = [
       "UNDEFINED",
       "BUYER",
+      "SELLER",
       "BUILDER",
       "AGENT",
       "ADMIN",
@@ -79,31 +80,52 @@ export async function POST(req: NextRequest) {
     data: null as any,
   };
 
+  // Define the valid accountTypes
+  const validAccountTypes = [
+    "UNDEFINED",
+    "BUYER",
+    "SELLER",
+    "BUILDER",
+    "AGENT",
+    "ADMIN",
+    "SUPERADMIN",
+  ];
+
   try {
     let data = await req.json();
 
+    // Validate required fields
     if (!data.name) {
       response.status = 400;
       response.message = "Name is required.";
-      response.data = null;
       return new Response(JSON.stringify(response));
     }
 
     if (!data.type) {
       response.status = 400;
       response.message = "Type is required.";
-      response.data = null;
       return new Response(JSON.stringify(response));
     }
 
+    // Validate the type against allowed accountTypes
+    if (!validAccountTypes.includes(data.type)) {
+      response.status = 400;
+      response.message = `Invalid accountType. Allowed values are: ${validAccountTypes.join(
+        ", "
+      )}`;
+      return new Response(JSON.stringify(response));
+    }
+
+    // Set default price if not provided
     if (!data.price) {
       data = { ...data, price: 0 };
     }
 
+    // Create the subscription using Prisma
     const subscription = await prisma.subscription.create({
       data: {
         name: data.name,
-        accountType: data.type,
+        accountType: data.type, // Validated type
         price: data.price,
       },
     });
@@ -113,10 +135,9 @@ export async function POST(req: NextRequest) {
     response.data = subscription;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
-    console.log("[SERVER ERROR]: " + error.message);
+    console.error("[SERVER ERROR]: " + error.message);
     response.status = 500;
     response.message = error.message;
-    response.data = null;
     return new Response(JSON.stringify(response));
   }
 }
