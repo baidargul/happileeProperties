@@ -137,6 +137,7 @@ async function formatUser(id: string) {
       subscription = {
         id: item.id,
         name: item.name,
+        price: item.price,
         type: item.accountType,
       };
 

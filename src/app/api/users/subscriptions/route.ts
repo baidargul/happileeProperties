@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
     let subscriptions: any = [];
 
     for (const type of types) {
-      const subModel = await prisma.subscription.findMany({
+      const subModel: any = await prisma.subscription.findMany({
         where: {
           accountType: type,
         },
@@ -42,6 +42,7 @@ export async function GET(req: NextRequest) {
             grouped.subscriptions[sub.name] = {
               id: sub.id,
               type: sub.accountType,
+              price: sub.price || 0,
               properties: {},
             };
           }

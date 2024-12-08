@@ -188,6 +188,7 @@ model subscription {
   id                  String                @id @default(uuid())
   name                String
   accountType         accountTypes          @default(BUYER)
+  price               Decimal?              @default(0) @db.Decimal
   subscriptionDetails subscriptionDetails[]
 }
 
