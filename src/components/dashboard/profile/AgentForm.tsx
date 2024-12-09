@@ -20,6 +20,8 @@ export default function AgentForm() {
 
   const { id, agent } = userProfile;
 
+  console.log(userProfile);
+
   const experienceFormSchema = z.object({
     experience: z
       .string()

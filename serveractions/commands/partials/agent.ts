@@ -16,7 +16,7 @@ async function create(
   };
 
   const Result = await axios.post(apiPath, data).then(async (res: any) => {
-    const response = await res.json();
+    const response = await res.data;
     return response;
   });
 

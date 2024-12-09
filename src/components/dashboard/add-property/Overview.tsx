@@ -12,6 +12,7 @@ import FormSelectInput from "@/components/forms/reactHookInputs/FormSelectInput"
 import ImagePicker from "@/components/ImagePicker/ImagePicker";
 import { allotmentFor, allotmentType, amenities, bhk, propertyType } from "@prisma/client";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
 
 const Overview = () => {
   const selectHandler = (e: any) => {};
@@ -32,6 +33,7 @@ const Overview = () => {
   const [amenities, setAmenities] = useState([]);
   const [selectedImageArray, setSelectedImageArray] = useState([]);
   const [removedImageArray, setRemovedImageArray] = useState([]);
+  const [loading,setLoading]=useState(false);
 
   const userId=useSelector((state:any)=>state.user.userProfile.id);
 
@@ -95,6 +97,7 @@ const Overview = () => {
   const { isSubmitting } = formState;
 
   const onSubmit = async (data: any) => {
+    setLoading(true);
     // Process form data here
     data.allotmentType = allotment?.id;
     data.allotmentFor = lookingFor?.id;
@@ -126,9 +129,15 @@ const Overview = () => {
 
     const response = await serverActions.property.create(formData);
     // console.log(response);
+    if (response.status == 200) {
+      setLoading(false);
+      // console.log(response.data);
+      toast.success("Property added successfully");
+      window.location.reload();
+    }
   };
 
-  console.log(propertyType);
+  // console.log(propertyType);
   // console.log(amenities)
   return (
     data?.furnishing?.length > 0 && (
@@ -366,10 +375,10 @@ const Overview = () => {
               label={"Images*"}
             />
             <button type="submit" className="dash-btn-two tran3s me-3 w-25">
-              {isSubmitting && (
+              {(isSubmitting||loading) && (
                 <span className="dash-spinner spinner-one"></span>
               )}
-              {isSubmitting ? "Loading..." : "Submit"}
+              {(isSubmitting||loading) ? "Loading..." : "Submit"}
             </button>
           </form>
         </div>

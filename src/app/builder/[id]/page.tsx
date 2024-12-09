@@ -1,22 +1,36 @@
+import AgencyDetails from "@/components/inner-pages/agency/agency-details";
 import ListingDetailsSix from "@/components/ListingDetails/listing-details-6";
+import Wrapper from "@/layouts/Wrapper";
 import React from "react";
+import prisma from "../../../../serveractions/commands/prisma";
+import { SERVER_ACTIONS } from "../../../../serveractions/Actions/SERVER_ACTIONS";
+
 
 export async function generateStaticParams() {
-  return [
-    { id: "1" },
-    { id: "2" },
-    { id: "3" },
-    { id: "4" },
-    { id: "5" },
-    { id: "6" },
-    { id: "7" },
-    { id: "8" },
-    { id: "9" },
-    { id: "10" },
-  ];
+  const ids: any = await prisma.property.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return ids.map((id: any) => ({
+    id: id.id,
+  }));
 }
 
-export default async function Builder() {
-  // return <ListingDetailsSix />;
-  return <></>
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+
+export default async function Builder(props: Props) {
+
+  await SERVER_ACTIONS.Views.addView(props.params.id);
+  return (
+    <Wrapper>
+      <AgencyDetails id={props.params.id} />
+    </Wrapper>
+  );
 }

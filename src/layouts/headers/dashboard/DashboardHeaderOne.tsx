@@ -103,10 +103,10 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
                      <Image src={pathname === '/dashboard/profile' ? dashboardIconActive_3 : dashboardIcon_3} alt="" />
                      <span>Profile</span>
                   </Link></li>
-                  <li className="plr"><Link href="/dashboard/account-settings" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/account-settings' ? 'active' : ''}`}>
+                  {/* <li className="plr"><Link href="/dashboard/account-settings" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/account-settings' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/account-settings' ? dashboardIconActive_4 : dashboardIcon_4} alt="" />
                      <span>Account Settings</span>
-                  </Link></li>
+                  </Link></li> */}
                   <li className="plr"><Link href="/dashboard/membership" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/membership' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/membership' ? dashboardIconActive_5 : dashboardIcon_5} alt="" />
                      <span>Membership</span>
@@ -144,7 +144,7 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
             </div> */}
 
             <div className="plr">
-               <Link href="#" className="d-flex w-100 align-items-center logout-btn position-absolute bottom-0">
+               <Link href="#" className="d-flex w-100 h-100 align-items-center logout-btn mt-50 pb-30">
                   <div className="icon tran3s d-flex align-items-center justify-content-center rounded-circle"><Image src={dashboardIcon_11} alt="" /></div>
                   <span>Logout</span>
                </Link>
