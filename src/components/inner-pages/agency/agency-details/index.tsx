@@ -4,6 +4,14 @@ import FooterFour from "@/layouts/footers/FooterFour"
 import AgencyDetailsArea from "./AgencyDetailsArea"
 import FancyBanner from "@/components/common/FancyBanner"
 
+
+type Props = {
+   params: {
+     id: string;
+   };
+ };
+
+
 const AgencyDetails = () => {
    return (
       <>
@@ -17,3 +25,4 @@ const AgencyDetails = () => {
 }
 
 export default AgencyDetails
+

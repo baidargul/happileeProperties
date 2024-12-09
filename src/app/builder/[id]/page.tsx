@@ -30,7 +30,7 @@ export default async function Builder(props: Props) {
   await SERVER_ACTIONS.Views.addView(props.params.id);
   return (
     <Wrapper>
-      <AgencyDetails id={props.params.id} />
+      <AgencyDetails/>
     </Wrapper>
   );
 }

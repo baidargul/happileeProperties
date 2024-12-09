@@ -18,7 +18,7 @@ import NiceSelect from "@/ui/NiceSelect"
 import { serverActions } from "../../../../serveractions/commands/serverCommands"
 import prisma from "../../../../serveractions/commands/prisma"
 import { accountStatus, builder } from "@prisma/client"
-import Banner from "@/app/builder/[id]/Banner"
+// import Banner from "@/app/builder/[id]/Banner"
 import { formatter } from "../../../../serveractions/Actions/partials/format"
 import { useRouter } from "next/navigation"
 
@@ -37,7 +37,7 @@ const ListingDetailsSixArea = async (props:Props) => {
       <>
          <div className="listing-details-one theme-details-one mt-200 xl-mt-150" style={{backgroundColor:"#F4FAFF", padding:"1rem 0"}}>
             <div className="container">
-               <Banner style_3={true} data={property}/>
+               {/* <Banner style_3={true} data={property}/> */}
                <MediaGallery style={true} images={property?.propertyImages}/>
                <div className="row pt-80 lg-pt-50">
                   <div className="col-xl-8">
