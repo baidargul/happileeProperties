@@ -146,15 +146,14 @@ export async function PATCH(req: NextRequest) {
 
     isExists = await prisma.user.findFirst({
       where: {
-        email: data.email,
-        deleted: true,
+        email: String(data.email),
       },
       orderBy: {
         createdAt: "desc",
       },
     });
 
-    if (!isExists) {
+    if (isExists.deleted) {
       response.status = 400;
       response.message = "No account registered with these details";
       response.data = null;
