@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import prisma from "../../../../../../serveractions/commands/prisma";
 import { NextApiRequest } from "next";
+import { SERVER_ACTIONS } from "../../../../../../serveractions/Actions/SERVER_ACTIONS";
 
 export async function GET(req: NextRequest) {
   const response = {
@@ -42,7 +43,7 @@ export async function GET(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    const user = await prisma.user.findUnique({
+    const rawUser = await prisma.user.findUnique({
       where: {
         id: builder.userId,
       },
@@ -54,6 +55,15 @@ export async function GET(req: NextRequest) {
         password: true,
       },
     });
+
+    if (!rawUser) {
+      response.status = 400;
+      response.message = "No user found";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    const user = await SERVER_ACTIONS.formatter.formatUser(rawUser.id);
 
     response.status = 200;
     response.message = builder ? "Found builder" : "No builder found";

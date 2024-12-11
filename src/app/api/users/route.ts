@@ -244,7 +244,7 @@ export async function PUT(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    const user = await prisma.user.findUnique({
+    const rawUser = await prisma.user.findUnique({
       where: {
         id: data.id,
       },
@@ -256,6 +256,15 @@ export async function PUT(req: NextRequest) {
         password: true,
       },
     });
+
+    if (!rawUser) {
+      response.status = 400;
+      response.message = "User not found";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    const user = await SERVER_ACTIONS.formatter.formatUser(rawUser.id);
 
     response.status = 200;
     response.message = "User fetched successfully";
@@ -277,7 +286,7 @@ export async function GET(req: NextRequest) {
   };
 
   try {
-    const users = await prisma.user.findMany({
+    const rawUsers = await prisma.user.findMany({
       include: {
         builder: true,
         image: true,
@@ -289,6 +298,12 @@ export async function GET(req: NextRequest) {
         password: true,
       },
     });
+
+    const users = [];
+    for (const item of rawUsers) {
+      const user = await SERVER_ACTIONS.formatter.formatUser(item.id);
+      users.push(user);
+    }
 
     response.status = 200;
     response.message = "Users fetched successfully";
