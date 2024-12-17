@@ -1,5 +1,6 @@
 import { accountTypes } from "@prisma/client";
 import axios from "axios";
+import { subscription } from "./subscriptions";
 
 const apiPath = "/api/users";
 
@@ -100,6 +101,7 @@ export const user = {
   signUp,
   list,
   listAll,
+  subscription,
   changeType,
   deleteUser,
   deleteAllUsers,
