@@ -11,6 +11,7 @@ import listImg_2 from "@/assets/images/dashboard/img_02.jpg";
 import listImg_3 from "@/assets/images/dashboard/img_03.jpg";
 import listImg_4 from "@/assets/images/dashboard/img_04.jpg";
 import listImg_5 from "@/assets/images/dashboard/img_05.jpg";
+import moment from "moment";
 
 interface DataType {
    id: number;
@@ -79,10 +80,10 @@ const list_data: DataType[] = [
    },
 ]
 
-const PropertyTableBody = () => {
+const PropertyTableBody = ({data}) => {
    return (
       <tbody className="border-0">
-         {list_data.map((item) => (
+         {data &&data.map((item) => (
             <tr key={item.id}>
                <td>
                   <div className="d-lg-flex align-items-center position-relative">
@@ -94,10 +95,10 @@ const PropertyTableBody = () => {
                      </div>
                   </div>
                </td>
-               <td>{item.date}</td>
-               <td>{item.view}</td>
+               <td>{moment(item.createdAt).format("LL")}</td>
+               <td>{item.views}</td>
                <td>
-                  <div className={`property-status ${item.status_bg}`}>{item.status}</div>
+                  {item.status}
                </td>
                <td>
                   <div className="action-dots float-end">
