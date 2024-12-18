@@ -9,7 +9,7 @@ const MembershipBody = () => {
             <DashboardHeaderTwo title="Membership" />
             <h2 className="main-title d-block d-lg-none">Membership</h2>
 
-            <div className="membership-plan-wrapper mb-20">
+            {/* <div className="membership-plan-wrapper mb-20">
                <div className="row gx-0">
                   <div className="col-xxl-7 col-lg-6 d-flex flex-column">
                      <div className="column w-100 h-100">
@@ -31,7 +31,7 @@ const MembershipBody = () => {
                      </div>
                   </div>
                </div>
-            </div>
+            </div> */}
             <Pricing />
          </div>
       </div>

@@ -9,7 +9,7 @@ const DeleteModal = () => {
          <div className="modal fade" id="deleteModal" tabIndex={-1} aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                <div className="container">
-                  <div className="remove-account-popup text-center modal-content">
+                  <div className="remove-account-popup text-center modal-content" >
                      <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                      <Image src={deleteIcon} alt="" className="lazy-img m-auto" />
                      <h2>Are you sure?</h2>
