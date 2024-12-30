@@ -40,12 +40,18 @@ const DropdownSix = () => {
                                  <div className="label">I’m looking to...</div>
                                  <NiceSelect className="nice-select fw-normal"
                                     options={[
-                                       { value: "apartments", text: "Buy Apartments" },
-                                       { value: "condos", text: "Rent Condos" },
-                                       { value: "houses", text: "Sell Houses" },
-                                       { value: "industrial", text: "Rent Industrial" },
-                                       { value: "villas", text: "Sell Villas" },
-                                    ]}
+                                       { value: "mumbai", text: "Buy in Mumbai" },
+                                       { value: "delhi", text: "Rent in Delhi" },
+                                       { value: "bangalore", text: "Sell in Bangalore" },
+                                       { value: "kolkata", text: "Rent in Kolkata" },
+                                       { value: "hyderabad", text: "Buy in Hyderabad" },
+                                       { value: "chennai", text: "Sell in Chennai" },
+                                       { value: "pune", text: "Rent in Pune" },
+                                       { value: "jaipur", text: "Buy in Jaipur" },
+                                       { value: "ahmedabad", text: "Sell in Ahmedabad" },
+                                       { value: "kochi", text: "Rent in Kochi" },
+                                    ]
+                                    }
                                     defaultCurrent={0}
                                     onChange={selectHandler}
                                     name=""
@@ -57,13 +63,13 @@ const DropdownSix = () => {
                                  <div className="label">Location</div>
                                  <NiceSelect className="nice-select location fw-normal"
                                     options={[
-                                       { value: "germany", text: "Berlin, Germany" },
-                                       { value: "dhaka", text: "Dhanmondi, Dhaka" },
-                                       { value: "mexico", text: "Acapulco, Mexico" },
-                                       { value: "france", text: "Cannes, France" },
-                                       { value: "india", text: "Delhi, India" },
-                                       { value: "giza", text: "Giza, Egypt" },
-                                       { value: "cuba", text: "Havana, Cuba" },
+                                       { value: "mumbai", text: "Bandra, Mumbai" },
+                                       { value: "delhi", text: "Connaught Place, Delhi" },
+                                       { value: "bangalore", text: "Koramangala, Bangalore" },
+                                       { value: "kolkata", text: "Salt Lake, Kolkata" },
+                                       { value: "chennai", text: "T. Nagar, Chennai" },
+                                       { value: "hyderabad", text: "Banjara Hills, Hyderabad" },
+                                       { value: "pune", text: "Koregaon Park, Pune" },
                                     ]}
                                     defaultCurrent={0}
                                     onChange={selectHandler}
@@ -77,10 +83,11 @@ const DropdownSix = () => {
                                  <NiceSelect
                                     className="nice-select fw-normal"
                                     options={[
-                                       { value: "1", text: "$10,000 - $200,000" },
-                                       { value: "2", text: "$20,000 - $300,000" },
-                                       { value: "3", text: "$30,000 - $400,000" },
-                                    ]}
+                                       { value: "1", text: "₹5,00,000 - ₹15,00,000" },
+                                       { value: "2", text: "₹15,00,000 - ₹25,00,000" },
+                                       { value: "3", text: "₹25,00,000 - ₹35,00,000" },
+                                    ]
+                                    }
                                     defaultCurrent={0}
                                     onChange={selectHandler}
                                     name=""
@@ -131,14 +138,15 @@ const DropdownSix = () => {
                                  <div className="label">Location</div>
                                  <NiceSelect className="nice-select location fw-normal"
                                     options={[
-                                       { value: "mexico", text: "Acapulco, Mexico" },
-                                       { value: "dhaka", text: "Dhanmondi, Dhaka" },
-                                       { value: "germany", text: "Berlin, Germany" },
-                                       { value: "france", text: "Cannes, France" },
-                                       { value: "india", text: "Delhi, India" },
-                                       { value: "giza", text: "Giza, Egypt" },
-                                       { value: "cuba", text: "Havana, Cuba" },
-                                    ]}
+                                       { value: "mumbai", text: "Bandra, Mumbai" },
+                                       { value: "kolkata", text: "Salt Lake, Kolkata" },
+                                       { value: "bangalore", text: "Koramangala, Bangalore" },
+                                       { value: "delhi", text: "Connaught Place, Delhi" },
+                                       { value: "jaipur", text: "Malviya Nagar, Jaipur" },
+                                       { value: "chennai", text: "T. Nagar, Chennai" },
+                                       { value: "hyderabad", text: "Banjara Hills, Hyderabad" },
+                                    ]
+                                    }
                                     defaultCurrent={0}
                                     onChange={selectHandler}
                                     name=""
@@ -151,9 +159,9 @@ const DropdownSix = () => {
                                  <NiceSelect
                                     className="nice-select fw-normal"
                                     options={[
-                                       { value: "1", text: "$10,000 - $200,000" },
-                                       { value: "2", text: "$20,000 - $300,000" },
-                                       { value: "3", text: "$30,000 - $400,000" },
+                                       { value: "1", text: "₹5,00,000 - ₹15,00,000" },
+                                       { value: "2", text: "₹15,00,000 - ₹25,00,000" },
+                                       { value: "3", text: "₹25,00,000 - ₹35,00,000" },
                                     ]}
                                     defaultCurrent={0}
                                     onChange={selectHandler}
@@ -207,13 +215,13 @@ const DropdownSix = () => {
                                  <div className="label">Location</div>
                                  <NiceSelect className="nice-select location fw-normal"
                                     options={[
-                                       { value: "france", text: "Cannes, France" },
-                                       { value: "germany", text: "Berlin, Germany" },
-                                       { value: "dhaka", text: "Dhanmondi, Dhaka" },
-                                       { value: "mexico", text: "Acapulco, Mexico" },
-                                       { value: "india", text: "Delhi, India" },
-                                       { value: "giza", text: "Giza, Egypt" },
-                                       { value: "cuba", text: "Havana, Cuba" },
+                                       { value: "mumbai", text: "Bandra, Mumbai" },
+                                       { value: "kolkata", text: "Salt Lake, Kolkata" },
+                                       { value: "bangalore", text: "Koramangala, Bangalore" },
+                                       { value: "delhi", text: "Connaught Place, Delhi" },
+                                       { value: "jaipur", text: "Malviya Nagar, Jaipur" },
+                                       { value: "chennai", text: "T. Nagar, Chennai" },
+                                       { value: "hyderabad", text: "Banjara Hills, Hyderabad" },
                                     ]}
                                     defaultCurrent={0}
                                     onChange={selectHandler}
@@ -227,9 +235,9 @@ const DropdownSix = () => {
                                  <NiceSelect
                                     className="nice-select fw-normal"
                                     options={[
-                                       { value: "1", text: "$10,000 - $200,000" },
-                                       { value: "2", text: "$20,000 - $300,000" },
-                                       { value: "3", text: "$30,000 - $400,000" },
+                                       { value: "1", text: "₹5,00,000 - ₹15,00,000" },
+                                       { value: "2", text: "₹15,00,000 - ₹25,00,000" },
+                                       { value: "3", text: "₹25,00,000 - ₹35,00,000" },
                                     ]}
                                     defaultCurrent={0}
                                     onChange={selectHandler}

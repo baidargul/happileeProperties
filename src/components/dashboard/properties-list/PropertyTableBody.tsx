@@ -12,6 +12,7 @@ import listImg_3 from "@/assets/images/dashboard/img_03.jpg";
 import listImg_4 from "@/assets/images/dashboard/img_04.jpg";
 import listImg_5 from "@/assets/images/dashboard/img_05.jpg";
 import moment from "moment";
+import { toast } from "sonner";
 
 interface DataType {
    id: number;
@@ -80,6 +81,11 @@ const list_data: DataType[] = [
    },
 ]
 
+const handleCopy = (id) => {
+   navigator.clipboard.writeText(`https://happileeproperty.com/property/${id}`);
+   toast("Link copied to clipboard");   
+}
+
 const PropertyTableBody = ({data}) => {
    return (
       <tbody className="border-0">
@@ -87,9 +93,9 @@ const PropertyTableBody = ({data}) => {
             <tr key={item.id}>
                <td>
                   <div className="d-lg-flex align-items-center position-relative">
-                     <Image src={item.img} alt="" className="p-img" />
+                     <Image width={50} height={50} src={item.img||'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'} alt="" className="p-img" />
                      <div className="ps-lg-4 md-pt-10">
-                        <Link href="#" className="property-name tran3s color-dark fw-500 fs-20 stretched-link">{item.title}</Link>
+                        <Link href={`/property/${item.id}`} className="property-name tran3s color-dark fw-500 fs-20 stretched-link">{item.title}</Link>
                         <div className="address">{item.address}</div>
                         <strong className="price color-dark">${item.price}</strong>
                      </div>
@@ -107,10 +113,10 @@ const PropertyTableBody = ({data}) => {
                         <span></span>
                      </button>
                      <ul className="dropdown-menu dropdown-menu-end">
-                        <li><Link className="dropdown-item" href="#"><Image src={icon_1} alt="" className="lazy-img" /> View</Link></li>
-                        <li><Link className="dropdown-item" href="#"><Image src={icon_2} alt="" className="lazy-img" /> Share</Link></li>
-                        <li><Link className="dropdown-item" href="#"><Image src={icon_3} alt="" className="lazy-img" /> Edit</Link></li>
-                        <li><Link className="dropdown-item" href="#"><Image src={icon_4} alt="" className="lazy-img" /> Delete</Link></li>
+                        <li><Link className="dropdown-item" href={`/property/${item.id}`}><Image src={icon_1} alt="" className="lazy-img" /> View</Link></li>
+                        <li onClick={()=>handleCopy(item.id)}><Link className="dropdown-item" href="#"><Image src={icon_2} alt="" className="lazy-img" /> Share</Link></li>
+                        {/* <li><Link className="dropdown-item" href="#"><Image src={icon_3} alt="" className="lazy-img" /> Edit</Link></li>
+                        <li><Link className="dropdown-item" href="#"><Image src={icon_4} alt="" className="lazy-img" /> Delete</Link></li> */}
                      </ul>
                   </div>
                </td>

@@ -24,7 +24,7 @@ const ListingDetailsOneArea = async (props: Props) => {
 
   const property = await formatter.formattedProperty(props.id ? props.id : "");
 
-  console.log(property);
+  // console.log(property);
   return (
     <div className="listing-details-one theme-details-one bg-pink pt-180 lg-pt-150 pb-150 xl-pb-120">
       <div className="container">
@@ -39,10 +39,11 @@ const ListingDetailsOneArea = async (props: Props) => {
             <div className="property-overview mb-50 bg-white shadow4 border-20 p-40">
               <h4 className="mb-20">Overview</h4>
               <p className="fs-20 lh-lg">
-                Lorem ipsum dolor sit amet consectetur. Et velit varius ipsum
-                tempor vel dignissim tincidunt. Aliquam accumsan laoreet
-                ultricies tincidunt faucibus fames augue in sociis. Nisl enim
-                integer neque nec.
+              This property showcases a harmonious blend of timeless design and modern functionality, creating a space that is both stylish and practical. Every detail has been carefully considered to provide an exceptional living experience, with a focus on maximizing space, comfort, and natural light. The interiors exude a sense of elegance, designed to accommodate both relaxation and everyday activities with ease.
+
+Crafted to cater to a variety of lifestyles, this property offers an inviting ambiance, whether you’re entertaining guests, enjoying quiet moments, or creating new memories. Its design seamlessly integrates thoughtful architectural elements with contemporary finishes, ensuring it meets the needs of modern living while maintaining a sense of warmth and charm.
+
+Ideal for those seeking a residence that balances aesthetics and functionality, this property is an excellent choice for anyone looking for a space that feels like home while offering all the features necessary for a comfortable and fulfilling lifestyle.
               </p>
             </div>
             {/* <div className="property-feature-accordion bg-white shadow4 border-20 p-40 mb-50">
@@ -92,7 +93,7 @@ const ListingDetailsOneArea = async (props: Props) => {
                      <CommonReviewForm />
                   </div> */}
           </div>
-          <Sidebar />
+          <Sidebar property={property} />
         </div>
       </div>
     </div>

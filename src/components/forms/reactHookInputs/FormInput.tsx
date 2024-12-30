@@ -31,7 +31,7 @@ const FormInput: React.FC<FormInputProps> = ({ label,className,control,name,type
 			placeholder={placeholder}
 			isRequired={isRequired}
 		/>
-		{error&&<p className='text-red-600 text-md'>{error.message}</p>}
+		{error&&<p className='text-danger text-md'>{error.message}</p>}
 		</div>
 		)}
 	/>

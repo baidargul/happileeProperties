@@ -1,6 +1,14 @@
+"use client";
 import Link from "next/link"
+import { toast } from "sonner";
 
 const CommonBanner = ({ style_3,data}: any) => {
+
+   const handleCopy = (id) => {
+      navigator.clipboard.writeText(`https://happileeproperty.com/property/${id}`);
+      toast("Link copied to clipboard");   
+   }
+
    return (
       <div className="row bg-white" style={{borderRadius:'20px',padding:'20px'}}>
          <div className="col-lg-6">
@@ -30,7 +38,7 @@ const CommonBanner = ({ style_3,data}: any) => {
                         className="fa-solid fa-heart" style={{
                            color: "#ff3425",
                         }}></i></Link></li>
-                  <li><Link href="#"
+                  <li onClick={()=>handleCopy(data?.id)}><Link href="#"
                      className={`d-flex align-items-center justify-content-center tran3s ${style_3 ? "" : "rounded-circle"}`}><i
                         className="fa-solid fa-share-nodes" style={{
                            color: "#FFD700",

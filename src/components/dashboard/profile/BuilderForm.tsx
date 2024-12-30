@@ -3,10 +3,11 @@ import FormTextArea from '@/components/forms/reactHookInputs/FormTextArea'
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { serverActions } from '../../../../serveractions/commands/serverCommands';
 import ImagePicker from '@/components/ImagePicker/ImagePicker';
+import { userLogin } from '@/redux/features/userSlice';
 
 interface RootState {
 	user: any;
@@ -14,6 +15,7 @@ interface RootState {
 
 
 export default function BuilderForm() {
+  const dispatch = useDispatch();
 	const [selectedImageArray, setSelectedImageArray] = useState([]);
 	const [removedImageArray, setRemovedImageArray] = useState([]);
 	const userProfile = useSelector((state: RootState) => state.user.userProfile) || {};
@@ -61,7 +63,9 @@ export default function BuilderForm() {
 		}
 		formData.append('id',id)
 		const response = await serverActions.builder.create(formData);
-		console.log(response)
+		if (response.status == 200) {
+          dispatch(userLogin(response.data));
+        }
 	  };
 
 

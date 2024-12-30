@@ -66,7 +66,7 @@ export default function AgentForm() {
             className="custom-class"
             control={control}
             name="experience"
-            type="text"
+            type="number"
             isRequired={true}
             placeholder="Enter your years of experience"
           />

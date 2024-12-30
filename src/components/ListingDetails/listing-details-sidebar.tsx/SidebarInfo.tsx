@@ -18,29 +18,16 @@ interface AgentData {
 }
 
 
-const SidebarInfo = () => {
-   const [agentData, setAgentData] = useState<AgentData | null>(null);
-
-const getData= async ()=>{
-   const res = await serverActions.agent.listAll();
-      if(res.status==200){
-         setAgentData(res.data[0]);
-         // console.log(res.data)
-      }
-}
-
-useEffect(()=>{
-   getData()
-},[])
-
+const SidebarInfo = ({property}: {property: any}) => {
+   const [hide,setHide] = useState(false)
    return (
          <>
          <Image src={infoAvatar} alt=""
             className="lazy-img  ms-auto me-auto mt-3 avatar" />
          <div className="text-center mt-25">
-            <h6 className="name">{agentData?.name??"Jhon Deo"}</h6>
+            <h6 className="name">{property?.user?.name??"Jhon Deo"}</h6>
             <p className="fs-16">Property Agent & Broker</p>
-            <p className="fs-14 text-muted">{agentData?.agent?.description??"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae."}</p>
+            {/* <p className="fs-14 text-muted">{property?.user?.agent?.description??"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae."}</p> */}
             {/* <ul className="style-none d-flex align-items-center justify-content-center social-icon">
                <li><Link href="#"><i className="fa-brands fa-facebook-f"></i></Link></li>
                <li><Link href="#"><i className="fa-brands fa-twitter"></i></Link></li>
@@ -48,17 +35,16 @@ useEffect(()=>{
                <li><Link href="#"><i className="fa-brands fa-linkedin"></i></Link></li>
             </ul> */}
          </div>
-         <div className="divider-line mt-40 mb-45 pt-20">
+         {hide?<div className="divider-line mt-40 mb-45 pt-20">
             <ul className="style-none">
-               {agentData?.address&&<li>Location: <span>{agentData?.address??"Lorem ipsum dolor sit amet"}</span></li>}
-               <li>Email: <span><Link href={`mailto:${agentData?.email}`}>{agentData?.email??"info@inquiry"}</Link></span>
+               {property?.user?.address&&<li>Location: <span>{property?.user?.address??"Lorem ipsum dolor sit amet"}</span></li>}
+               <li>Email: <span><Link href={`mailto:${property?.user?.email}`}>{property?.user?.email??"info@inquiry"}</Link></span>
                </li>
-               <li>Phone: <span><Link href={`tel:${agentData?.phone}`}>{agentData?.phone??"123-456-7890"}</Link></span></li>
+               <li>Phone: <span><Link href={`tel:${property?.user?.phone}`}>{property?.user?.phone??"123-456-7890"}</Link></span></li>
             </ul>
-         </div>
-         <button className="btn-nine text-uppercase rounded-3 w-100 mb-10">
+         </div>:<button onClick={()=>setHide(true)} className="btn-nine text-uppercase rounded-3 w-100 mb-10">
             
-            CONTACT AGENT</button>
+            CONTACT AGENT</button>}
       </>
    )
 }
