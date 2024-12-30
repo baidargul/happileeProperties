@@ -50,7 +50,7 @@ const MediaGallery = () => {
                   </div>
                   <div className="theme-sidebar-one d-none d-xl-block">
                      <div className="agent-info bg-white border-20 p-30">
-                        <SidebarInfo />
+                        {/* <SidebarInfo /> */}
                      </div>
                   </div>
                   <div className="carousel-inner">
