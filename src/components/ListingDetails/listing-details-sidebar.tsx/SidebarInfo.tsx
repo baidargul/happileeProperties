@@ -26,7 +26,9 @@ const SidebarInfo = ({property}: {property: any}) => {
 
    const handleContactAgent = async () => {
       const res = await serverActions.leads.createLead(property.id,userProfile?.id);
-      console.log(res);
+      if(res.status==200){
+         setHide(true)
+      }
    }  
    return (
          <>
