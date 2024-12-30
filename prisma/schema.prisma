@@ -34,6 +34,7 @@ model user {
   favouriteProperties  favouriteProperties[]
   image                image[]
   interested           interested[]
+  leads                leads[]
   property             property[]
   subscriptionRegister subscriptionRegister[]
 }
@@ -107,6 +108,7 @@ model property {
   amenitiesregister   amenitiesregister[]
   favouriteProperties favouriteProperties[]
   interested          interested[]
+  leads               leads[]
   allotmentFor        allotmentFor          @relation(fields: [allotmentForId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   bhkType             bhk?                  @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   furnishing          furnishing?           @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -210,6 +212,15 @@ model subscriptionRegister {
   user                user                @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
+model leads {
+  id         String    @id @default(uuid())
+  userId     String
+  propertyId String
+  createdAt  DateTime? @default(now()) @db.Timestamptz(6)
+  property   property  @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user       user      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
 enum accountStatus {
   UNDEFINED
   INCOMPLETE
@@ -221,11 +232,11 @@ enum accountStatus {
 enum accountTypes {
   UNDEFINED
   BUYER
-  SELLER
   BUILDER
   AGENT
   ADMIN
   SUPERADMIN
+  SELLER
 }
 
 enum propertyStatus {
