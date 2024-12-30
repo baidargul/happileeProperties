@@ -7,7 +7,7 @@ async function add(propertyId: string, userId: string) {
     userId,
   };
   const response = await axios
-    .post(`${apiPath}/favorite`, data)
+    .post(`${apiPath}/favourite`, data)
     .then(async (res) => {
       const response = await res.data;
       return response;
@@ -21,7 +21,7 @@ async function remove(propertyId: string, userId: string) {
     userId,
   };
   const response = await axios
-    .patch(`${apiPath}/favorite`, data)
+    .patch(`${apiPath}/favourite`, data)
     .then(async (res) => {
       const response = await res.data;
       return response;
@@ -31,7 +31,7 @@ async function remove(propertyId: string, userId: string) {
 
 async function list(userId: string) {
   const response = await axios
-    .get(`${apiPath}/favorite?id=${userId}`)
+    .get(`${apiPath}/favourite?id=${userId}`)
     .then(async (res) => {
       const response = await res.data;
       return response;
