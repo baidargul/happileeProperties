@@ -81,15 +81,15 @@ const list_data: DataType[] = [
    },
 ]
 
-const handleCopy = (id) => {
+const handleCopy = (id: any) => {
    navigator.clipboard.writeText(`https://happileeproperty.com/property/${id}`);
    toast("Link copied to clipboard");   
 }
 
-const PropertyTableBody = ({data}) => {
+const PropertyTableBody = ({data}: any) => {
    return (
       <tbody className="border-0">
-         {data &&data.map((item) => (
+         {data &&data.map((item:any) => (
             <tr key={item.id}>
                <td>
                   <div className="d-lg-flex align-items-center position-relative">

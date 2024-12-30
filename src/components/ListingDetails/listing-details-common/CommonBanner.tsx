@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 const CommonBanner = ({ style_3,data}: any) => {
 
-   const handleCopy = (id) => {
+   const handleCopy = (id: any) => {
       navigator.clipboard.writeText(`https://happileeproperty.com/property/${id}`);
       toast("Link copied to clipboard");   
    }

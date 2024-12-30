@@ -94,7 +94,7 @@ const ListingDetailsFourArea = () => {
                         </div>
                      </div>
                   </div>
-                  <Sidebar />
+                  {/* <Sidebar /> */}
                </div>
             </div>
          </div>

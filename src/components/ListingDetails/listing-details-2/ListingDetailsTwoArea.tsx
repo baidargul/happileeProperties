@@ -88,7 +88,7 @@ const ListingDetailsTwoArea = () => {
                      <CommonReviewForm />
                   </div>
                </div>
-               <Sidebar />
+               {/* <Sidebar /> */}
             </div>
          </div>
       </div>
