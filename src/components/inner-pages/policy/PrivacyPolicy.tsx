@@ -78,7 +78,7 @@ export default function PrivacyPolicy() {
 
          <h1>9. Changes to This Policy</h1>
          <p>
-            We may update this Privacy Policy periodically. Changes will be reflected with the "Last Updated" date. Continued use of the website constitutes acceptance of these changes.
+            We may update this Privacy Policy periodically. Changes will be reflected with the &quot;Last Updated&quot; date. Continued use of the website constitutes acceptance of these changes.
          </p>
 
          <h1>10. Contact Us</h1>
