@@ -5,6 +5,7 @@ import Link from "next/link"
 import infoAvatar from "@/assets/images/agent/user-tie.svg"
 import { serverActions } from "../../../../serveractions/commands/serverCommands";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 
 interface AgentData {
@@ -19,7 +20,14 @@ interface AgentData {
 
 
 const SidebarInfo = ({property}: {property: any}) => {
+   const userProfile = useSelector((state: any) => state.user.userProfile);
+   
    const [hide,setHide] = useState(false)
+
+   const handleContactAgent = async () => {
+      const res = await serverActions.leads.createLead(property.id,userProfile?.id);
+      console.log(res);
+   }  
    return (
          <>
          <Image src={infoAvatar} alt=""
@@ -42,7 +50,10 @@ const SidebarInfo = ({property}: {property: any}) => {
                </li>
                <li>Phone: <span><Link href={`tel:${property?.user?.phone}`}>{property?.user?.phone??"123-456-7890"}</Link></span></li>
             </ul>
-         </div>:<button onClick={()=>setHide(true)} className="btn-nine text-uppercase rounded-3 w-100 mb-10">
+         </div>:<button onClick={
+            // ()=>setHide(true)
+            handleContactAgent
+            } className="btn-nine text-uppercase rounded-3 w-100 mb-10">
             
             CONTACT AGENT</button>}
       </>

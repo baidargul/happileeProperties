@@ -110,7 +110,28 @@ async function formatUser(id: string) {
       image: true,
       agent: true,
       buyer: true,
-      favouriteProperties: true,
+      favouriteProperties:{
+        include:{
+          property: {
+            include: {
+              propertyType: true,
+              bhkType: true,
+              furnishing: true,
+              ownershipType: true,
+              allotmentFor: true,
+              propertyImages: {
+                include: {
+                  image: {
+                    include: {
+                      user: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }
+      },
       interested: true,
     },
     omit: {

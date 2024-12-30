@@ -86,7 +86,46 @@ const handleCopy = (id: any) => {
    toast("Link copied to clipboard");   
 }
 
-const PropertyTableBody = ({data}: any) => {
+const PropertyTableBody = ({data,fav}: any) => {
+ if(fav){
+   return (
+      <tbody className="border-0">
+         {data &&data.map((item:any) => (
+            <tr key={item?.property.id}>
+               <td>
+                  <div className="d-lg-flex align-items-center position-relative">
+                     <Image width={50} height={50} src={item?.property?.img||'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'} alt="" className="p-img" />
+                     <div className="ps-lg-4 md-pt-10">
+                        <Link href={`/property/${item?.property.id}`} className="property-name tran3s color-dark fw-500 fs-20 stretched-link">{item?.property.title}</Link>
+                        <div className="address">{item?.property.address}</div>
+                        <strong className="price color-dark">${item?.property.price}</strong>
+                     </div>
+                  </div>
+               </td>
+               <td>{moment(item.createdAt).format("LL")}</td>
+               <td></td>
+               <td>
+            
+               </td>
+               <td>
+                  <div className="action-dots float-end">
+                     <button className="action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span></span>
+                     </button>
+                     <ul className="dropdown-menu dropdown-menu-end">
+                        <li><Link className="dropdown-item" href={`/property/${item?.property.id}`}><Image src={icon_1} alt="" className="lazy-img" /> View</Link></li>
+                        <li onClick={()=>handleCopy(item?.property.id)}><Link className="dropdown-item" href="#"><Image src={icon_2} alt="" className="lazy-img" /> Share</Link></li>
+                        {/* <li><Link className="dropdown-item" href="#"><Image src={icon_3} alt="" className="lazy-img" /> Edit</Link></li>
+                        <li><Link className="dropdown-item" href="#"><Image src={icon_4} alt="" className="lazy-img" /> Delete</Link></li> */}
+                     </ul>
+                  </div>
+               </td>
+            </tr>
+         ))}
+      </tbody>
+   )
+ }else{
    return (
       <tbody className="border-0">
          {data &&data.map((item:any) => (
@@ -124,6 +163,7 @@ const PropertyTableBody = ({data}: any) => {
          ))}
       </tbody>
    )
+}
 }
 
 export default PropertyTableBody

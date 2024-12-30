@@ -3,6 +3,7 @@ import Link from 'next/link'; // Import Link if you are using Next.js
 
 // Define the prop types
 interface LeadCardProps {
+  data:any
 	name: string;
 	phone: string;
 	timestamp: string;
@@ -14,6 +15,7 @@ interface LeadCardProps {
 
 
 const LeadCard: React.FC<LeadCardProps> = ({
+  data,
   name,
   phone,
   timestamp,
@@ -28,10 +30,10 @@ const LeadCard: React.FC<LeadCardProps> = ({
         {/* Left Column: Contact Info */}
         <div className="col-12 col-md-6 mb-3">
           <div className="card-body">
-            <h5 className="mb-0">{name}</h5>
+            <h5 className="mb-0">{data?.user?.name}</h5>
             <small>
-              <a href={`tel:${phone}`} className="text-muted">
-                {phone}
+              <a href={`tel:${data?.user?.phone}`} className="text-muted">
+                +91 {data?.user?.phone}
               </a>
             </small>
             <br />
@@ -42,13 +44,13 @@ const LeadCard: React.FC<LeadCardProps> = ({
         {/* Right Column: Property Info */}
         <div className={`col-12 col-md-6 border-20 ${style ? 'grey-bg' : ''}`}>
           <div className="property-info">
-            <h5 className="title mb-2">{propertyTitle}</h5>
-            <div className="address mb-3">{address}</div>
+            <h5 className="title mb-2">{data?.property?.title}</h5>
+            <div className="address mb-3">{data?.property?.title}</div>
 
             {/* Footer with Price and Action Button */}
             <div className="pl-footer d-flex align-items-center justify-content-between">
-              <strong className="text-dark me-auto">${price}</strong>
-              <Link href="/listing_details_02" className="btn-four rounded-circle">
+              <strong className="text-dark me-auto">₹{data?.property?.price}</strong>
+              <Link href={`https://happileeproperty.com/property/${data?.property?.id}`} className="btn-four rounded-circle">
                 <i className="bi bi-arrow-up-right"></i>
               </Link>
             </div>

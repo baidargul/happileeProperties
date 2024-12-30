@@ -217,8 +217,8 @@ model leads {
   userId     String
   propertyId String
   createdAt  DateTime? @default(now()) @db.Timestamptz(6)
-  property   property  @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  user       user      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  property   property  @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  user       user      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum accountStatus {

@@ -4,12 +4,12 @@ import FavouriteArea from "./FavouriteArea";
 const FavouriteBody = () => {
 
    return (
-      <div className="dashboard-body">
-         <div className="position-relative">
-            <DashboardHeaderTwo title="Favourites" />
+      // <div className="dashboard-body">
+      //    <div className="position-relative">
+      //       <DashboardHeaderTwo title="Favourites" />
             <FavouriteArea/>
-         </div>
-      </div>
+      //    </div>
+      // </div>
    )
 }
 

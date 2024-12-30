@@ -89,10 +89,10 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
             </div>
             <nav className="dasboard-main-nav pt-30 pb-30 bottom-line">
                <ul className="style-none">
-                  <li className="plr"><Link href="/dashboard/dashboard-index" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/dashboard-index' ? 'active' : ''}`}>
+                  {/* <li className="plr"><Link href="/dashboard/dashboard-index" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/dashboard-index' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/dashboard-index' ? dashboardIconActive_1 : dashboardIcon_1} alt="" />
                      <span>Dashboard</span>
-                  </Link></li>
+                  </Link></li> */}
                   <li className="plr"><Link href="/dashboard/leads" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/leads' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/leads' ? dashboardIconActive_2 : dashboardIcon_2} alt="" />
                      <span>Leads</span>
@@ -125,14 +125,14 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
                      <Image src={pathname === '/dashboard/favourites' ? dashboardIconActive_8 : dashboardIcon_8} alt="" />
                      <span>Favourites</span>
                   </Link></li>
-                  <li className="plr"><Link href="/dashboard/saved-search" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/saved-search' ? 'active' : ''}`}>
+                  {/* <li className="plr"><Link href="/dashboard/saved-search" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/saved-search' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/saved-search' ? dashboardIconActive_9 : dashboardIcon_9} alt="" />
                      <span>Saved Search</span>
                   </Link></li>
                   <li className="plr"><Link href="/dashboard/review" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/review' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/review' ? dashboardIconActive_10 : dashboardIcon_10} alt="" />
                      <span>Reviews</span>
-                  </Link></li>
+                  </Link></li> */}
                </ul>
             </nav>
             {/* <div className="profile-complete-status bottom-line pb-35 plr">
