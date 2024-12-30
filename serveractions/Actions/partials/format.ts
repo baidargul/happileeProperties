@@ -167,11 +167,17 @@ async function formatUser(id: string) {
 
   user = { ...user, interested: interestedProperties };
 
-  const properties = await prisma.property.findMany({
+  const rawProperties = await prisma.property.findMany({
     where: {
       userId: id,
     },
   });
+
+  const properties: any = [];
+  for (const item of rawProperties) {
+    const property = await formattedProperty(item.id);
+    properties.push(property);
+  }
 
   return { ...user, properties: properties };
 }
