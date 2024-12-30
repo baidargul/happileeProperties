@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
         id: data.id,
       },
       data: {
-        status: accountStatus.PENDING,
+        status: accountStatus.ACTIVE,
       },
     });
 
