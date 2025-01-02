@@ -1,46 +1,6 @@
 "use client";
 import React, { useState, useCallback, useRef, FC, ChangeEvent } from "react";
-import NiceSelect from "@/ui/NiceSelect";
 import { useClickAway } from "react-use";
-
-interface SingleSelectInputProps {
-  selectHandler: any;
-  options: any;
-  label: string;  
-  onBlur?: any;
-  isDisabled?: boolean;  
-  isRequired?: boolean;
-  placeHolder?: string;
-}
-export default function SingleSelectInput({
-  selectHandler,
-  options,
-  label,
-  onBlur,
-  isDisabled,
-  isRequired,
-  placeHolder,
-} : SingleSelectInputProps) {
-  return (
-    <div className="dash-input-wrapper mb-30">
-      <label htmlFor="">{label}</label>
-      <SelectComponent
-        className="nice-select"
-        options={options}
-        defaultCurrent={0}
-        onChange={selectHandler}
-        name=""
-        placeholder={placeHolder}
-        onBlur={onBlur}
-        isDisabled={isDisabled}
-        isRequired={isRequired}
-      />
-    </div>
-  );
-}
-
-// import React, { useState, useCallback, useRef, FC, ChangeEvent } from "react";
-// import { useClickAway } from "react-use";
 
 interface Option {
   id: string;
@@ -49,14 +9,15 @@ interface Option {
 
 type NiceSelectProps = {
   options: Option[];
-  defaultCurrent: number;
+  defaultCurrent: number[];
   placeholder?: string;
   className?: string;
-  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (selected: Option[] | Option) => void;
   name: string;
   onBlur?: () => void;
   isDisabled?: boolean;
   isRequired?: boolean;
+  multiSelect?: boolean;
 };
 
 const SelectComponent: FC<NiceSelectProps> = ({
@@ -67,9 +28,13 @@ const SelectComponent: FC<NiceSelectProps> = ({
   onChange,
   name,
   onBlur,
+  multiSelect = false,
 }) => {
   const [open, setOpen] = useState(false);
-  const [current, setCurrent] = useState<Option>(options[defaultCurrent]);
+  const [current, setCurrent] = useState<Option[]>(
+    defaultCurrent.map((index) => options[index])
+  );
+
   const onClose = useCallback(() => {
     setOpen(false);
   }, []);
@@ -78,9 +43,19 @@ const SelectComponent: FC<NiceSelectProps> = ({
   useClickAway(ref, onClose);
 
   const currentHandler = (item: Option) => {
-    setCurrent(item);
-    onChange({ target: { value: item.id } } as ChangeEvent<HTMLSelectElement>);
-    onClose();
+    if (multiSelect) {
+      const isSelected = current.some((option) => option.id === item.id);
+      const updatedCurrent = isSelected
+        ? current.filter((option) => option.id !== item.id)
+        : [...current, item];
+
+      setCurrent(updatedCurrent);
+      onChange(updatedCurrent);
+    } else {
+      setCurrent([item]);
+      onChange(item);
+      onClose();
+    }
   };
 
   return (
@@ -94,7 +69,11 @@ const SelectComponent: FC<NiceSelectProps> = ({
       onKeyDown={(e) => e}
       ref={ref}
     >
-      <span className="current">{current?.name || placeholder}</span>
+      <span className="current">
+        {multiSelect
+          ? current.map((item) => item.name).join(", ")
+          : current[0]?.name || placeholder}
+      </span>
       <ul
         className="list"
         role="menubar"
@@ -106,7 +85,9 @@ const SelectComponent: FC<NiceSelectProps> = ({
             key={i}
             data-value={item.id}
             className={`option ${
-              item.id === current?.id ? "selected focus" : ""
+              current.some((option) => option.id === item.id)
+                ? "selected focus"
+                : ""
             }`}
             style={{ fontSize: "14px" }}
             role="menuitem"
@@ -120,3 +101,32 @@ const SelectComponent: FC<NiceSelectProps> = ({
     </div>
   );
 };
+
+export default function SingleSelectInput({
+  selectHandler,
+  options,
+  label,
+  onBlur,
+  isDisabled,
+  isRequired,
+  placeHolder,
+  multiSelect = false,
+}: any) {
+  return (
+    <div className="dash-input-wrapper mb-30">
+      <label htmlFor="">{label}</label>
+      <SelectComponent
+        className="nice-select"
+        options={options}
+        defaultCurrent={multiSelect ? [] : [0]} // Adjust default selection for multi/single
+        onChange={selectHandler}
+        name=""
+        placeholder={placeHolder}
+        onBlur={onBlur}
+        isDisabled={isDisabled}
+        isRequired={isRequired}
+        multiSelect={multiSelect}
+      />
+    </div>
+  );
+}

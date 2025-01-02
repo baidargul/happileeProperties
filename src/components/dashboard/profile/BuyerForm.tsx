@@ -44,6 +44,11 @@ export default function BuyerForm() {
     }
 	  };
 
+    const handleBack =()=>{
+          let profile = {...userProfile};
+            profile.type="UNDEFINED";
+            dispatch(userLogin(profile));
+        }
 
   return (
 	<div className="bg-white card-box border-20">
@@ -66,10 +71,25 @@ export default function BuyerForm() {
                 placeholder="Enter a description"
                 rows={8}
               />
-              <button type="submit" className="dash-btn-two tran3s me-3 w-25">
-                {isSubmitting&&<span className="dash-spinner spinner-one"></span>}
-                {isSubmitting?"Loading...":"Submit"}
-              </button>
+              <div className="d-flex justify-content-between col-md-12">
+          <button
+            disabled={isSubmitting}
+            type="submit"
+            className="dash-btn-two tran3s me-3 w-25"
+          >
+            {isSubmitting && (
+              <span className="spinner-border spinner-border-sm mr-2"></span>
+            )}
+            {isSubmitting ? "Loading..." : "Submit"}
+          </button>
+          <button
+            onClick={handleBack}
+            type="submit"
+            className="dash-btn-two tran3s me-3 w-25"
+          >
+            Back
+          </button>
+        </div>
             </form>
             {/* <UserAvatarSetting /> */}
           </div>

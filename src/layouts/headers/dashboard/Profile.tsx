@@ -8,8 +8,10 @@ import profileIcon_2 from "@/assets/images/dashboard/icon/icon_24.svg";
 import profileIcon_3 from "@/assets/images/dashboard/icon/icon_41_dark.svg";
 import { useDispatch } from "react-redux";
 import { userLogout } from "@/redux/features/userSlice";
+import { useRouter } from "next/navigation";
 
 const Profile = () => {
+   const router = useRouter()
     const dispatch =useDispatch();
    const liStyle:React.CSSProperties = {
       textTransform: 'capitalize',
@@ -25,6 +27,7 @@ const Profile = () => {
     };
 
     const handleLogout = () => {
+       router.push('/');
        dispatch(userLogout());
     }
 
@@ -39,9 +42,9 @@ const Profile = () => {
                <li className=""   style={liStyle}>
                   <Link className="dropdown-item d-flex align-items-center" href="/dashboard/profile"><Image src={profileIcon_1} width={20} height={18} alt="" className="lazy-img" /><span className="ms-2 ps-1" style={{fontWeight:500}}>Profile</span></Link>
                </li>
-               <li className=""   style={liStyle}>
+               {/* <li className=""   style={liStyle}>
                   <Link className="dropdown-item d-flex align-items-center" href="/dashboard/account-settings"><Image src={profileIcon_2} width={20} height={18} alt="" className="lazy-img" /><span className="ms-2 ps-1" style={{fontWeight:500}}>Account Settings</span></Link>
-               </li>
+               </li> */}
                <li className="" style={liStyle}>
                   <Link className="dropdown-item d-flex align-items-center" href="#" onClick={handleLogout}><Image src={profileIcon_3}  width={20} height={18}alt="" className="lazy-img"/><span className="ms-2 ps-1" style={{fontWeight:500}}>Logout</span></Link>
                </li>

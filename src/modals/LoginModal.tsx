@@ -57,12 +57,12 @@ const LoginModal = ({ loginModal, setLoginModal }: any) => {
                            </div>
                         </div>
 
-                        <div className="d-flex align-items-center mt-30 mb-10">
+                        {/* <div className="d-flex align-items-center mt-30 mb-10">
                            <div className="line"></div>
                            <span className="pe-3 ps-3 fs-6">OR</span>
                            <div className="line"></div>
-                        </div>
-                        <div className="row">
+                        </div> */}
+                        {/* <div className="row">
                            <div className="col-sm-6">
                               <Link href="#" className="social-use-btn d-flex align-items-center justify-content-center tran3s w-100 mt-10">
                                  <Image src={loginIcon_1} alt="" />
@@ -75,7 +75,7 @@ const LoginModal = ({ loginModal, setLoginModal }: any) => {
                                  <span className="ps-3">Signup with Facebook</span>
                               </Link>
                            </div>
-                        </div>
+                        </div> */}
                      </div>
                   </div>
                </div>

@@ -80,13 +80,13 @@ const LoginForm = ({close}: LoginFormProps) => {
                </div>
             </div>
             <div className="col-12">
-               <div className="agreement-checkbox d-flex justify-content-between align-items-center">
+               {/* <div className="agreement-checkbox d-flex justify-content-between align-items-center">
                   <div>
                      <input type="checkbox" id="remember" />
                      <label htmlFor="remember">Keep me logged in</label>
                   </div>
                   <Link href="#">Forget Password?</Link>
-               </div>
+               </div> */}
             </div>
             <div className="col-12">
                <button type="submit" className="btn-two w-100 text-uppercase d-block mt-20">Login</button>

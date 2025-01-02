@@ -68,6 +68,11 @@ export default function BuilderForm() {
         }
 	  };
 
+    const handleBack =()=>{
+      let profile = {...userProfile};
+        profile.type="UNDEFINED";
+        dispatch(userLogin(profile));
+    }
 
   return (
 	<div className="bg-white card-box border-20">
@@ -114,7 +119,8 @@ export default function BuilderForm() {
                 setRemovedImageArray={setSelectedImageArray}
                 label={"Images*"}
               />
-              <button
+              <div className="d-flex justify-content-between col-md-12">
+          <button
             disabled={isSubmitting}
             type="submit"
             className="dash-btn-two tran3s me-3 w-25"
@@ -124,6 +130,14 @@ export default function BuilderForm() {
             )}
             {isSubmitting ? "Loading..." : "Submit"}
           </button>
+          <button
+            onClick={handleBack}
+            type="submit"
+            className="dash-btn-two tran3s me-3 w-25"
+          >
+            Back
+          </button>
+        </div>
             </form>
             {/* <UserAvatarSetting /> */}
           </div>

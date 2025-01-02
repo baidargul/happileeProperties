@@ -10,9 +10,28 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormSelectInput from "@/components/forms/reactHookInputs/FormSelectInput";
 import ImagePicker from "@/components/ImagePicker/ImagePicker";
-import { allotmentFor, allotmentType, amenities, bhk, propertyType } from "@prisma/client";
+import {
+  allotmentFor,
+  allotmentType,
+  amenities,
+  bhk,
+  propertyType,
+} from "@prisma/client";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
+import SingleSelectInput from "@/components/forms/inputs/SingleSelectInput";
+import {
+  commercialPropertySpecific,
+  convenienceAndServices,
+  environmentalAndSustainability,
+  generalBuildingAmenities,
+  healthAndWellness,
+  lifestyleAndRecreation,
+  parkingAndTransportation,
+  safetyAndSecurity,
+  specialPropertyFeatures,
+  sportsAndOutdoors,
+} from "@/data/home-data/AmenitiesData";
 
 const Overview = () => {
   const selectHandler = (e: any) => {};
@@ -26,16 +45,16 @@ const Overview = () => {
   //   rest()
   // },[])
   const [data, setData] = useState<any>([]);
-  const [allotment, setAllotment] = useState<allotmentType|null>(null);
-  const [lookingFor, setLookingFor] = useState<allotmentFor|null>(null);
-  const [propertyType, setPropertyType] = useState<propertyType|null>(null);
-  const [bhk, setBhk] = useState<bhk|null>(null);
+  const [allotment, setAllotment] = useState<allotmentType | null>(null);
+  const [lookingFor, setLookingFor] = useState<allotmentFor | null>(null);
+  const [propertyType, setPropertyType] = useState<propertyType | null>(null);
+  const [bhk, setBhk] = useState<bhk | null>(null);
   const [amenities, setAmenities] = useState([]);
   const [selectedImageArray, setSelectedImageArray] = useState([]);
   const [removedImageArray, setRemovedImageArray] = useState([]);
-  const [loading,setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const userId=useSelector((state:any)=>state.user.userProfile.id);
+  const userId = useSelector((state: any) => state.user.userProfile.id);
 
   const getPropertyStructure = async () => {
     const res = await serverActions.property.GET_ALLOTMENT_STRUCTURE();
@@ -147,19 +166,23 @@ const Overview = () => {
         <div className="container mb-3">
           {/* Allotment Type Section */}
           <div className="d-flex align-items-center justify-content-start flex-column mt-3">
-            <p style={{
-              fontSize: "15px",
-              fontWeight:500,
-              textAlign: "left",
-              width: "100%",
-              color: "#000",
-            }}>Property type*</p>
+            <p
+              style={{
+                fontSize: "15px",
+                fontWeight: 500,
+                textAlign: "left",
+                width: "100%",
+                color: "#000",
+              }}
+            >
+              Property type*
+            </p>
             <div className="w-100 row gap-3">
-              {data?.allotmentType?.map((item:allotmentType) => (
+              {data?.allotmentType?.map((item: allotmentType) => (
                 <SelectionCard
                   key={item.id}
                   setItem={() => setAllotment(item)}
-                  item={allotment?allotment.id:""}
+                  item={allotment ? allotment.id : ""}
                   name={item.name}
                   id={item.id}
                   className="text-capitalize"
@@ -167,79 +190,93 @@ const Overview = () => {
               ))}
             </div>
           </div>
-
-
 
           {/* Looking For Section */}
           <div className="d-flex align-items-center justify-content-start flex-column mt-3">
-            <p style={{
-              fontSize: "15px",
-              fontWeight:500,
-              textAlign: "left",
-              width: "100%",
-              color: "#000",
-            }}>Looking to*</p>
+            <p
+              style={{
+                fontSize: "15px",
+                fontWeight: 500,
+                textAlign: "left",
+                width: "100%",
+                color: "#000",
+              }}
+            >
+              Looking to*
+            </p>
             <div className="w-100 row gap-3">
-            {data?.lookingFor?.allotmentFor?.map((item:allotmentFor) => (
-              <SelectionCard
-                key={item.id}
-                setItem={() => setLookingFor(item)}
-                item={lookingFor?.id??""}
-                name={item.name}
-                id={item.id}
-                className="text-capitalize"
-              />
-            ))}
-            </div>
-          </div>
-
-{/*Property Type Section */}
-          <div className="d-flex align-items-center justify-content-start flex-column mt-3">
-            <p style={{
-              fontSize: "15px",
-              fontWeight:500,
-              textAlign: "left",
-              width: "100%",
-              color: "#000",
-            }}>Property type*</p>
-            <div className="w-100 row gap-3">
-            {data?.lookingFor?.propertyType
-              ?.filter((item:propertyType) => item.allotmentTypeId === allotment?.id)
-              .map((item:any) => (
+              {data?.lookingFor?.allotmentFor?.map((item: allotmentFor) => (
                 <SelectionCard
                   key={item.id}
-                  setItem={() => setPropertyType(item)}
-                  item={propertyType?.id??""}
+                  setItem={() => setLookingFor(item)}
+                  item={lookingFor?.id ?? ""}
                   name={item.name}
                   id={item.id}
                   className="text-capitalize"
                 />
               ))}
+            </div>
+          </div>
+
+          {/*Property Type Section */}
+          <div className="d-flex align-items-center justify-content-start flex-column mt-3">
+            <p
+              style={{
+                fontSize: "15px",
+                fontWeight: 500,
+                textAlign: "left",
+                width: "100%",
+                color: "#000",
+              }}
+            >
+              Property type*
+            </p>
+            <div className="w-100 row gap-3">
+              {data?.lookingFor?.propertyType
+                ?.filter(
+                  (item: propertyType) => item.allotmentTypeId === allotment?.id
+                )
+                .map((item: any) => (
+                  <SelectionCard
+                    key={item.id}
+                    setItem={() => setPropertyType(item)}
+                    item={propertyType?.id ?? ""}
+                    name={item.name}
+                    id={item.id}
+                    className="text-capitalize"
+                  />
+                ))}
             </div>
           </div>
 
           {/*BHK Section */}
-          {allotment?.name?.toLowerCase() === "residential" &&<div className="d-flex align-items-center justify-content-start flex-column mt-3">
-            <p style={{
-              fontSize: "15px",
-              fontWeight:500,
-              textAlign: "left",
-              width: "100%",
-              color: "#000",
-            }}>BHK*</p>
-            <div className="w-100 row gap-3">
-            {data?.bhk?.map((item:bhk) => (
-                <SelectionCard
-                  key={item.id}
-                  setItem={() => setBhk(item)}
-                  item={bhk?.id??""}
-                  name={item.name}
-                  id={item.id}
-                  className="text-uppercase"
-                />
-              ))}
+          {allotment?.name?.toLowerCase() === "residential" && (
+            <div className="d-flex align-items-center justify-content-start flex-column mt-3">
+              <p
+                style={{
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  textAlign: "left",
+                  width: "100%",
+                  color: "#000",
+                }}
+              >
+                BHK*
+              </p>
+              <div className="w-100 row gap-3">
+                {data?.bhk?.map((item: bhk) => (
+                  <SelectionCard
+                    key={item.id}
+                    setItem={() => setBhk(item)}
+                    item={bhk?.id ?? ""}
+                    name={item.name}
+                    id={item.id}
+                    className="text-uppercase"
+                  />
+                ))}
+              </div>
             </div>
-          </div>}
+          )}
 
           <form onSubmit={handleSubmit(onSubmit)} className="row mt-3">
             <FormInput
@@ -294,34 +331,155 @@ const Overview = () => {
                 placeholder="Fully Furnished"
               />
             </div>
+            <div className="col-md-4">
+              <SingleSelectInput
+                options={generalBuildingAmenities}
+                label={"General Building Amenities"}
+                placeholder="Select"
+                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
+                multiSelect={true}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <SingleSelectInput
+                options={lifestyleAndRecreation}
+                label={"Lifestyle and Recreation"}
+                placeholder="Select"
+                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
+                multiSelect={true}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <SingleSelectInput
+                options={sportsAndOutdoors}
+                label={"Sports and Outdoors"}
+                placeholder="Select"
+                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
+                multiSelect={true}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <SingleSelectInput
+                options={environmentalAndSustainability}
+                label={"Environmental and Sustainability"}
+                placeholder="Select"
+                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
+                multiSelect={true}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <SingleSelectInput
+                options={healthAndWellness}
+                label={"Health and Wellness"}
+                placeholder="Select"
+                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
+                multiSelect={true}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <SingleSelectInput
+                options={convenienceAndServices}
+                label={"Convenience and Services"}
+                placeholder="Select"
+                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
+                multiSelect={true}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <SingleSelectInput
+                options={parkingAndTransportation}
+                label={"Parking and Transportation"}
+                placeholder="Select"
+                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
+                multiSelect={true}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <SingleSelectInput
+                options={specialPropertyFeatures}
+                label={"Special Property Features"}
+                placeholder="Select"
+                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
+                multiSelect={true}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <SingleSelectInput
+                options={safetyAndSecurity}
+                label={"Safety and Security"}
+                placeholder="Select"
+                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
+                multiSelect={true}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <SingleSelectInput
+                options={commercialPropertySpecific}
+                label={"Commercial Property Specific"}
+                placeholder="Select"
+                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
+                multiSelect={true}
+              />
+            </div>
+
             {allotment?.name?.toLowerCase() === "residential" && (
               <div className="d-flex align-items-center justify-content-start flex-column mt-3 mb-3">
-              <p style={{
-                fontSize: "15px",
-                fontWeight:500,
-                textAlign: "left",
-                width: "100%",
-                color: "#000",
-              }}>Amenities*</p>
-              <div className="w-100 row gap-2">
-              {data?.amenities?.slice(0, 9).map((item:any) => (
-                <div  key={item.id}
-                  className={`border border-2 col-1 d-flex align-items-center justify-content-center ${
-                    amenities?.some((amenity:amenities) => amenity.id === item.id) ? "bg-primary text-white" : ""
-                  } rounded-2 text-center p-2`}
-                  style={{ cursor: "pointer",width:"100%",height:"2.5rem" }}
-                  onClick={() => setAmenities(
-                    (prev:any) =>
-                      prev.some((amenity:amenities) => amenity.id === item.id)
-                        ? prev.filter((amenity:amenities) => amenity.id !== item.id) // Remove if already selected
-                        : [...prev, item] // Add if not selected
-                  )}
+                <p
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: 500,
+                    textAlign: "left",
+                    width: "100%",
+                    color: "#000",
+                  }}
                 >
-                  <p className={`mb-0 fs-6 fw-normal text-capitalize`}>{item.name}</p>
+                  Amenities*
+                </p>
+                <div className="w-100 row gap-2">
+                  {data?.amenities?.slice(0, 9).map((item: any) => (
+                    <div
+                      key={item.id}
+                      className={`border border-2 col-1 d-flex align-items-center justify-content-center ${
+                        amenities?.some(
+                          (amenity: amenities) => amenity.id === item.id
+                        )
+                          ? "bg-primary text-white"
+                          : ""
+                      } rounded-2 text-center p-2`}
+                      style={{
+                        cursor: "pointer",
+                        width: "100%",
+                        height: "2.5rem",
+                      }}
+                      onClick={() =>
+                        setAmenities(
+                          (prev: any) =>
+                            prev.some(
+                              (amenity: amenities) => amenity.id === item.id
+                            )
+                              ? prev.filter(
+                                  (amenity: amenities) => amenity.id !== item.id
+                                ) // Remove if already selected
+                              : [...prev, item] // Add if not selected
+                        )
+                      }
+                    >
+                      <p className={`mb-0 fs-6 fw-normal text-capitalize`}>
+                        {item.name}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-                ))}
-              </div>
-            </div>
             )}
             <div className="col-md-4">
               <FormInput
@@ -375,10 +533,10 @@ const Overview = () => {
               label={"Images*"}
             />
             <button type="submit" className="dash-btn-two tran3s me-3 w-25">
-              {(isSubmitting||loading) && (
+              {(isSubmitting || loading) && (
                 <span className="dash-spinner spinner-one"></span>
               )}
-              {(isSubmitting||loading) ? "Loading..." : "Submit"}
+              {isSubmitting || loading ? "Loading..." : "Submit"}
             </button>
           </form>
         </div>

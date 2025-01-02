@@ -9,3 +9,38 @@
 .nav-link.no-after::after {
     content: none; /* Remove the dropdown arrow */
 }
+
+.custom-file-picker {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	justify-content:flex-start;
+	/* background-color: aqua; */
+	/* position: relative; */
+}
+
+.custom-file-picker p{
+	/* height: 100%; */
+	margin: 0;
+	padding: 0;
+	/* background-color: red; */
+}
+.custom-file-picker-btn {
+	background-color: #007bff;
+	color: white;
+	padding: 12px 20px;
+	/* height: 100%; */
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.custom-file-picker-btn:hover {
+	background-color: #0056b3;
+}
+
+.custom-file-picker-btn:disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
+}

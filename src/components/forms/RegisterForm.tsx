@@ -62,8 +62,10 @@ const RegisterForm = ({close}: RegisterFormProps) => {
    const { register, handleSubmit, reset, formState: { errors }, } = useForm<FormData>({ resolver: yupResolver(schema), });
 
    const onSubmit = async (formData: FormData) => {
-      if (!checkbox) return;
-
+      if (!checkbox) {
+         toast('Please accept terms and conditions');
+         return;
+      }
       try {
          const { data, status, message } = await serverActions.user.signUp(
             formData.name,
@@ -113,7 +115,11 @@ const RegisterForm = ({close}: RegisterFormProps) => {
             <div className="col-12">
                <div className="input-group-meta position-relative mb-25">
                   <label>Phone Number*</label>
-                  <input type="number" {...register("phoneNumber")} placeholder="1234567890" />
+                  <input type="number" {...register("phoneNumber")} onInput={(e) => {
+            // Optional: Filter out non-digit characters if pasted
+            const input = e.target as HTMLInputElement;
+            input.value = input.value.slice(0, 10);
+         }}     placeholder="1234567890" />
                   <p className="form_error">{errors.phoneNumber?.message}</p>
                </div>
             </div>

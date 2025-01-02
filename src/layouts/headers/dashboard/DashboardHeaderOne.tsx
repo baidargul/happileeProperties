@@ -26,8 +26,9 @@ import dashboardIconActive_10 from "@/assets/images/dashboard/icon/icon_10_activ
 import dashboardIcon_10 from "@/assets/images/dashboard/icon/icon_10.svg";
 import dashboardIcon_11 from "@/assets/images/dashboard/icon/icon_41.svg";
 import { serverActions } from "../../../../serveractions/commands/serverCommands";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { userLogout } from "@/redux/features/userSlice";
 
 interface RootState {
    user: {
@@ -38,6 +39,7 @@ interface RootState {
 
 const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
    const router =useRouter()
+   const dispatch = useDispatch();
 
    const  {userProfile,isLoggedIn} = useSelector((state: RootState)=>state.user)
 
@@ -46,6 +48,11 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
    if(!isLoggedIn) {
       router.push('/')
    };
+
+   const handleLogout = () => {
+      router.push('/');
+      dispatch(userLogout());
+   }
 
    if((!isLoggedIn || userProfile?.status === 'UNDEFINED' || userProfile?.status === 'INCOMPLETE' || userProfile?.status === 'PENDING') && pathname.includes('/profile')){
       return (
@@ -68,7 +75,7 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
                </ul>
             </nav>
             <div className="plr">
-               <Link href="#" className="d-flex w-100 align-items-center logout-btn bottom-0 position-absolute bottom-0">
+               <Link onClick={handleLogout} href="#" className="d-flex w-100 align-items-center logout-btn bottom-0 position-absolute bottom-0">
                   <div className="icon tran3s d-flex align-items-center justify-content-center rounded-circle"><Image src={dashboardIcon_11} alt="" /></div>
                   <span>Logout</span>
                </Link>
@@ -144,7 +151,7 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
             </div> */}
 
             <div className="plr">
-               <Link href="#" className="d-flex w-100 h-100 align-items-center logout-btn mt-50 pb-30">
+               <Link onClick={handleLogout} href="#" className="d-flex w-100 h-100 align-items-center logout-btn mt-50 pb-30">
                   <div className="icon tran3s d-flex align-items-center justify-content-center rounded-circle"><Image src={dashboardIcon_11} alt="" /></div>
                   <span>Logout</span>
                </Link>
