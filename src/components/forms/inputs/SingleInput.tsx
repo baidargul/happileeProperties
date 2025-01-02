@@ -1,17 +1,22 @@
 import React from 'react';
 
+interface File{
+	path: string
+	name: string
+}
+
 // Define the props interface for SingleInput
 interface FormInputProps {
 	label: string;
 	className?: string;
-	type: string;
+	type: string; // Input type like 'text', 'file', etc.
 	isDisabled?: boolean;
-	value?: string; // Made optional for type=file
-	placeholder?: string; // Made optional for type=file
+	value?: string | File | undefined; // Use built-in File for better compatibility
+	placeholder?: string; // Optional for types like 'text'
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 	isRequired?: boolean;
-}
+  }
 
 export const SingleInput: React.FC<FormInputProps> = ({
 	className = '', // Default value to avoid undefined
@@ -49,7 +54,9 @@ export const SingleInput: React.FC<FormInputProps> = ({
 					>
 						Select File
 					</button>
-					<p>{value?.name || 'No file selected'}</p>
+					{type === "file" && value && (value as File)?.name && (
+      <p>{(value as File).name}</p>
+    )}
 				</div>
 			</div>
 		);
@@ -63,7 +70,7 @@ export const SingleInput: React.FC<FormInputProps> = ({
 				type={type}
 				placeholder={placeholder}
 				disabled={isDisabled}
-				value={value}
+				value={typeof value === 'string' ? value : ''}
 				onBlur={onBlur}
 				required={isRequired}
 				onChange={onChange}

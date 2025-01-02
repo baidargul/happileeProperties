@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback, useRef, FC, ChangeEvent } from "react";
+import React, { useState, useCallback, useRef, FC, ChangeEvent, CSSProperties } from "react";
 import { useClickAway } from "react-use";
 
 interface Option {
@@ -17,7 +17,7 @@ type NiceSelectProps = {
   onBlur?: () => void;
   isDisabled?: boolean;
   isRequired?: boolean;
-  stlye?: string;
+  stlye?: CSSProperties;
 };
 
 const NiceSelect: FC<NiceSelectProps> = ({

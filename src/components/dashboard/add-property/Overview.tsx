@@ -33,6 +33,13 @@ import {
   sportsAndOutdoors,
 } from "@/data/home-data/AmenitiesData";
 
+
+type Amenity = {
+  id: string;
+  name: string;
+};
+
+
 const Overview = () => {
   const selectHandler = (e: any) => {};
 
@@ -49,7 +56,7 @@ const Overview = () => {
   const [lookingFor, setLookingFor] = useState<allotmentFor | null>(null);
   const [propertyType, setPropertyType] = useState<propertyType | null>(null);
   const [bhk, setBhk] = useState<bhk | null>(null);
-  const [amenities, setAmenities] = useState([]);
+  const [amenities, setAmenities] = useState<Amenity[]>([]);
   const [selectedImageArray, setSelectedImageArray] = useState([]);
   const [removedImageArray, setRemovedImageArray] = useState([]);
   const [loading, setLoading] = useState(false);

@@ -57,7 +57,7 @@ export default function AgentForm() {
 		  formData.append(key, data[key]);
 		}
     let sendFile = [file];
-		sendFile.forEach((file: File) => {
+		sendFile.forEach((file: any) => {
 		  if (file instanceof File) {
 			formData.append("images", file);
 		  }
@@ -119,8 +119,8 @@ const handleBack = () =>{
           <SingleInput
           label="RERA Certificate"
           type="file"
-          value={file}
-          onChange={(e) => setFile(e.target.files[0])}
+          value={file??""}
+          onChange={(e:any) => setFile(e.target.files[0])}
           placeholder="Select File"
           />
         </div>
