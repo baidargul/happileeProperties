@@ -17,6 +17,7 @@ type NiceSelectProps = {
   onBlur?: () => void;
   isDisabled?: boolean;
   isRequired?: boolean;
+  stlye?: string;
 };
 
 const NiceSelect: FC<NiceSelectProps> = ({
@@ -27,6 +28,7 @@ const NiceSelect: FC<NiceSelectProps> = ({
   onChange,
   name,
   onBlur,
+  stlye,
 }) => {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState<Option>(options[defaultCurrent]);
@@ -53,6 +55,7 @@ const NiceSelect: FC<NiceSelectProps> = ({
       onClick={() => setOpen((prev) => !prev)}
       onKeyDown={(e) => e}
       ref={ref}
+      style={stlye}
     >
       <span className="current">{current?.text || placeholder}</span>
       <ul

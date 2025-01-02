@@ -2,3 +2,6 @@
 	background-color: white;
 	border-radius: 50%;
 }
+.nav-link.no-after::after {
+    content: none; /* Remove the dropdown arrow */
+}
