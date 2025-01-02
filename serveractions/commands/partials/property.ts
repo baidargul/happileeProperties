@@ -184,7 +184,7 @@ async function create(data: any) {
     const response = await res.data;
     return response;
   } catch (error: any) {
-    console.error("Error while creating user:", error);
+    console.error("Error while creating property:", error);
     console.error("ERROR:", error.message);
     return {
       status: 500,
