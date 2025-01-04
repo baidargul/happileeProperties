@@ -115,6 +115,13 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    if (!data.get(`businessName`)) {
+      response.status = 400;
+      response.message = "Business name is required";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     console.log(data);
 
     let isExists: user | null = await prisma.user.findFirst({
@@ -176,6 +183,7 @@ export async function POST(req: NextRequest) {
         experience: data.get(`experience`)
           ? Number(data.get(`experience`)).toFixed(0)
           : 0,
+        businessName: data.get(`businessName`) ? data.get(`businessName`) : "",
       },
     });
 

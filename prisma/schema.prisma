@@ -49,13 +49,14 @@ model image {
 }
 
 model agent {
-  id          String   @id @default(uuid())
-  userId      String   @unique
-  description String?
-  experience  Decimal? @default(0) @db.Decimal
-  rera        String   @unique
-  rera_link   String?
-  user        user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(uuid())
+  userId       String   @unique
+  description  String?
+  experience   Decimal? @default(0) @db.Decimal
+  rera         String   @unique
+  rera_link    String?
+  businessName String?
+  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model buyer {
