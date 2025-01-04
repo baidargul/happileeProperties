@@ -115,7 +115,9 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    let isExists: user | null = await prisma.user.findUnique({
+    console.log(data);
+
+    let isExists: user | null = await prisma.user.findFirst({
       where: {
         id: data.id,
       },
@@ -156,7 +158,7 @@ export async function POST(req: NextRequest) {
       const image = await prisma.image.create({
         data: {
           url: url,
-          userId: data.id,
+          userId: isExists.id,
         },
       });
 
@@ -167,17 +169,19 @@ export async function POST(req: NextRequest) {
 
     const user = await prisma.agent.create({
       data: {
-        userId: data.id,
-        rera: data.rera,
+        userId: isExists.id,
+        rera: data.get(`rera`),
         rera_link: lastImageUrl,
-        description: data.description ? data.description : "",
-        experience: data.experience ? Number(data.experience).toFixed(0) : 0,
+        description: data.get(`description`) ? data.get(`description`) : "",
+        experience: data.get(`experience`)
+          ? Number(data.get(`experience`)).toFixed(0)
+          : 0,
       },
     });
 
     await prisma.user.update({
       where: {
-        id: data.id,
+        id: data.get(`id`),
       },
       data: {
         status: accountStatus.PENDING,
@@ -186,7 +190,7 @@ export async function POST(req: NextRequest) {
 
     const finalUser = await prisma.user.findUnique({
       where: {
-        id: data.id,
+        id: data.get(`id`),
       },
       include: {
         agent: true,
