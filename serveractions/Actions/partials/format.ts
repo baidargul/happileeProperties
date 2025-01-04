@@ -24,6 +24,7 @@ async function formattedProperty(id: string) {
                   subscriptionDetails: true,
                 },
               },
+              bluetickDocuments: true,
             },
             omit: {
               password: true,
@@ -110,8 +111,9 @@ async function formatUser(id: string) {
       image: true,
       agent: true,
       buyer: true,
-      favouriteProperties:{
-        include:{
+      bluetickDocuments: true,
+      favouriteProperties: {
+        include: {
           property: {
             include: {
               propertyType: true,
@@ -130,7 +132,7 @@ async function formatUser(id: string) {
               },
             },
           },
-        }
+        },
       },
       interested: true,
     },

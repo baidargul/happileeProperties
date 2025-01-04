@@ -28,7 +28,9 @@ model user {
   createdAt            DateTime               @default(now())
   updatedAt            DateTime               @default(now())
   deleted              Boolean?               @default(false)
+  bluetickVerified     Boolean?               @default(false)
   agent                agent?
+  bluetickDocuments    bluetickDocuments[]
   builder              builder?
   buyer                buyer?
   favouriteProperties  favouriteProperties[]
@@ -221,6 +223,20 @@ model leads {
   createdAt  DateTime? @default(now()) @db.Timestamptz(6)
   property   property  @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   user       user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model bluetickDocuments {
+  id        String           @id @default(uuid())
+  userId    String
+  fileurl   String?
+  createdAt DateTime?        @db.Timestamptz(6)
+  fileType  blueTickDocTypes @default(AADHAR)
+  user      user             @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+enum blueTickDocTypes {
+  AADHAR
+  PAN
 }
 
 enum accountStatus {
