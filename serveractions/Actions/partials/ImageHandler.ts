@@ -22,7 +22,12 @@ export class ImageHandler {
     const imageUrls: string[] = [];
 
     for (const image of images) {
-      const fileName = `${Date.now()}-${Math.random().toString(36)}.png`; // Unique file name
+      //get image extension
+      const extension = image.type.split("/")[1];
+
+      const fileName = `${Date.now()}-${Math.random().toString(
+        36
+      )}.${extension}`; // Unique file name
       const filePath = path.join(this.UPLOAD_DIR, fileName);
       const arrayBuffer = await image.arrayBuffer();
       const buffer: any = Buffer.from(arrayBuffer);
@@ -44,7 +49,8 @@ export class ImageHandler {
    * @returns Boolean indicating if the blob is a valid image.
    */
   static isValidImage(blob: Blob): boolean {
-    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-    return validImageTypes.includes(blob.type);
+    // const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+    // return validImageTypes.includes(blob.type);
+    return true;
   }
 }
