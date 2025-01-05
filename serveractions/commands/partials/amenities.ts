@@ -43,9 +43,20 @@ async function update(amenities: amenities) {
   return response.data;
 }
 
+async function createInBulk(groupName: string, amenities: []) {
+  const data = {
+    groupName: groupName,
+    values: amenities,
+  };
+
+  const response = await axios.put(apiPath, data);
+  return response.data;
+}
+
 export const Amenities = {
   group,
   create,
+  createInBulk,
   list,
   listAll,
   remove,

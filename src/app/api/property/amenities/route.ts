@@ -194,3 +194,85 @@ export async function PATCH(req: NextRequest) {
     return new Response(JSON.stringify(response));
   }
 }
+
+export async function PUT(req: NextRequest) {
+  const response = {
+    status: 500,
+    message: "Internal Server Error",
+    data: null as any,
+  };
+
+  try {
+    const data: any = await req.json();
+
+    if (!data.groupName) {
+      response.status = 400;
+      response.message = "Group name is required.";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    if (data.values.length < 1) {
+      response.status = 400;
+      response.message = "Amenities are required.";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    let isExists: any = null;
+
+    isExists = await prisma.amenitiesGroup.findFirst({
+      where: {
+        name: data.groupName,
+      },
+    });
+
+    let group: any = null;
+    if (!isExists) {
+      group = await prisma.amenitiesGroup.create({
+        data: {
+          name: data.groupName,
+        },
+      });
+    } else {
+      group = isExists;
+    }
+
+    for (const amenity of data.values) {
+      const alreadyExists = await prisma.amenities.findFirst({
+        where: {
+          name: amenity,
+          groupId: group.id,
+        },
+      });
+      if (!alreadyExists) {
+        await prisma.amenities.create({
+          data: {
+            name: amenity,
+            groupId: group.id,
+          },
+        });
+      }
+    }
+
+    const amenities = await prisma.amenities.findMany({
+      include: {
+        amenitiesGroup: true,
+      },
+      orderBy: {
+        name: "asc",
+      },
+    });
+
+    response.status = 200;
+    response.message = "Amenities updated successfully.";
+    response.data = amenities;
+    return new Response(JSON.stringify(response));
+  } catch (error: any) {
+    console.log("[SERVER ERROR]: " + error.message);
+    response.status = 500;
+    response.message = error.message;
+    response.data = null;
+    return new Response(JSON.stringify(response));
+  }
+}
