@@ -38,8 +38,8 @@ const SelectComponent: FC<NiceSelectProps> = ({
   const onClose = useCallback(() => {
     setOpen(false);
   }, []);
+  
   const ref = useRef<HTMLDivElement | null>(null);
-
   useClickAway(ref, onClose);
 
   const currentHandler = (item: Option) => {
@@ -48,21 +48,21 @@ const SelectComponent: FC<NiceSelectProps> = ({
       const updatedCurrent = isSelected
         ? current.filter((option) => option.id !== item.id)
         : [...current, item];
-
+      
       setCurrent(updatedCurrent);
+  
+      // Pass the entire objects to onChange
       onChange(updatedCurrent);
     } else {
       setCurrent([item]);
-      onChange(item);
+      onChange(item.id); // Pass the entire object for single select
       onClose();
     }
   };
 
   return (
     <div
-      className={`nice-select form-select-lg ${className || ""} ${
-        open ? "open" : ""
-      }`}
+      className={`nice-select form-select-lg ${className || ""} ${open ? "open" : ""}`}
       role="button"
       tabIndex={0}
       onClick={() => setOpen((prev) => !prev)}
@@ -70,13 +70,13 @@ const SelectComponent: FC<NiceSelectProps> = ({
       ref={ref}
     >
       <span 
-  className="current" 
-  title={multiSelect ? current.map((item) => item.name).join(", ") : current[0]?.name || placeholder}
->
-  {multiSelect
-    ? current.map((item) => item.name).join(", ")
-    : current[0]?.name || placeholder}
-</span>
+        className="current" 
+        title={multiSelect ? current.map((item) => item.name).join(", ") : current[0]?.name || placeholder}
+      >
+        {multiSelect
+          ? current.map((item) => item.name).join(", ")
+          : current[0]?.name || placeholder}
+      </span>
       <ul
         className="list"
         role="menubar"
@@ -87,11 +87,7 @@ const SelectComponent: FC<NiceSelectProps> = ({
           <li
             key={i}
             data-value={item.id}
-            className={`option ${
-              current.some((option) => option.id === item.id)
-                ? "selected focus"
-                : ""
-            }`}
+            className={`option ${current.some((option) => option.id === item.id) ? "selected focus" : ""}`}
             style={{ fontSize: "14px" }}
             role="menuitem"
             onClick={() => currentHandler(item)}
@@ -105,6 +101,7 @@ const SelectComponent: FC<NiceSelectProps> = ({
   );
 };
 
+
 export default function SingleSelectInput({
   selectHandler,
   options,
@@ -115,14 +112,18 @@ export default function SingleSelectInput({
   placeHolder,
   multiSelect = false,
 }: any) {
+  const convertToLabel = (str) => {
+    return str?.replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/^./, str[0].toUpperCase());
+  };
+
   return (
     <div className="dash-input-wrapper mb-30">
-      <label htmlFor="">{label}</label>
+      <label htmlFor="">{convertToLabel(label)}</label>
       <SelectComponent
         className="nice-select"
         options={options}
         defaultCurrent={multiSelect ? [] : [0]} // Adjust default selection for multi/single
-        onChange={selectHandler}
+        onChange={selectHandler} // Pass the entire objects here
         name=""
         placeholder={placeHolder}
         onBlur={onBlur}
@@ -133,3 +134,4 @@ export default function SingleSelectInput({
     </div>
   );
 }
+

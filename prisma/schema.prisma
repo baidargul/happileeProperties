@@ -140,7 +140,7 @@ model amenities {
   id                String              @id @default(uuid())
   name              String
   groupId           String?
-  amenitiesGroup    amenitiesGroup?     @relation(fields: [groupId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  amenitiesGroup    amenitiesGroup?     @relation(fields: [groupId], references: [id], onDelete: Cascade)
   amenitiesregister amenitiesregister[]
   propertyAmenities propertyAmenities[]
 }
