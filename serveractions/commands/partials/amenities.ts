@@ -43,7 +43,7 @@ async function update(amenities: amenities) {
   return response.data;
 }
 
-async function createInBulk(groupName: string, amenities: []) {
+async function createInBulk(groupName: string, amenities: string[]) {
   const data = {
     groupName: groupName,
     values: amenities,
