@@ -40,5 +40,6 @@ export const group = {
   create,
   list,
   listAll,
+  remove,
   update,
 };
