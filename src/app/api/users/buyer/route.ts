@@ -39,6 +39,19 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    const isAlreadyThat = await prisma.buyer.findFirst({
+      where: {
+        userId: data.id,
+      },
+    });
+
+    if (isAlreadyThat) {
+      response.status = 400;
+      response.message = "This user is already a buyer";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     await prisma.buyer.create({
       data: {
         userId: data.id,

@@ -107,6 +107,19 @@ export async function POST(req: NextRequest) {
       formValues.images = savedImageUrls; // Store these URLs in the formValues
     }
 
+    const isAlreadyThat = await prisma.builder.findFirst({
+      where: {
+        userId: isExists.id,
+      },
+    });
+
+    if (isAlreadyThat) {
+      response.status = 400;
+      response.message = "This user is already a builder";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     // Create builder related to user, including image URLs in the DB if necessary
     const newBuilder = await prisma.builder.create({
       data: {

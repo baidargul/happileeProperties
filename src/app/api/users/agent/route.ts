@@ -174,6 +174,19 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    const isAlreadyThat = await prisma.agent.findFirst({
+      where: {
+        userId: data.get(`id`),
+      },
+    });
+
+    if (isAlreadyThat) {
+      response.status = 400;
+      response.message = "This user is already an agent";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
     const user = await prisma.agent.create({
       data: {
         userId: data.get(`id`),
