@@ -52,7 +52,6 @@ export async function POST(req: NextRequest) {
     return new Response(JSON.stringify(response));
   }
 }
-
 export async function GET(req: NextRequest) {
   const response = {
     status: 500,
@@ -61,20 +60,41 @@ export async function GET(req: NextRequest) {
   };
 
   try {
-    const amenityGroups = await prisma.amenitiesGroup.findMany({
-      include: {
-        amenities: {
-          orderBy: {
-            name: "asc",
+    const id = req.nextUrl.searchParams.get("id");
+    if (id) {
+      const amenityGroup = await prisma.amenitiesGroup.findUnique({
+        where: {
+          id: id,
+        },
+        include: {
+          amenities: {
+            orderBy: {
+              name: "asc",
+            },
           },
         },
-      },
-    });
+      });
 
-    response.status = 200;
-    response.message = "Amenity groups fetched successfully.";
-    response.data = amenityGroups;
-    return new Response(JSON.stringify(response));
+      response.status = 200;
+      response.message = "Amenity group fetched successfully.";
+      response.data = amenityGroup;
+      return new Response(JSON.stringify(response));
+    } else {
+      const amenityGroups = await prisma.amenitiesGroup.findMany({
+        include: {
+          amenities: {
+            orderBy: {
+              name: "asc",
+            },
+          },
+        },
+      });
+
+      response.status = 200;
+      response.message = "Amenity groups fetched successfully.";
+      response.data = amenityGroups;
+      return new Response(JSON.stringify(response));
+    }
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
     response.status = 500;
@@ -83,7 +103,6 @@ export async function GET(req: NextRequest) {
     return new Response(JSON.stringify(response));
   }
 }
-
 export async function DELETE(req: NextRequest) {
   const response = {
     status: 500,
@@ -119,7 +138,6 @@ export async function DELETE(req: NextRequest) {
     return new Response(JSON.stringify(response));
   }
 }
-
 export async function PATCH(req: NextRequest) {
   const response = {
     status: 500,

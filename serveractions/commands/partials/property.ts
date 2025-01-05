@@ -2,6 +2,7 @@ import axios from "axios";
 import { favourite } from "./favourite";
 import { interest } from "./interest";
 import { propertyStatus } from "@prisma/client";
+import { Amenities } from "./amenities";
 const apiPath = `/api/property`;
 async function GET_ALLOTMENT_STRUCTURE() {
   const response = await axios.get(`${apiPath}/structure`);
@@ -216,6 +217,7 @@ async function list(id: string) {
 export const property = {
   initializeDefaults,
   GET_ALLOTMENT_STRUCTURE,
+  Amenities,
   create,
   listAll,
   list,
