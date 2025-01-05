@@ -29,6 +29,8 @@ export const SingleInput: React.FC<FormInputProps> = ({
 	placeholder,
 	isRequired = false, // Default value to false
 }) => {
+
+	const random= Math.random()
 	// Render logic for custom file input
 	if (type === 'file') {
 		return (
@@ -43,13 +45,13 @@ export const SingleInput: React.FC<FormInputProps> = ({
 						onBlur={onBlur}
 						required={isRequired}
 						style={{ display: 'none' }}
-						id="filePicker"
+						id={`filePicker${random}`}
 					/>
 					{/* Custom button */}
 					<button
 						type="button"
 						className="custom-file-picker-btn"
-						onClick={() => document.getElementById('filePicker')?.click()}
+						onClick={() => document.getElementById(`filePicker${random}`)?.click()}
 						disabled={isDisabled}
 					>
 						Select File

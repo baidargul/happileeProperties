@@ -21,6 +21,7 @@ interface   RootState {
 const DashboardHeaderTwo = ({title}:any) => {
    const router = useRouter();
    const isLoggedIn = useSelector((state:RootState) => state.user.isLoggedIn);
+   const userProfile = useSelector((state:any) => state.user.userProfile);
    const [isActive, setIsActive] = useState<boolean>(false);
    if(!isLoggedIn){
       router.push('/');
@@ -47,7 +48,9 @@ const DashboardHeaderTwo = ({title}:any) => {
                {/* <div className="d-none d-md-block me-3">
                   <Link href="/add-property" className="btn-two"><span>Add Listing</span> <i className="fa-thin fa-arrow-up-right"></i></Link>
                </div> */}
-               {<Link href="/dashboard/verify"><button className="btn-two d-none d-md-block"><span>Apply Blue Tick</span></button></Link>}
+               {!userProfile.
+bluetickVerified &&
+<Link href="/dashboard/verify"><button className="btn-two d-none d-md-block"><span>Apply Blue Tick</span></button></Link>}
                <div className="user-data position-relative">
                   <button className="user-avatar online position-relative rounded-circle dropdown-toggle" type="button" id="profile-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                      <Image src={dashboardAvatar} alt="" className="lazy-img" />
