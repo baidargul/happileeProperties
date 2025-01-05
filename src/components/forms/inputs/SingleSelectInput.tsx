@@ -12,7 +12,7 @@ type NiceSelectProps = {
   defaultCurrent: number[];
   placeholder?: string;
   className?: string;
-  onChange: (selected: Option[] | Option) => void;
+  onChange: (selected: Option[] | Option | string) => void;
   name: string;
   onBlur?: () => void;
   isDisabled?: boolean;
@@ -112,7 +112,7 @@ export default function SingleSelectInput({
   placeHolder,
   multiSelect = false,
 }: any) {
-  const convertToLabel = (str) => {
+  const convertToLabel = (str:string) => {
     return str?.replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/^./, str[0].toUpperCase());
   };
 
