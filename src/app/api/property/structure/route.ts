@@ -235,7 +235,7 @@ export async function POST(req: NextRequest) {
     }
 
     for (const item of data.amenities) {
-      const isExists = await prisma.amenities.findUnique({
+      const isExists = await prisma.amenities.findFirst({
         where: {
           name: String(item).toLocaleLowerCase(),
         },
