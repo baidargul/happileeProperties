@@ -32,6 +32,7 @@ import {
   specialPropertyFeatures,
   sportsAndOutdoors,
 } from "@/data/home-data/AmenitiesData";
+import SidebarInfo from "@/components/ListingDetails/listing-details-sidebar.tsx/SidebarInfo";
 
 
 type Amenity = {
@@ -57,6 +58,7 @@ const Overview = () => {
   const [propertyType, setPropertyType] = useState<propertyType | null>(null);
   const [bhk, setBhk] = useState<bhk | null>(null);
   const [amenities, setAmenities] = useState<Amenity[]>([]);
+  const [amenitiesData, setAmenitiesData] = useState<Amenity[]>([]);
   const [selectedImageArray, setSelectedImageArray] = useState([]);
   const [removedImageArray, setRemovedImageArray] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -70,10 +72,18 @@ const Overview = () => {
     }
   };
 
+  const getAmmenities = async () => {
+    const res = await serverActions.property.Amenities.group.listAll();
+    if (res.status == 200) {
+      setAmenitiesData(res.data);
+    }
+  };
+
   // const temp
 
   useEffect(() => {
     getPropertyStructure();
+    getAmmenities();
   }, []);
 
   const formSchema = z.object({
@@ -164,7 +174,7 @@ const Overview = () => {
   };
 
   // console.log(propertyType);
-  // console.log(amenities)
+  console.log(amenities)
   return (
     data?.furnishing?.length > 0 && (
       <div className="bg-white card-box border-20">
@@ -338,7 +348,29 @@ const Overview = () => {
                 placeholder="Fully Furnished"
               />
             </div>
-            <div className="col-md-4">
+            {amenitiesData?.map(item=>(
+              <div key={item.id} className="col-md-4">
+              <SingleSelectInput
+                options={item.amenities}
+                label={item.name}
+                placeholder="Select"
+                selectHandler={(selectedItems: any) => {
+                  // Check for duplicates before updating
+                  setAmenities((prev: any) => {
+                    const updatedAmenities = [...prev, ...selectedItems];
+                    
+                    // Remove duplicates based on `id`
+                    return updatedAmenities.filter(
+                      (value, index, self) =>
+                        index === self.findIndex((t) => t.id === value.id)
+                    );
+                  });
+                }}
+                multiSelect={true}
+              />
+            </div>        
+            ))}
+            {/* <div className="col-md-4">
               <SingleSelectInput
                 options={generalBuildingAmenities}
                 label={"General Building Amenities"}
@@ -436,9 +468,9 @@ const Overview = () => {
                 selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
                 multiSelect={true}
               />
-            </div>
+            </div> */}
 
-            {allotment?.name?.toLowerCase() === "residential" && (
+            {/* {allotment?.name?.toLowerCase() === "residential" && (
               <div className="d-flex align-items-center justify-content-start flex-column mt-3 mb-3">
                 <p
                   style={{
@@ -487,7 +519,7 @@ const Overview = () => {
                   ))}
                 </div>
               </div>
-            )}
+            )} */}
             <div className="col-md-4">
               <FormInput
                 type="number"
