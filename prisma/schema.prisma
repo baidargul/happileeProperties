@@ -229,7 +229,7 @@ model leads {
 model bluetickDocuments {
   id        String    @id @default(uuid())
   userId    String
-  createdAt DateTime? @db.Timestamptz(6)
+  createdAt DateTime? @default(now()) @db.Timestamptz(6)
   imageId   String?
   image     image?    @relation(fields: [imageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user      user      @relation(fields: [userId], references: [id], onDelete: Cascade)
