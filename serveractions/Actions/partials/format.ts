@@ -225,6 +225,43 @@ async function formatUser(id: string) {
   return { ...user, properties: properties };
 }
 
+async function formatAmenityGroup(id: string, findBy: "amenity" | "group") {
+  let returnObj = null;
+  if (findBy === "amenity") {
+    const amenity: any = await prisma.amenities.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        amenitiesGroup: true,
+      },
+    });
+
+    returnObj = amenity;
+  } else if (findBy === "group") {
+    const group = await prisma.amenitiesGroup.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        amenities: {
+          orderBy: {
+            name: "asc",
+          },
+        },
+      },
+    });
+
+    returnObj = group;
+  }
+
+  if (!returnObj) {
+    return null;
+  }
+
+  return returnObj;
+}
+
 export const formatter = {
   formatUser,
   formattedProperty,
