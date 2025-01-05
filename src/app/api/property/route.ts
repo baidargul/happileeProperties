@@ -319,7 +319,7 @@ export async function POST(req: NextRequest) {
 
     if (amenitiesRAW) {
       for (const item of amenitiesRAW) {
-        const isValid = await prisma.amenities.findUnique({
+        const isValid = await prisma.amenities.findFirst({
           where: {
             name: item.name,
           },
