@@ -165,7 +165,7 @@ export async function POST(req: NextRequest) {
       const image = await prisma.image.create({
         data: {
           url: url,
-          userId: isExists.id,
+          userId: data.get(`id`),
         },
       });
 
@@ -176,7 +176,7 @@ export async function POST(req: NextRequest) {
 
     const user = await prisma.agent.create({
       data: {
-        userId: isExists.id,
+        userId: data.get(`id`),
         rera: data.get(`rera`),
         rera_link: lastImageUrl,
         description: data.get(`description`) ? data.get(`description`) : "",
