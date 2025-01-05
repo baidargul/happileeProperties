@@ -71,8 +71,10 @@ export async function PATCH(req: NextRequest) {
 
   try {
     const id = req.nextUrl.searchParams.get("id");
-    const { status }: { status: accountStatus } = await req.json();
-    const bluetickVerified: boolean = await req.json();
+    const {
+      status,
+      bluetickVerified,
+    }: { status: accountStatus; bluetickVerified: boolean } = await req.json();
 
     if (!id) {
       response.status = 400;
