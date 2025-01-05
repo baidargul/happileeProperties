@@ -130,13 +130,13 @@ export default function BuilderForm() {
             )}
             {isSubmitting ? "Loading..." : "Submit"}
           </button>
-          <button
+          {userProfile.status=="INCOMPLETE" &&<button
             onClick={handleBack}
             type="submit"
             className="dash-btn-two tran3s me-3 w-25"
           >
             Back
-          </button>
+          </button>}
         </div>
             </form>
             {/* <UserAvatarSetting /> */}

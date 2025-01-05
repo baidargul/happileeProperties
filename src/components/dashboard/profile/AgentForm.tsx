@@ -35,6 +35,7 @@ export default function AgentForm() {
     description: z.string().min(1, { message: "Description is required" }),
     address: z.string().min(1, { message: "Address is required" }).optional(),
     rera: z.string().min(1, { message: "Description is required" }),
+    businessName: z.string().min(1, { message: "Business Name is required" }),
     
   });
 
@@ -44,6 +45,7 @@ export default function AgentForm() {
       description: agent?.description??"",
       rera: agent?.rera??"",
       address: agent?.address??"",
+      businessName:agent?.businessName??"",
     },
     resolver: zodResolver(experienceFormSchema),
   });
@@ -82,6 +84,17 @@ const handleBack = () =>{
   return (
     <div className="bg-white card-box border-20">
       <form onSubmit={handleSubmit(onSubmit)} className="row">
+      <div className="col-md-4">
+          <FormInput
+            label={"Bussiness Name*"}
+            className="custom-class"
+            control={control}
+            name="businessName"
+            type="text"
+            isRequired={true}
+            placeholder="Enter your Bussiness Name"
+          />
+        </div>
         <div className="col-md-4">
           <FormInput
             label={"Years of Experience*"}
@@ -157,13 +170,13 @@ const handleBack = () =>{
             )}
             {isSubmitting ? "Loading..." : "Submit"}
           </button>
-          <button
+          {userProfile.status=="INCOMPLETE" &&<button
             onClick={handleBack}
             type="submit"
             className="dash-btn-two tran3s me-3 w-25"
           >
             Back
-          </button>
+          </button>}
         </div>
       </form>
     </div>

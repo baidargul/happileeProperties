@@ -69,11 +69,14 @@ const SelectComponent: FC<NiceSelectProps> = ({
       onKeyDown={(e) => e}
       ref={ref}
     >
-      <span className="current">
-        {multiSelect
-          ? current.map((item) => item.name).join(", ")
-          : current[0]?.name || placeholder}
-      </span>
+      <span 
+  className="current" 
+  title={multiSelect ? current.map((item) => item.name).join(", ") : current[0]?.name || placeholder}
+>
+  {multiSelect
+    ? current.map((item) => item.name).join(", ")
+    : current[0]?.name || placeholder}
+</span>
       <ul
         className="list"
         role="menubar"

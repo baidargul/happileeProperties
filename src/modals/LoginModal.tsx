@@ -29,7 +29,7 @@ const LoginModal = ({ loginModal, setLoginModal }: any) => {
          <div className="modal fade" id="loginModal" tabIndex={-1} aria-hidden="true">
             <div className="modal-dialog modal-fullscreen modal-dialog-centered">
                <div className="container">
-                  <div className="user-data-form modal-content">
+                  <div className="user-data-form modal-content" style={{ zoom: "0.75" }}>
                      <button type="button" className="btn-close" id="closeModalButton" data-bs-dismiss="modal" aria-label="Close"></button>
                      <div className="form-wrapper m-auto">
                         <ul className="nav nav-tabs w-100">

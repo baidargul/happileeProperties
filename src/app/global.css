@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+	zoom: 0.75;
+}
+.modal{
+	zoom: 1.25;
+}
+.modal-backdrop.show{
+	zoom: 1.5;
+}
 .f-button .is-next{
 	background-color: white;
 	border-radius: 50%;
@@ -44,3 +53,10 @@
 	background-color: #ccc;
 	cursor: not-allowed;
 }
+
+.nice-select .current {
+	display: block; /* Ensure the content is block-level */
+	white-space: nowrap; /* Prevent text wrapping */
+	overflow: hidden; /* Hide overflow text */
+	text-overflow: ellipsis; /* Add ellipsis for overflow text */
+  }
