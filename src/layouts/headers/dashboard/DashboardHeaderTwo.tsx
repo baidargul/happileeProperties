@@ -28,7 +28,7 @@ const DashboardHeaderTwo = ({title}:any) => {
    return (
       <>
          <header className="dashboard-header">
-            <div className="d-flex align-items-center justify-content-end">
+            <div className="d-flex align-items-center justify-content-end gap-4">
                <h4 className="m0 d-none d-lg-block">{title}</h4>
                <button onClick={() => setIsActive(true)} className="dash-mobile-nav-toggler d-block d-md-none me-auto">
                   <span></span>
@@ -47,6 +47,7 @@ const DashboardHeaderTwo = ({title}:any) => {
                {/* <div className="d-none d-md-block me-3">
                   <Link href="/add-property" className="btn-two"><span>Add Listing</span> <i className="fa-thin fa-arrow-up-right"></i></Link>
                </div> */}
+               {<Link href="/dashboard/verify"><button className="btn-two d-none d-md-block"><span>Apply Blue Tick</span></button></Link>}
                <div className="user-data position-relative">
                   <button className="user-avatar online position-relative rounded-circle dropdown-toggle" type="button" id="profile-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                      <Image src={dashboardAvatar} alt="" className="lazy-img" />
