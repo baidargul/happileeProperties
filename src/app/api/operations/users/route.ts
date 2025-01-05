@@ -72,6 +72,7 @@ export async function PATCH(req: NextRequest) {
   try {
     const id = req.nextUrl.searchParams.get("id");
     const { status }: { status: accountStatus } = await req.json();
+    const bluetickVerified: boolean = await req.json();
 
     if (!id) {
       response.status = 400;
@@ -106,6 +107,17 @@ export async function PATCH(req: NextRequest) {
         status,
       },
     });
+
+    if (bluetickVerified) {
+      await prisma.user.update({
+        where: {
+          id,
+        },
+        data: {
+          bluetickVerified,
+        },
+      });
+    }
 
     const user = await SERVER_ACTIONS.formatter.formatUser(id);
 
