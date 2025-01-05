@@ -14,15 +14,15 @@ interface RootState {
 }
 
 export default function VerifyForm() {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const userProfile =
     useSelector((state: RootState) => state.user.userProfile) || {};
 
   const { id, agent } = userProfile;
 
-  const [fileOne,setFileOne]=useState(null);
-  const [fileTwo,setFileTwo]=useState(null);
-  const [loading,setLoading]=useState(false);
+  const [fileOne, setFileOne] = useState(null);
+  const [fileTwo, setFileTwo] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // console.log(userProfile);
 
@@ -37,7 +37,7 @@ export default function VerifyForm() {
   //   address: z.string().min(1, { message: "Address is required" }).optional(),
   //   rera: z.string().min(1, { message: "Description is required" }),
   //   businessName: z.string().min(1, { message: "Business Name is required" }),
-    
+
   // });
 
   // const { control, handleSubmit, setValue, formState } = useForm({
@@ -59,24 +59,21 @@ export default function VerifyForm() {
     const formData = new FormData();
 
     let sendFile = [];
-    
+
     sendFile.push(fileOne);
     sendFile.push(fileTwo);
 
-		sendFile.forEach((file: any) => {
-		  if (file instanceof File) {
-			formData.append("images", file);
-		  }
-		});
-    formData.append('userId',id)
-    const response = await serverActions.agent.create(
-      formData,
-    );
+    sendFile.forEach((file: any) => {
+      if (file instanceof File) {
+        formData.append("images", file);
+      }
+    });
+    formData.append("userId", id);
+    const response = await serverActions.user.Bluetick.addDocuments(formData);
     if (response.status == 200) {
       dispatch(userLogin(response.data));
     }
   };
-
 
   // console.log(file)
   return (
@@ -84,20 +81,20 @@ export default function VerifyForm() {
       <form onSubmit={onSubmit} className="row">
         <div className="col-md-6">
           <SingleInput
-          label="Government ID"
-          type="file"
-          value={fileOne??""}
-          onChange={(e:any) => setFileOne(e.target.files[0])}
-          placeholder="Select File"
+            label="Government ID"
+            type="file"
+            value={fileOne ?? ""}
+            onChange={(e: any) => setFileOne(e.target.files[0])}
+            placeholder="Select File"
           />
         </div>
         <div className="col-md-6">
           <SingleInput
-          label="Business Registeration"
-          type="file"
-          value={fileTwo??""}
-          onChange={(e:any) => setFileTwo(e.target.files[0])}
-          placeholder="Select File"
+            label="Business Registeration"
+            type="file"
+            value={fileTwo ?? ""}
+            onChange={(e: any) => setFileTwo(e.target.files[0])}
+            placeholder="Select File"
           />
         </div>
         <div className="d-flex justify-content-between col-md-12">

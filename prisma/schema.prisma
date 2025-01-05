@@ -42,12 +42,13 @@ model user {
 }
 
 model image {
-  id             String           @id(map: "images_pkey") @default(uuid())
-  userId         String
-  url            String
-  createdAt      DateTime         @default(now())
-  user           user             @relation(fields: [userId], references: [id], onDelete: Cascade, map: "images_userId_fkey")
-  propertyImages propertyImages[]
+  id                String              @id(map: "images_pkey") @default(uuid())
+  userId            String
+  url               String
+  createdAt         DateTime            @default(now())
+  bluetickDocuments bluetickDocuments[]
+  user              user                @relation(fields: [userId], references: [id], onDelete: Cascade, map: "images_userId_fkey")
+  propertyImages    propertyImages[]
 }
 
 model agent {
@@ -226,25 +227,17 @@ model leads {
 }
 
 model bluetickDocuments {
-<<<<<<< HEAD
-  id        String           @id
-=======
-  id        String           @id @default(uuid())
->>>>>>> 486cab78836339a319793b20e84a3594d77b6544
+  id        String    @id @default(uuid())
   userId    String
-  fileurl   String?
-  createdAt DateTime?        @db.Timestamptz(6)
-  fileType  blueTickDocTypes @default(AADHAR)
-<<<<<<< HEAD
-  user      user             @relation(fields: [userId], references: [id], onDelete: Cascade)
-=======
-  user      user             @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime? @db.Timestamptz(6)
+  imageId   String?
+  image     image?    @relation(fields: [imageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum blueTickDocTypes {
   AADHAR
   PAN
->>>>>>> 486cab78836339a319793b20e84a3594d77b6544
 }
 
 enum accountStatus {
@@ -269,9 +262,4 @@ enum propertyStatus {
   PENDING
   PUBLISHED
   SUSPENDED
-}
-
-enum blueTickDocTypes {
-  AADHAR
-  PAN
 }

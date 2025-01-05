@@ -24,13 +24,13 @@ const VerifyBody = () => {
   const userProfile =
     useSelector((state: RootState) => state.user.userProfile) || {};
 
-  const { status,type, id, name, address, description, gst } = userProfile;
+  const { status, type, id, name, address, description, gst } = userProfile;
 
   const getUserDetails = async () => {
     const response = await serverActions.user.list(id);
     if (response.status === 200) {
       dispatch(userLogin(response.data));
-      console.log(response)
+      console.log(response);
     }
   };
 
@@ -45,7 +45,7 @@ const VerifyBody = () => {
       <div className="position-relative">
         <DashboardHeaderTwo title="Profile" />
         <h2 className="main-title d-block d-lg-none">Profile</h2>
-        <VerifyForm/>
+        <VerifyForm />
       </div>
     </div>
   );
