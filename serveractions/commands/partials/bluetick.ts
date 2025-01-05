@@ -40,7 +40,16 @@ async function listAll() {
   return response;
 }
 
+async function toggle(userId: string) {
+  const data = {
+    userId,
+  };
+  const response = await axios.put(apiPath, data);
+  return response;
+}
+
 export const Bluetick = {
+  toggle,
   addDocuments,
   list,
   listAll,
