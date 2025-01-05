@@ -44,7 +44,7 @@ const VerifyBody = () => {
     <div className="dashboard-body">
       <div className="position-relative">
         <DashboardHeaderTwo title="Profile" />
-        <h2 className="main-title d-block d-lg-none">Profile</h2>
+        {/* <h2 className="main-title d-block d-lg-none">Profile</h2> */}
         <VerifyForm />
       </div>
     </div>
