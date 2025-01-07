@@ -19,6 +19,8 @@ export const Listing = async ({ currentItems, style }: any) => {
     }
   }
 
+  console.log(properties.length);
+
   return (
     <div className="w-100">
       <div className="d-flex align-items-center justify-content-between gap-3 flex-wrap gx-xxl-5">

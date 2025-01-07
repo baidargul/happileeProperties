@@ -348,7 +348,7 @@ const Overview = () => {
                 placeholder="Fully Furnished"
               />
             </div>
-            {amenitiesData?.map(item=>(
+            {amenitiesData?.map((item:any)=>(
               <div key={item.id} className="col-md-4">
               <SingleSelectInput
                 options={item.amenities}

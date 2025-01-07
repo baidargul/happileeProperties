@@ -39,7 +39,7 @@ export default function VerifyForm() {
     setLoading(true);
     const formData = new FormData();
 
-    let sendFile = [];
+    let sendFile: never[] = [];
 
     sendFile.push(fileOne);
     sendFile.push(fileTwo);
@@ -92,7 +92,7 @@ export default function VerifyForm() {
         <div className="d-flex justify-content-between col-md-12">
           <button
             disabled={loading}
-            onClick={onSubmit}
+            onClick={(e) => onSubmit(e, e)}
             // type="submit"
             className="dash-btn-two tran3s me-3 w-25"
           >
