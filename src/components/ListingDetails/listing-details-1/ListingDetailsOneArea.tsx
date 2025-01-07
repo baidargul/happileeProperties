@@ -27,7 +27,7 @@ const ListingDetailsOneArea = async (props: Props) => {
 
   // console.log(property);
 
-  const processPropertyData = (data) => {
+  const processPropertyData = (data:any) => {
     return [
       {
         label: "Price",
