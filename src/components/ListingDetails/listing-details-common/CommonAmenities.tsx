@@ -4,8 +4,7 @@ const CommonAmenities = ({data}: any) => {
    return (
       <>
          <h4 className="mb-20">Amenities</h4>
-         <p className="fs-20 lh-lg pb-25">Risk management & compliance, when approached strategically, have the
-            potential</p>
+         <p className="fs-20 lh-lg pb-25">Enjoy World-Class Amenities Designed for Your Comfort and Convenience</p>
          <ul className="style-none d-flex flex-wrap justify-content-between list-style-two">
             {data&&data.map((list: any, i: number) => (
                <li style={{textTransform: "capitalize"}} key={i}>{list.amenities.name}</li>

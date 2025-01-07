@@ -49,7 +49,7 @@ const HeaderFour = () => {
             <div className="d-flex align-items-center">
               <div className="logo order-lg-0">
                 <Link href="/" className="d-flex align-items-center" >
-                  <Image src={logo_1} alt="" width={100} height={20}/>
+                  <Image src={logo_1} alt="" width={200} height={10}/>
                 </Link>
               </div>
 
@@ -59,21 +59,34 @@ const HeaderFour = () => {
                     display:'flex',
                     alignItems:'center',
                     justifyContent:'center',
-                    // flexDirection:'column',
+                    flexDirection:'column',
                     gap:'5px',
                     marginRight:'10px',
+                    backgroundColor:'	#d2efff',
+                    padding:'5px',
+                    borderRadius:'5px',
+                    border:'1px solid black',
                     // backgroundColor:"red"
+                  }}>
+                  <div style={{
+                    display:'flex',
+                    alignItems:'center',
+                    justifyContent:'center',
+                    // flexDirection:'column',
+                    gap:'20px',
+                    // marginRight:'10px',
                   }}>
                   <a href="https://play.google.com/store/games?hl=en" target="_blank">
                   <Image style={{
-                    height:'40px',objectFit:'contain'
+                    height:'30px',objectFit:'contain'
                   }} src="https://static-00.iconduck.com/assets.00/google-play-icon-1024x1024-ntijeqxd.png" width={50} height={100} alt="" className=""/>
                   </a>
                   <a href="https://www.apple.com/in/app-store/" target="_blank">
                   <Image style={{
-                    height:'40px',objectFit:'contain'
+                    height:'30px',objectFit:'contain'
                   }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/App_Store_%28iOS%29.svg/512px-App_Store_%28iOS%29.svg.png" width={50} height={100} alt="" className=""/>
                   </a>
+                  </div>
                   {/* <select name="" id="" style={{
                     height:'40px',
                     width:'100%',
@@ -82,7 +95,7 @@ const HeaderFour = () => {
                     <option value="Mumbai">Mumbai</option>
                     <option value="Mumbai">Mumbai</option>
                   </select> */}
-                  <NiceSelect
+                  {/* <NiceSelect
                     options={[
                       { value: "Mumbai", text: "Mumbai" },
                       { value: "Delhi", text: "Delhi" },
@@ -113,9 +126,14 @@ const HeaderFour = () => {
                         width:'100px'
                       }
                     }
-                  />
+                  /> */}
 
-        
+        <p style={{
+          margin:'0',
+          padding:'0',
+          fontSize:'14px',
+          fontWeight:'bold',
+        }}>Download Now</p>
                   </li>
                   {isloggedin ? (
                     <li className="d-none d-md-inline-block me-4">
@@ -129,14 +147,22 @@ const HeaderFour = () => {
                       </Link>
                     </li>
                   ):<li className="d-none d-md-inline-block me-4">
-                  <Link
+                    <Link
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target="#loginModal"
+                        className="btn-ten rounded-0"
+                      >
+                        <span>Post Free Property Ad</span>{" "}
+                      </Link>
+                  {/* <Link
                     href="/dashboard/profile"
                     className="btn-ten rounded-0"
                     target="_blank"
                   >
                     <span>Post Free Property Ad</span>{" "}
                     <i className="bi bi-arrow-up-right"></i>
-                  </Link>
+                  </Link> */}
                 </li>}
                   {isloggedin ? (
                            <div className="user-data position-relative">

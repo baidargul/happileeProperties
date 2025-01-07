@@ -24,7 +24,7 @@ interface FormTextAreaProps {
 	isRequired = false, // Default value to false
   }) => {
 	return (
-	<div className={`dash-input-wrapper mb-30 `+ className}>
+	<div className={`dash-input-wrapper `+ className}>
             <label htmlFor="">{label}</label>
             <textarea rows={rows} placeholder={placeholder} disabled={isDisabled} value={value} onBlur={onBlur} required={isRequired} onChange={onChange}/>
     </div>
