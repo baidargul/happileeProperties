@@ -6,6 +6,7 @@ import FooterFour from "@/layouts/footers/FooterFour";
 import HeaderFour from "@/layouts/headers/HeaderFour";
 import ListingDetailsOneArea from "../listing-details-1/ListingDetailsOneArea";
 import { AddInterestWrapper } from "@/components/Wrappers/AddInterestWrapper";
+import FooterFive from "@/layouts/footers/FooterFive";
 
 type Props = {
   id?: string;
@@ -19,7 +20,7 @@ const ListingDetailsSix = (props: Props) => {
         <ListingDetailsOneArea id={props.id ? props.id : ""} />
       </AddInterestWrapper>
       <PropertyOne />
-      <FooterFour />
+      <FooterFive />
     </>
   );
 };

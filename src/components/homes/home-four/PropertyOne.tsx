@@ -69,7 +69,7 @@ const PropertyOne = async ({ style_1, style_2 }: any) => {
             ))}
           </CarouselWrapper>
           <div className="section-btn text-center md-mt-60">
-            <Link href="/listing_08" className="btn-eight">
+            <Link href="/properties" className="btn-eight">
               <span>Explore All</span> <i className="bi bi-arrow-up-right"></i>
             </Link>
           </div>

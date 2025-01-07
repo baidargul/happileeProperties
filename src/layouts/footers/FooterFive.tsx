@@ -2,7 +2,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import footerLogo from "@/assets/images/logo/logo_07.svg"
+import footerLogo from "@/assets/images/logo/logo.png"
 import footer_data from "@/data/home-data/FooterData"
 
 const FooterFive = () => {
@@ -42,7 +42,7 @@ const FooterFive = () => {
                               <Image src={footerLogo} alt="" />
                            </Link>
                         </div>
-                        <p className="mb-45 md-mb-20">11910 Clyde Rapid Suite 210, Willyand, Virginia, United States</p>
+                        <p className="mb-45 md-mb-20">Pune, Maharashtra, India</p>
                         <ul className="style-none d-flex align-items-center social-icon">
                            <li><Link href="#"><i className="fa-brands fa-facebook-f"></i></Link></li>
                            <li><Link href="#"><i className="fa-brands fa-twitter"></i></Link></li>
