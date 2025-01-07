@@ -19,6 +19,8 @@ export const Listing = async ({ currentItems, style }: any) => {
     }
   }
 
+  console.log(properties.length);
+
   // const properties=[
   //   {
   //     id: 1,
