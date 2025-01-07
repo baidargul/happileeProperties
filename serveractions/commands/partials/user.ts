@@ -32,10 +32,12 @@ async function signIn(email: string, password: string) {
     password: password,
   };
 
-  const response = await axios.patch(apiPath, data).then(async (res) => {
-    const response = await res.data;
-    return response;
-  });
+  const response = await axios
+    .post(`${apiPath}/login/`, data)
+    .then(async (res) => {
+      const response = await res.data;
+      return response;
+    });
 
   return response;
 }
