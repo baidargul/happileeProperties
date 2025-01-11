@@ -8,6 +8,16 @@ import { SERVER_ACTIONS } from "../../../../serveractions/Actions/SERVER_ACTIONS
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key"; // Make sure to define your secret key
 
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
 export async function POST(req: NextRequest) {
   const cookie = require("cookie");
   const response = {
