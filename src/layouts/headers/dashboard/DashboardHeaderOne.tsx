@@ -64,7 +64,7 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
                   // width: '40px',
                   // backgroundColor:'red',
                   // objectFit: 'contain'
-               }} width={10} height={10}/>
+               }}/>
                </Link>
                <button onClick={() => setIsActive(false)} className="close-btn d-block d-md-none"><i className="fa-light fa-circle-xmark"></i></button>
             </div>
@@ -93,8 +93,12 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
       <aside className={`dash-aside-navbar ${isActive ? "show" : ""}`}>
          <div className="position-relative h-100">
             <div className="logo d-md-block d-flex align-items-center justify-content-between plr bottom-line pb-30">
-               <Link href="/dashboard-index">
-                  <Image src={dashboardLogo} alt="" />
+               <Link href="/">
+               <Image src={dashboardLogo} alt="" style={{
+                  // width: '40px',
+                  // backgroundColor:'red',
+                  // objectFit: 'contain'
+               }}/>
                </Link>
                <button onClick={() => setIsActive(false)} className="close-btn d-block d-md-none"><i className="fa-light fa-circle-xmark"></i></button>
             </div>
@@ -134,12 +138,12 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
                   <li className="plr"><Link href="/dashboard/add-property" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/add-property' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/add-property' ? dashboardIconActive_7 : dashboardIcon_7} alt="" />
                      <span>Add New Property</span>
-                  </Link></li>
+                  </Link></li></>}
                   <li className="plr"><Link href="/dashboard/favourites" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/favourites' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/favourites' ? dashboardIconActive_8 : dashboardIcon_8} alt="" />
                      <span>Favourites</span>
                   </Link></li>
-                  </> }
+                   
                   {/* <li className="plr"><Link href="/dashboard/saved-search" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/saved-search' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/saved-search' ? dashboardIconActive_9 : dashboardIcon_9} alt="" />
                      <span>Saved Search</span>

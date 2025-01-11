@@ -9,6 +9,11 @@ export const Listing = async ({ currentItems, style }: any) => {
     select: {
       id: true,
     },
+    where: {
+      NOT: {
+        status: "PENDING",
+      },
+    },
   });
 
   let properties: any = [];
@@ -92,7 +97,7 @@ export const Listing = async ({ currentItems, style }: any) => {
   //   },
   // ]
 
-  return (
+  return (properties.length>0?
     <div className="w-100">
       <div className="d-flex align-items-center justify-content-md-between justify-content-center flex-wrap gap-5">
         {properties.map((item: any) => (
@@ -100,7 +105,7 @@ export const Listing = async ({ currentItems, style }: any) => {
         ))}
       </div>
     </div>
-  );
+  :<p style={{ textAlign: "center" }}>No Properties Found</p>);
 };
 
 export default Listing;

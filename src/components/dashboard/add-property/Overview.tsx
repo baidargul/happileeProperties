@@ -213,7 +213,12 @@ const Overview = () => {
               {data?.allotmentType?.map((item: allotmentType) => (
                 <SelectionCard
                   key={item.id}
-                  setItem={() => setAllotment(item)}
+                  setItem={() => {
+                    setAllotment(item)
+                    setBhk(null)
+                    setLookingFor(null)
+                    setPropertyType(null)
+                  }}
                   item={allotment ? allotment.id : ""}
                   name={item.name}
                   id={item.id}
@@ -254,7 +259,10 @@ const Overview = () => {
           {data?.lookingFor?.propertyType
                 ?.filter(
                   (item: propertyType) => item.allotmentTypeId === allotment?.id
-                ).length > 0 && <div className="d-flex align-items-center justify-content-start flex-column mt-3">
+                ).length > 0 && <div className="d-flex align-items-center justify-content-start flex-column  mt-3" style={{
+                  flexWrap: "wrap",
+                  textWrap: "nowrap",
+                }}>
             <p
               style={{
                 fontSize: "15px",

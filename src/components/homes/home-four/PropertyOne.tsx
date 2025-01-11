@@ -32,6 +32,11 @@ const PropertyOne = async ({ style_1, style_2 }: any) => {
     select: {
       id: true,
     },
+    where:{
+      NOT:{
+        status:"PENDING"
+      }
+    }
   });
 
   let properties: any = [];
@@ -43,7 +48,7 @@ const PropertyOne = async ({ style_1, style_2 }: any) => {
   }
 
 
-  return (
+  return ( properties.length > 0 &&
     <div className="property-listing-five mt-170 xl-mt-120" style={{backgroundColor:"#F4FAFF",padding:'1rem 0'}}>
       <div className="container container-large">
         <div className="position-relative">

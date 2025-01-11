@@ -48,9 +48,43 @@ const DashboardHeaderTwo = ({title}:any) => {
                {/* <div className="d-none d-md-block me-3">
                   <Link href="/add-property" className="btn-two"><span>Add Listing</span> <i className="fa-thin fa-arrow-up-right"></i></Link>
                </div> */}
-               {!userProfile.
-bluetickVerified &&
-<Link href="/dashboard/verify"><button className="btn-two d-none d-md-block"><span>Apply Blue Tick</span></button></Link>}
+               {!userProfile.bluetickVerified &&
+  userProfile.status === "ACTIVE" &&
+  userProfile.type === "AGENT" && (
+    <Link href="/dashboard/verify">
+      <button className="btn-two d-block">
+        <span>Apply Blue Tick</span>
+      </button>
+    </Link>
+  )
+}
+
+{userProfile.type === "BUYER" &&
+  userProfile.status === "ACTIVE" && (
+   //  <Link href="/dashboard/verify">
+      <button className="d-block" style={{
+         border: "2px solid #00C000",
+         padding: "10px",
+         borderRadius: "5px",
+      }}>
+        <span style={{
+         fontWeight:'bold',
+
+        }}>Owner Contact 
+         <span style={{
+            color:'#00C000',
+            fontWeight:'bold',
+            marginLeft:'5px'
+         }}>
+            20/60
+            </span>
+      </span>
+      </button>
+   //  </Link>
+  )
+}
+
+
                <div className="user-data position-relative">
                   <button className="user-avatar online position-relative rounded-circle dropdown-toggle" type="button" id="profile-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                      <Image src={dashboardAvatar} alt="" className="lazy-img" />

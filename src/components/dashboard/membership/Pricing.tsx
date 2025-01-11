@@ -34,7 +34,7 @@ const Pricing = () => {
     {subscriptions ? (
       Object.entries(subscriptions).map(([planName, planData]: any, index) => (
         <div key={planData.id} className="d-flex justify-content-center align-items-center">
-          <SubscriptionCard planName={planName} planData={planData} isPopular={index==2}/>
+          <SubscriptionCard planName={planName} planData={planData} isPopular={planData.isPopular}/>
         </div>
       ))
     ) : (

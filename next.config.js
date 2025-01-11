@@ -3,33 +3,31 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // Routes this applies to
-        source: "/api/(.*)",
-        // Headers
+        // Apply headers to all routes and any files
+        source: "/api/:path*",
         headers: [
-          // Allow for specific domains to have access or * for all
           {
             key: "Access-Control-Allow-Origin",
-            value: "*",
-            // DOES NOT WORK
-            // value: process.env.ALLOWED_ORIGIN,
+            value: "*", // Adjust this to a specific domain if needed
           },
-          // Allows for specific methods accepted
           {
             key: "Access-Control-Allow-Methods",
             value: "GET, POST, PUT, DELETE, OPTIONS, PATCH",
           },
-          // Allows for specific headers accepted (These are a few standard ones)
           {
             key: "Access-Control-Allow-Headers",
             value: "Content-Type, Authorization",
+          },
+          {
+            key: "Access-Control-Allow-Credentials",
+            value: "true", // Include if credentials (cookies, etc.) are needed
           },
         ],
       },
     ];
   },
   images: {
-    unoptimized: true,
+    unoptimized: true, // Maintain image handling as is
   },
 };
 

@@ -50,7 +50,7 @@ const ProfileBody = () => {
     const response = await serverActions.user.list(id);
     if (response.status === 200) {
       dispatch(userLogin(response.data));
-      console.log(response)
+      // console.log(response)
     }
   };
 
