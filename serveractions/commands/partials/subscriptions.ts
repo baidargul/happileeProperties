@@ -84,10 +84,21 @@ async function changeUserSubscription(
   return response.data;
 }
 
+async function markPopular(subscriptionName: string, type: accountTypes) {
+  const data = {
+    subscriptionName: subscriptionName,
+    type: type,
+  };
+
+  const response = await axios.patch(`${apiPath}/popular`, data);
+  return response.data;
+}
+
 export const subscription = {
   listAll,
   create,
   changePrice,
   changeUserSubscription,
+  markPopular,
   property,
 };

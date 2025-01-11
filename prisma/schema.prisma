@@ -204,6 +204,7 @@ model subscription {
   name                String
   accountType         accountTypes          @default(BUYER)
   price               Decimal?              @default(0) @db.Decimal
+  isPopular           Boolean?              @default(false)
   subscriptionDetails subscriptionDetails[]
 }
 
