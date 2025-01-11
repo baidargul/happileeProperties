@@ -43,6 +43,7 @@ export async function GET(req: NextRequest) {
             grouped.subscriptions[sub.name] = {
               id: sub.id,
               type: sub.accountType,
+              isPopular: sub.isPopular,
               price: sub.price || 0,
               properties: {},
             };
