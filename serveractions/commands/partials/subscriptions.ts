@@ -71,16 +71,23 @@ async function changePrice(
   return response.data;
 }
 
-async function change(userId: string, subscriptionName: string) {
+async function changeUserSubscription(
+  userId: string,
+  subscriptionName: string
+) {
   const data = {
     id: userId,
     subscriptionName: subscriptionName,
   };
+
+  const response = await axios.patch(`${apiPath}`, data);
+  return response.data;
 }
 
 export const subscription = {
   listAll,
   create,
   changePrice,
+  changeUserSubscription,
   property,
 };
