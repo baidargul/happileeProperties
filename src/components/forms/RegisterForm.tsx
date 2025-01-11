@@ -51,10 +51,14 @@ const RegisterForm = ({close}: RegisterFormProps) => {
        .label('Phone Number'),
  
      password: yup
-       .string()
-       .required('Password is required.')
-       .min(6, 'Password must be at least 6 characters long.') // Add minimum length validation
-       .label('Password'),
+     .string()
+     .required('Password is required.')
+     .min(6, 'Password must be at least 6 characters long.')
+     .matches(
+       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+       'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+     )
+     .label('Password'),
    })
    .required();
 
@@ -63,10 +67,11 @@ const RegisterForm = ({close}: RegisterFormProps) => {
 
    const onSubmit = async (formData: FormData) => {
       if (!checkbox) {
-         toast('Please accept terms and conditions');
+         setError(true);
          return;
       }
       try {
+         setError(false);
          const { data, status, message } = await serverActions.user.signUp(
             formData.name,
             formData.email,
@@ -88,8 +93,9 @@ const RegisterForm = ({close}: RegisterFormProps) => {
       }
    };
 
-   const [isPasswordVisible, setPasswordVisibility] = useState(false);
+   const [isPasswordVisible, setPasswordVisibility] = useState('');
    const [checkbox,setCheckBox]=useState(false);
+   const [error, setError] = useState(false);
 
    const togglePasswordVisibility = () => {
       setPasswordVisibility(!isPasswordVisible);
@@ -133,10 +139,33 @@ const RegisterForm = ({close}: RegisterFormProps) => {
             </div>
             <div className="col-12">
                <div className="agreement-checkbox d-flex justify-content-between align-items-center">
-                  <div>
-                     <input type="checkbox" id="remember2"  checked={checkbox} onChange={()=>setCheckBox(!checkbox)}/>
-                     <label htmlFor="remember2">By hitting the &quot;Register&quot; button, you agree to the <Link href="#">Terms conditions</Link> & <Link href="#">Privacy Policy</Link></label>
-                  </div>
+               <div>
+        <input
+          type="checkbox"
+          id="remember2"
+          checked={checkbox}
+          onChange={() => setCheckBox(!checkbox)} // Toggle checkbox state
+        />
+        <label
+          style={{ color: !checkbox && error ? "red" : "" }}
+          htmlFor="remember2"
+        >
+          By hitting the &quot;Register&quot; button, you agree to the{" "}
+          <Link
+            href="#"
+            style={{ color: !checkbox && error ? "red" : "" }}
+          >
+            Terms and Conditions
+          </Link>{" "}
+          &{" "}
+          <Link
+            href="#"
+            style={{ color: !checkbox && error ? "red" : "" }}
+          >
+            Privacy Policy
+          </Link>
+        </label>
+      </div>
                </div>
             </div>
             <div className="col-12">
