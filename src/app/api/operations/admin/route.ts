@@ -157,7 +157,6 @@ export async function PATCH(req: NextRequest) {
     return new Response(JSON.stringify(response));
   }
 }
-
 // FOR LOGIN
 export async function PUT(req: NextRequest) {
   const response = {
