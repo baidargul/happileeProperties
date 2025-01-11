@@ -90,7 +90,7 @@ async function markPopular(subscriptionName: string, type: accountTypes) {
     type: type,
   };
 
-  const response = await axios.patch(`${apiPath}/popular`, data);
+  const response = await axios.put(`${apiPath}`, data);
   return response.data;
 }
 
