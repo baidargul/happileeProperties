@@ -266,7 +266,7 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    let temp = formData.get(`bhk`);
+    let temp: any = formData.get(`bhk`);
     const bhkType = await prisma.bhk.findUnique({
       where: {
         id: temp,
@@ -274,12 +274,12 @@ export async function POST(req: NextRequest) {
     });
     temp = null;
 
-    if (!bhkType) {
-      response.status = 400;
-      response.message = "Invalid bhkType";
-      response.data = null;
-      return new Response(JSON.stringify(response));
-    }
+    // if (!bhkType) {
+    //   response.status = 400;
+    //   response.message = "Invalid bhkType";
+    //   response.data = null;
+    //   return new Response(JSON.stringify(response));
+    // }
 
     temp = formData.get(`allotmentFor`);
     const allotmentFor = await prisma.allotmentFor.findUnique({
@@ -305,7 +305,7 @@ export async function POST(req: NextRequest) {
         maintenance: Number(formData.get(`maintenance`)),
         title: formData.get(`title`),
         propertyTypeId: propertyType.id,
-        bhkTypeId: bhkType.id,
+        bhkTypeId: bhkType?.id || null,
         furnishingId: furnishing.id,
         ownershipTypeId: ownership.id,
         allotmentForId: allotmentFor.id,
