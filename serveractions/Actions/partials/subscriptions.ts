@@ -84,6 +84,11 @@ async function increaseValue(
       });
     }
   }
+
+  response.status = 200;
+  response.message = "Update successfull";
+  response.data = valueRegister;
+  return response;
 }
 
 export const subscriptions = {
