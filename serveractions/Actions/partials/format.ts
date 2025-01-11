@@ -26,9 +26,6 @@ async function formattedProperty(id: string) {
               },
               bluetickDocuments: true,
             },
-            omit: {
-              password: true,
-            },
           },
         },
       },
@@ -140,9 +137,6 @@ async function formatUser(id: string) {
       },
       interested: true,
     },
-    omit: {
-      password: true,
-    },
   });
 
   // const subscription = await prisma.subscriptionRegister.findMany({
@@ -182,6 +176,7 @@ async function formatUser(id: string) {
       name: item.name,
       price: item.price,
       type: item.accountType,
+      isPopular: item.isPopular,
       properties: {},
     };
 
