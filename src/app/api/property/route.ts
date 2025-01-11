@@ -306,8 +306,8 @@ export async function POST(req: NextRequest) {
       1
     );
 
-    if (counter !== 200) {
-      response.status = 400;
+    if (counter.status !== 200) {
+      response.status = counter.status;
       response.message = counter.message;
       response.data = null;
       return new Response(JSON.stringify(response));
