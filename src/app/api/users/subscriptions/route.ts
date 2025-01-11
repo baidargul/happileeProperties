@@ -128,6 +128,7 @@ export async function POST(req: NextRequest) {
         name: data.name,
         accountType: data.type, // Validated type
         price: data.price,
+        isPopular: data.isPopular || false,
       },
     });
 
