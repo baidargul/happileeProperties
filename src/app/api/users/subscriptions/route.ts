@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import prisma from "../../../../../serveractions/commands/prisma";
 import { accountTypes } from "@prisma/client";
+import { formatter } from "../../../../../serveractions/Actions/partials/format";
 
 export async function OPTIONS() {
   return new Response(null, {
@@ -228,9 +229,11 @@ export async function PATCH(req: NextRequest) {
       });
     }
 
+    let newData = await formatter.formatUser(user.id);
+
     response.status = 200;
     response.message = "Subscription updated successfully";
-    response.data = null;
+    response.data = newData;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.error("[SERVER ERROR]: " + error.message);
