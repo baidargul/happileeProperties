@@ -20,7 +20,7 @@ const FormTextArea: React.FC<FormInputProps> = ({ label,className,control,name,t
 		control={control}
 		name={name}
 		render={({field: {value, onChange, onBlur},fieldState:{error}}) => (
-		<div className='w-full flex flex-col'>
+		<div className='w-full flex flex-col mb-30'>
 		<SingleTextArea
 			label={label}
 			className={className}
@@ -32,7 +32,10 @@ const FormTextArea: React.FC<FormInputProps> = ({ label,className,control,name,t
 			isRequired={isRequired}
 			rows={rows}
 		/>
-		{error&&<p className='text-red-600 text-md'>{error.message}</p>}
+		{error&&<p className='text-danger text-md' style={{
+				margin: '0',
+				padding: '0',	
+		}}>{error.message}</p>}
 		</div>
 		)}
 	/>

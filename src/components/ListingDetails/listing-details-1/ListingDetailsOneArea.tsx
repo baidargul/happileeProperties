@@ -14,6 +14,7 @@ import CommonProPertyScore from "../listing-details-common/CommonProPertyScore";
 import CommonLocation from "../listing-details-common/CommonLocation";
 import CommonReviewForm from "../listing-details-common/CommonReviewForm";
 import { formatter } from "../../../../serveractions/Actions/partials/format";
+import moment from "moment";
 
 interface Props {
   id?: string;
@@ -25,6 +26,67 @@ const ListingDetailsOneArea = async (props: Props) => {
   const property = await formatter.formattedProperty(props.id ? props.id : "");
 
   // console.log(property);
+
+  const processPropertyData = (data:any) => {
+    return [
+      {
+        label: "Price",
+        value: `₹${data.price}`
+      },
+      {
+        label: "Area",
+        value: `${data.area} sqft`
+      },
+      {
+        label: "Built-up Area",
+        value: `${data.builtupArea} sqft`
+      },
+      {
+        label: "Carpet Area",
+        value: `${data.carpetArea} sqft`
+      },
+      {
+        label: "Floor Number",
+        value: data.floorNumber
+      },
+      {
+        label: "Total Floors",
+        value: data.totalFloorsInBuilding
+      },
+      {
+        label: "Age of Property",
+        value: `${data.age} years`
+      },
+      {
+        label: "Facing Direction",
+        value: data.facingDirection
+      },
+      {
+        label: "Parking Space",
+        value: data.parkingSpace
+      },
+      {
+        label: "Ownership Type",
+        value: data.ownershipType.name
+      },
+      {
+        label: "Furnishing",
+        value: data.furnishing.name
+      },
+      {
+        label: "BHK Type",
+        value: data.bhkType.name
+      },
+      {
+        label: "Availability Date",
+        value: moment(data.availableDate).format('DD-MM-YYYY') // Formatting date`
+      },
+    ];
+  };
+
+  const simplifiedData = processPropertyData(property);
+
+
   return (
     <div className="listing-details-one theme-details-one bg-pink pt-180 lg-pt-150 pb-150 xl-pb-120">
       <div className="container">
@@ -37,9 +99,27 @@ const ListingDetailsOneArea = async (props: Props) => {
         <div className="row">
           <div className="col-xl-8">
             <div className="property-overview mb-50 bg-white shadow4 border-20 p-40">
+              <h4 className="mb-20">Details</h4>
+              <p className="fs-20 lh-lg pb-25">Experience Modern Living with This Spacious and Well-Designed Home</p>
+              <ul className="row">
+  {simplifiedData && simplifiedData.map((list: any, i: number) => (
+    <li key={i} className="col-12 col-md-6 p-0 m-0" style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      gap: '10px',
+    }}>
+      <p style={{textTransform: "capitalize", fontWeight: 'bold'}}>{list.label} :</p>
+      <p>{list.value}</p>
+    </li>
+  ))}
+</ul>
+
+            </div>
+            <div className="property-overview mb-50 bg-white shadow4 border-20 p-40">
               <h4 className="mb-20">Overview</h4>
               <p className="fs-20 lh-lg">
-                This property showcases a harmonious blend of timeless design
+                {property?.description || `This property showcases a harmonious blend of timeless design
                 and modern functionality, creating a space that is both stylish
                 and practical. Every detail has been carefully considered to
                 provide an exceptional living experience, with a focus on
@@ -55,7 +135,7 @@ const ListingDetailsOneArea = async (props: Props) => {
                 a residence that balances aesthetics and functionality, this
                 property is an excellent choice for anyone looking for a space
                 that feels like home while offering all the features necessary
-                for a comfortable and fulfilling lifestyle.
+                for a comfortable and fulfilling lifestyle.`}
               </p>
             </div>
             {/* <div className="property-feature-accordion bg-white shadow4 border-20 p-40 mb-50">
@@ -109,6 +189,7 @@ const ListingDetailsOneArea = async (props: Props) => {
         </div>
       </div>
     </div>
+    
   );
 };
 

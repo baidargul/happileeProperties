@@ -21,9 +21,80 @@ export const Listing = async ({ currentItems, style }: any) => {
 
   console.log(properties.length);
 
+  // const properties=[
+  //   {
+  //     id: 1,
+  //     name: "Property 1",
+  //     address: "123 Main St, City",
+  //     image: "/images/property/property_1.jpg",
+  //     price: "$1,000,000",
+  //     bedrooms: 3,
+  //     bathrooms: 2,
+  //     area: "1,000 sqft",
+  //     propertyImages:[
+  //       {
+  //         image:{
+  //           url:''
+  //         }
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     id: 1,
+  //     name: "Property 1",
+  //     address: "123 Main St, City",
+  //     image: "/images/property/property_1.jpg",
+  //     price: "$1,000,000",
+  //     bedrooms: 3,
+  //     bathrooms: 2,
+  //     area: "1,000 sqft",
+  //     propertyImages:[
+  //       {
+  //         image:{
+  //           url:''
+  //         }
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     id: 1,
+  //     name: "Property 1",
+  //     address: "123 Main St, City",
+  //     image: "/images/property/property_1.jpg",
+  //     price: "$1,000,000",
+  //     bedrooms: 3,
+  //     bathrooms: 2,
+  //     area: "1,000 sqft",
+  //     propertyImages:[
+  //       {
+  //         image:{
+  //           url:''
+  //         }
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     id: 1,
+  //     name: "Property 1",
+  //     address: "123 Main St, City",
+  //     image: "/images/property/property_1.jpg",
+  //     price: "$1,000,000",
+  //     bedrooms: 3,
+  //     bathrooms: 2,
+  //     area: "1,000 sqft",
+  //     propertyImages:[
+  //       {
+  //         image:{
+  //           url:''
+  //         }
+  //       }
+  //     ]
+  //   },
+  // ]
+
   return (
     <div className="w-100">
-      <div className="d-flex align-items-center justify-content-between gap-3 flex-wrap gx-xxl-5">
+      <div className="d-flex align-items-center justify-content-md-between justify-content-center flex-wrap gap-5">
         {properties.map((item: any) => (
           <PropertyCard key={item.id} property={item} />
         ))}

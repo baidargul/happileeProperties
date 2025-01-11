@@ -5,6 +5,11 @@ interface File{
 	name: string
 }
 
+interface AddOn {
+	position:string;
+	label:string;
+}
+
 // Define the props interface for SingleInput
 interface FormInputProps {
 	label: string;
@@ -16,6 +21,7 @@ interface FormInputProps {
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 	isRequired?: boolean;
+	addOn?:AddOn
   }
 
 export const SingleInput: React.FC<FormInputProps> = ({
@@ -27,6 +33,7 @@ export const SingleInput: React.FC<FormInputProps> = ({
 	value,
 	onBlur,
 	placeholder,
+	addOn,
 	isRequired = false, // Default value to false
 }) => {
 
@@ -34,7 +41,7 @@ export const SingleInput: React.FC<FormInputProps> = ({
 	// Render logic for custom file input
 	if (type === 'file') {
 		return (
-			<div className={`dash-input-wrapper mb-30 ` + className}>
+			<div className={`dash-input-wrapper ` + className}>
 				<label>{label}</label>
 				<div className="custom-file-picker">
 					{/* Hidden default file input */}
@@ -66,17 +73,50 @@ export const SingleInput: React.FC<FormInputProps> = ({
 
 	// Render regular input for other types
 	return (
-		<div className={`dash-input-wrapper mb-30 ` + className}>
+		<div className={`dash-input-wrapper ` + className}>
 			<label>{label}</label>
-			<input
-				type={type}
-				placeholder={placeholder}
-				disabled={isDisabled}
-				value={typeof value === 'string' ? value : ''}
-				onBlur={onBlur}
-				required={isRequired}
-				onChange={onChange}
-			/>
+			<div style={{
+				display: 'flex',
+				justifyContent: 'space-between',
+				alignItems: 'center',
+				gap:'5px',
+				}}>
+				{addOn?.position === 'left' && <span style={{
+					height:'55px',
+					width:'10%',
+					border:'1px solid #E5E5E5',
+					display:'flex',
+					alignItems:'center',
+					justifyContent:'center',
+					borderRadius:'5px',
+					padding:'5px',
+					fontSize:'14px',
+					cursor:'default',
+					userSelect:'none'
+				}}>{addOn.label}</span>}
+				<input
+					type={type}
+					placeholder={placeholder}
+					disabled={isDisabled}
+					value={typeof value === 'string' ? value : ''}
+					onBlur={onBlur}
+					required={isRequired}
+					onChange={onChange}
+				/>
+				{addOn?.position === 'right' && <span style={{
+					height:'55px',
+					width:'10%',
+					border:'1px solid #E5E5E5',
+					display:'flex',
+					alignItems:'center',
+					justifyContent:'center',
+					borderRadius:'5px',
+					padding:'5px',
+					fontSize:'14px',
+					cursor:'default',
+					userSelect:'none'
+				}}>{addOn.label}</span>}
+			</div>
 		</div>
 	);
 };

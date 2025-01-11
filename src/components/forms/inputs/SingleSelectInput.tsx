@@ -117,7 +117,7 @@ export default function SingleSelectInput({
   };
 
   return (
-    <div className="dash-input-wrapper mb-30">
+    <div className={`dash-input-wrapper  ${!onBlur?"mb-30":""}`}>
       <label htmlFor="">{convertToLabel(label)}</label>
       <SelectComponent
         className="nice-select"

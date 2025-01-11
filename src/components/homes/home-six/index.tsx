@@ -18,15 +18,22 @@ const HomeSix = () => {
          <HeaderFour />
          <HeroBanner />
          <Category style={false}/>
-         <BLockFeatureTwo style={true} />
-         <PropertyOne />
+         {/* <BLockFeatureTwo style={true} /> */}
+         {/* <PropertyOne /> */}
          <Property style_1={false} style_2={true} />
-         <HomeSixBLockFeatureTwo />
-         <BLockFeatureThree />
-         <Feedback />
-         <Brand />
-         <Blog />
-         <FancyBanner />
+         <p style={{
+            textAlign: 'center',
+            fontSize: '10rem',
+            // fontWeight: 'bold',
+            color: '#333',
+            padding: '50px 0'
+         }}>Comming Soon...</p>
+         {/* <HomeSixBLockFeatureTwo /> */}
+         {/* <BLockFeatureThree /> */}
+         {/* <Feedback /> */}
+         {/* <Brand /> */}
+         {/* <Blog /> */}
+         {/* <FancyBanner /> */}
          <FooterFive />
       </>
    )

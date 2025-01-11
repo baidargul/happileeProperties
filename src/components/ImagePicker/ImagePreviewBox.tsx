@@ -41,7 +41,7 @@ const ImagePreviewBox = (props: ImagePreviewBoxProps) => {
         >
           <img
             src={URL.createObjectURL(props.imageData)}
-            style={{ width: "6.2rem", height: "6.2rem"}}
+            style={{ width: "20rem", height: "20rem"}}
           />
           <svg
             onClick={() => handleDelete(props.imageData)}

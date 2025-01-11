@@ -23,7 +23,7 @@ export default function ImagePicker(props: ImagePickerProps) {
       <label className="mb-3 block text-orange-600">
         {props.label || "Images"}
       </label>
-      <div className="d-flex align-items-center justify-content-start flex-wrap gap-3">
+      <div className="d-flex align-items-center justify-content-md-start justify-content-center flex-wrap gap-3">
         {props.selectedImageArray.length > 0 &&
           props.selectedImageArray?.map((item, index) => (
             <ImagePreviewBox
@@ -37,7 +37,7 @@ export default function ImagePicker(props: ImagePickerProps) {
           <label
             htmlFor="image-file"
             className="d-flex bg-gray-100 border border-1 border-dark flex-column justify-content-center align-items-center"
-            style={{ width: "6.2rem", height: "6.2rem", cursor: "pointer" }}
+            style={{ width: "20rem", height: "20rem", cursor: "pointer" }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

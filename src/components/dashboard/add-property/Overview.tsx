@@ -95,15 +95,23 @@ const Overview = () => {
     location: z.string().min(1, { message: "Location is required" }),
     // bhk: z.string().min(1, { message: "BHK is required" }),
     area: z.string().min(1, { message: "Area is required" }),
-    propertyAge: z.string().optional(),
+    propertyAge: z.string().min(1, { message: "Property Age is required" }),
     furnishing: z.string().min(1, { message: "Furnishing is required" }),
     // amenities: z.array(z.string()).optional(),
     price: z.string().min(1, { message: "Price is required" }),
-    securityDeposit: z.string().optional(),
+    securityDeposit: z.string().min(1, { message: "Security Deposit is required" }),
     rent: z.string().optional(),
-    maintenance: z.string().optional(),
-    availableDate: z.string().optional(),
-    ownerShipType: z.string().optional(),
+    maintenance: z.string().min(1, { message: "Maintenance is required" }),
+    availableDate: z.string().min(1, { message: "Available Date is required" }),
+    ownerShipType: z.string().min(1, { message: "OwnerShip Type is required" }),
+    description: z.string().min(1, { message: "Description is required" }),
+    builtupArea: z.string().min(1, { message: "Builtup Area is required" }),
+    carpetArea: z.string().min(1, { message: "Carpet Area is required" }),
+    floorNumber: z.string().min(1, { message: "Floor Number is required" }),
+    totalFloorsInBuilding: z.string().min(1, { message: "Total Floors In Building is required" }),
+    facingDirection: z.string().min(1, { message: "Facing Direction is required" }),
+    parkingSpace: z.string().min(1, { message: "Parking Space is required" }),
+
     // propertyImages: z.array(z.string()).optional(),
   });
 
@@ -126,6 +134,13 @@ const Overview = () => {
       ownerShipType: "",
       description: "",
       address: "",
+      builtupArea:"",
+      carpetArea:"",
+      floorNumber:"",
+      totalFloorsInBuilding:"",
+      facingDirection:"",
+      parkingSpace:"",
+
     },
     resolver: zodResolver(formSchema),
   });
@@ -236,7 +251,10 @@ const Overview = () => {
           </div>
 
           {/*Property Type Section */}
-          <div className="d-flex align-items-center justify-content-start flex-column mt-3">
+          {data?.lookingFor?.propertyType
+                ?.filter(
+                  (item: propertyType) => item.allotmentTypeId === allotment?.id
+                ).length > 0 && <div className="d-flex align-items-center justify-content-start flex-column mt-3">
             <p
               style={{
                 fontSize: "15px",
@@ -264,7 +282,7 @@ const Overview = () => {
                   />
                 ))}
             </div>
-          </div>
+          </div>}
 
           {/*BHK Section */}
           {allotment?.name?.toLowerCase() === "residential" && (
@@ -328,6 +346,54 @@ const Overview = () => {
                 control={control}
                 name="area"
                 placeholder="e.g., 2137"
+                addOn={{
+                  position:'right',
+                  label:"Sqft"
+                }}
+              />
+            </div>
+            <div className="col-md-4">
+              <FormInput
+                type="number"
+                label={"Built-up Area"}
+                control={control}
+                name="builtupArea"
+                placeholder="e.g., 2137"
+                addOn={{
+                  position:'right',
+                  label:"Sqft"
+                }}
+              />
+            </div>
+            <div className="col-md-4">
+              <FormInput
+                type="number"
+                label={"Carpet Area"}
+                control={control}
+                name="carpetArea"
+                placeholder="e.g., 2137"
+                addOn={{
+                  position:'right',
+                  label:"Sqft"
+                }}
+              />
+            </div>
+            <div className="col-md-4">
+              <FormInput
+                type="number"
+                label={"Floor Number"}
+                control={control}
+                name="floorNumber"
+                placeholder="1,2,3.."
+              />
+            </div>
+            <div className="col-md-4">
+              <FormInput
+                type="number"
+                label={"Total Floors in Building"}
+                control={control}
+                name="totalFloorsInBuilding"
+                placeholder="10,20,30.."
               />
             </div>
             <div className="col-md-4">
@@ -341,11 +407,44 @@ const Overview = () => {
             </div>
             <div className="col-md-4">
               <FormSelectInput
+                options={[
+                  { id: 'East', name: 'East' },
+                  { id: 'West', name: 'West' },
+                  { id: 'North', name: 'North' },
+                  { id: 'South', name: 'South' },
+                  { id: 'North-East', name: 'North-East' },
+                  { id: 'North-West', name: 'North-West' },
+                  { id: 'South-East', name: 'South-East' },
+                  { id: 'South-West', name: 'South-West' },
+                ]}
+                label={"Facing"}
+                control={control}
+                name="facingDirection"
+                placeholder="Facing Direction"
+              />
+            </div>
+            <div className="col-md-4">
+              <FormSelectInput
                 options={data?.furnishing}
                 label={"Furnishing"}
                 control={control}
                 name="furnishing"
                 placeholder="Fully Furnished"
+              />
+            </div>
+            <div className="col-md-4">
+              <FormSelectInput
+                options={[
+                  { id: 'None', name: 'None' },
+                  { id: '1 Spot', name: '1 Spot' },
+                  { id: '2 Spots', name: '2 Spots' },
+                  { id: '3 Spots', name: '3 Spots' },
+                  { id: '4+ Spots', name: '4+ Spots' },
+                ]}
+                label={"Parking Space"}
+                control={control}
+                name="parkingSpace"
+                placeholder="Parking Space"
               />
             </div>
             {amenitiesData?.map((item:any)=>(
@@ -527,6 +626,10 @@ const Overview = () => {
                 control={control}
                 name="price"
                 placeholder="Enter price"
+                addOn={{
+                  position:'left',
+                  label:"₹"
+                }}
               />
             </div>
             <div className="col-md-4">
@@ -536,6 +639,10 @@ const Overview = () => {
                 control={control}
                 name="securityDeposit"
                 placeholder="Enter deposit"
+                addOn={{
+                  position:'left',
+                  label:"₹"
+                }}
               />
             </div>
             <div className="col-md-4">
@@ -545,9 +652,13 @@ const Overview = () => {
                 control={control}
                 name="maintenance"
                 placeholder="Maintenance charges"
+                addOn={{
+                  position:'left',
+                  label:"₹"
+                }}
               />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <FormInput
                 type="date"
                 label={"Available Date"}
@@ -556,13 +667,23 @@ const Overview = () => {
                 placeholder="Availability"
               />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <FormSelectInput
                 options={data?.ownership}
                 label={"Ownership Type"}
                 control={control}
                 name="ownerShipType"
                 placeholder="Freehold, Leasehold, etc."
+              />
+            </div>
+            <div className="col-md-12">
+              <FormTextArea
+                rows={5}
+                type="text"
+                label={"Property Description"}
+                control={control}
+                name="description"
+                placeholder="Enter description about property"
               />
             </div>
             <ImagePicker

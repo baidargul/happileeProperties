@@ -25,16 +25,24 @@ const Pricing = () => {
   }, []);
 
   return (
-    <div className="pricing-section-two container py-4">
-      <div className="row gy-4">
-        {subscriptions ?
-          Object.entries(subscriptions).map(([planName, planData]: any) => (
-            <div key={planData.id} className="col-12 col-lg-6">
-              <SubscriptionCard planName={planName} planData={planData} />
-            </div>
-          )):<Spinner/>}
-      </div>
-    </div>
+    <div className="py-4">
+  <div className="d-flex flex-nowrap overflow-auto" style={{
+    scrollbarColor:"#0D6EFD transparent",
+    scrollbarWidth:"thin",
+    scrollBehavior:"smooth",
+  }}>
+    {subscriptions ? (
+      Object.entries(subscriptions).map(([planName, planData]: any, index) => (
+        <div key={planData.id} className="d-flex justify-content-center align-items-center">
+          <SubscriptionCard planName={planName} planData={planData} isPopular={index==2}/>
+        </div>
+      ))
+    ) : (
+      <Spinner />
+    )}
+  </div>
+</div>
+  
   );
 };
 
