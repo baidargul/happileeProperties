@@ -303,9 +303,11 @@ export async function PUT(req: NextRequest) {
       },
     });
 
+    const formattedUser = await formatter.formatUser(isExist.userId);
+
     response.status = 200;
     response.message = "Subscription updated successfully.";
-    response.data = null;
+    response.data = formattedUser;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
