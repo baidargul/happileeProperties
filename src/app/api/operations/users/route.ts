@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// PATCH handler
+// PATCH handler to update user status and bluetick verification
 export async function PATCH(req: NextRequest) {
   const response = {
     status: 500,
