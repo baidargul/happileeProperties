@@ -11,21 +11,27 @@ async function GET_ALLOTMENT_STRUCTURE() {
 
 async function initializeDefaults() {
   const types = [
-    { name: "House", type: "Residential" },
+    { name: "Farm House", type: "Residential" },
     { name: "Apartment", type: "Residential" },
-    { name: "Villa", type: "Residential" },
-    { name: "Office", type: "Commercial" },
-    { name: "RetailShop", type: "Commercial" },
-    { name: "ShowRoom", type: "Commercial" },
-    { name: "Warehouse", type: "Commercial" },
+    { name: "Independent House/Villa", type: "Residential" },
+    { name: "Plot/Land", type: "Residential" },
+    { name: "Office Space", type: "Commercial" },
+    { name: "Shop/Showroom", type: "Commercial" },
+    { name: "Commercial Land", type: "Commercial" },
+    { name: "Warehouse/Godown", type: "Commercial" },
+    { name: "Industrial Building", type: "Commercial" },
+    { name: "Industrial Shed", type: "Commercial" },
+    { name: "Agricultural Land", type: "Commercial" },
+    { name: "Hotel/Resort", type: "Commercial" },
+    { name: "Guest House", type: "Commercial" },
   ];
 
   const allotmentTypes = [
     "Residential",
     "Commercial",
-    "Industrial",
-    "Agricultural",
-    "Others",
+    // "Industrial",
+    // "Agricultural",
+    // "Others",
   ];
 
   const allotmentFor = ["Sell", "Rent"];
