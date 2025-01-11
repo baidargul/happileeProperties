@@ -176,27 +176,31 @@ async function formatUser(id: string) {
 
   let subscription: any;
   for (const item of rawSubscription) {
-    if (item.subscriptionDetails[0].subscriptionRegister.length > 0) {
-      subscription = {
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        type: item.accountType,
-      };
+    console.log(item);
+    subscription = {
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      type: item.accountType,
+      properties: {},
+    };
 
-      for (const prop of item.subscriptionDetails) {
-        subscription = {
-          ...subscription,
-          properties: {
-            ...subscription.properties,
-            [prop.label]: {
-              id: prop.id,
-              limit: Number(prop.value),
-              current: Number(prop.subscriptionRegister[0].value),
-            },
-          },
-        };
+    for (const prop of item.subscriptionDetails) {
+      let current = 0;
+      if (prop.subscriptionRegister.length > 0) {
+        current = Number(prop.subscriptionRegister[0].value);
       }
+      subscription = {
+        ...subscription,
+        properties: {
+          ...subscription.properties,
+          [prop.label]: {
+            id: prop.id,
+            limit: Number(prop.value),
+            current: Number(current),
+          },
+        },
+      };
     }
   }
 
