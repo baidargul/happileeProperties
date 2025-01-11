@@ -76,9 +76,6 @@ export async function POST(req: NextRequest) {
         password: data.password, //hashedPassword,
         createdAt: new Date(),
       },
-      omit: {
-        password: true,
-      },
     });
 
     // Create a JWT token
@@ -252,9 +249,6 @@ export async function PUT(req: NextRequest) {
         builder: true,
         image: true,
       },
-      omit: {
-        password: true,
-      },
     });
 
     if (!rawUser) {
@@ -293,9 +287,6 @@ export async function GET(req: NextRequest) {
       },
       orderBy: {
         name: "asc",
-      },
-      omit: {
-        password: true,
       },
     });
 

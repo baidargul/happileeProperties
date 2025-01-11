@@ -170,7 +170,6 @@ async function formatUser(id: string) {
 
   let subscription: any;
   for (const item of rawSubscription) {
-    console.log(item);
     subscription = {
       id: item.id,
       name: item.name,

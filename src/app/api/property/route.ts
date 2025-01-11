@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import prisma from "../../../../serveractions/commands/prisma";
 import { SERVER_ACTIONS } from "../../../../serveractions/Actions/SERVER_ACTIONS";
 import { ImageHandler } from "../../../../serveractions/Actions/partials/ImageHandler";
+import { formatter } from "../../../../serveractions/Actions/partials/format";
 
 export async function GET(req: NextRequest) {
   const response = {
@@ -201,18 +202,20 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    let isExsits: any = await prisma.user.findUnique({
+    let user: any = await prisma.user.findUnique({
       where: {
         id: userId,
       },
     });
 
-    if (!isExsits) {
+    if (!user) {
       response.status = 400;
       response.message = "User does not exists";
       response.data = null;
       return new Response(JSON.stringify(response));
     }
+
+    user = await formatter.formatUser(user.id);
 
     const furnishing = await prisma.furnishing.findUnique({
       where: {
@@ -291,6 +294,21 @@ export async function POST(req: NextRequest) {
     if (!allotmentFor) {
       response.status = 400;
       response.message = "Invalid allotmentFor";
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    const counter: any = await SERVER_ACTIONS.subscriptions.increaseValue(
+      user.subscription.name,
+      user.type,
+      "Number of Listings",
+      user.id,
+      1
+    );
+
+    if (counter !== 200) {
+      response.status = 400;
+      response.message = counter.message;
       response.data = null;
       return new Response(JSON.stringify(response));
     }
