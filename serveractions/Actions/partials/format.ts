@@ -157,7 +157,15 @@ async function formatUser(id: string) {
   const rawSubscription = await prisma.subscription.findMany({
     where: {
       accountType: user.type,
-      subscriptionDetails: {},
+      subscriptionDetails: {
+        some: {
+          subscriptionRegister: {
+            some: {
+              userId: id,
+            },
+          },
+        },
+      },
     },
     include: {
       subscriptionDetails: {
