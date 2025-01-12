@@ -25,6 +25,8 @@ import dashboardIcon_9 from "@/assets/images/dashboard/icon/icon_9.svg";
 import dashboardIconActive_10 from "@/assets/images/dashboard/icon/icon_10_active.svg";
 import dashboardIcon_10 from "@/assets/images/dashboard/icon/icon_10.svg";
 import dashboardIcon_11 from "@/assets/images/dashboard/icon/icon_41.svg";
+import dashboardIcon_12 from "@/assets/images/dashboard/icon/icon_44.svg";
+import dashboardIconActive_12 from "@/assets/images/dashboard/icon/icon_44_dark.svg";
 import { serverActions } from "../../../../serveractions/commands/serverCommands";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -115,11 +117,19 @@ const DashboardHeaderOne = ({ isActive, setIsActive }: any) => {
                   <li className="bottom-line pt-30 lg-pt-20 mb-40 lg-mb-30"></li>
                   </>
                   }
+
                   <li><div className="nav-title">Profile</div></li>
                   <li className="plr"><Link href="/dashboard/profile" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/profile' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/profile' ? dashboardIconActive_3 : dashboardIcon_3} alt="" />
                      <span>Profile</span>
                   </Link></li>
+                  {userProfile.type=='BUYER'&&<> <li className="plr"><Link href="/dashboard/preference" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/preference' ? 'active' : ''}`}>
+                     <Image src={pathname === '/dashboard/preference' ? dashboardIconActive_12 : dashboardIcon_12} alt="" />
+                     <span>Preference</span>
+                  </Link></li>
+                  <li className="bottom-line pt-30 lg-pt-20 mb-40 lg-mb-30"></li>
+                  </>
+                  }
                   {/* <li className="plr"><Link href="/dashboard/account-settings" className={`d-flex w-100 align-items-center ${pathname === '/dashboard/account-settings' ? 'active' : ''}`}>
                      <Image src={pathname === '/dashboard/account-settings' ? dashboardIconActive_4 : dashboardIcon_4} alt="" />
                      <span>Account Settings</span>

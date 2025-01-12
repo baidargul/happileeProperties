@@ -71,7 +71,7 @@ const SidebarInfo = ({ property }: { property: any }) => {
                <li><Link href="#"><i className="fa-brands fa-linkedin"></i></Link></li>
             </ul> */}
       </div>
-      {hide ? (
+      { hide || userProfile.id==property?.user?.id ? (
         <div className="divider-line mt-40 mb-45 pt-20">
           <ul className="style-none">
             {property?.user?.address && (
