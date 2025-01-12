@@ -3,6 +3,7 @@ import { ImageHandler } from "../../../../../serveractions/Actions/partials/Imag
 import prisma from "../../../../../serveractions/commands/prisma";
 import { format } from "path";
 import { formatter } from "../../../../../serveractions/Actions/partials/format";
+import { SERVER_ACTIONS } from "../../../../../serveractions/Actions/SERVER_ACTIONS";
 
 export async function POST(req: NextRequest) {
   const response = {
@@ -167,7 +168,7 @@ export async function PUT(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    const user = await prisma.user.findUnique({
+    let user: any = await prisma.user.findUnique({
       where: {
         id: data.userId,
       },
@@ -188,6 +189,23 @@ export async function PUT(req: NextRequest) {
         bluetickVerified: !user.bluetickVerified,
       },
     });
+
+    user = await formatter.formatUser(data.userId);
+
+    const counter: any = await SERVER_ACTIONS.subscriptions.increaseValue(
+      user.subscription.name,
+      user.type,
+      "Bluetick verification",
+      user.id,
+      user.bluetickVerified ? 1 : 0
+    );
+
+    if (counter.status !== 200) {
+      response.status = counter.status;
+      response.message = counter.message;
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
 
     const formattedUser = await formatter.formatUser(data.userId);
     response.status = 200;
