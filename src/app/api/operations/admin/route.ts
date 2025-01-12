@@ -3,6 +3,17 @@ import prisma from "../../../../../serveractions/commands/prisma";
 import { accountTypes, user } from "@prisma/client";
 import { JWTUtils } from "@/lib/jwtUtils";
 
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
 //FOR REGISTRATION
 export async function POST(req: NextRequest) {
   const response = {
@@ -61,18 +72,12 @@ export async function POST(req: NextRequest) {
           ...data,
           type: "SUPERADMIN",
         },
-        omit: {
-          password: true,
-        },
       });
     } else {
       newUser = await prisma.user.create({
         data: {
           ...data,
           type: "ADMIN",
-        },
-        omit: {
-          password: true,
         },
       });
     }
@@ -204,9 +209,6 @@ export async function PUT(req: NextRequest) {
         email: data.email,
         password: data.password,
         deleted: false,
-      },
-      omit: {
-        password: true,
       },
       orderBy: {
         createdAt: "desc",

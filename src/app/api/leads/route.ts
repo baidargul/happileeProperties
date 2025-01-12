@@ -4,6 +4,17 @@ import { format } from "path";
 import { formatter } from "../../../../serveractions/Actions/partials/format";
 import { SERVER_ACTIONS } from "../../../../serveractions/Actions/SERVER_ACTIONS";
 
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
 export async function POST(req: NextRequest) {
   const response = {
     status: 500,
