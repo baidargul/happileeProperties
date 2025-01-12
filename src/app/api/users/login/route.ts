@@ -3,6 +3,17 @@ import prisma from "../../../../../serveractions/commands/prisma";
 import { SERVER_ACTIONS } from "../../../../../serveractions/Actions/SERVER_ACTIONS";
 import { JWTUtils } from "@/lib/jwtUtils";
 
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
 export async function POST(req: NextRequest) {
   const cookie = require("cookie");
   const response = {
