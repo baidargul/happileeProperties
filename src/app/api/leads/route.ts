@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import prisma from "../../../../serveractions/commands/prisma";
 import { format } from "path";
 import { formatter } from "../../../../serveractions/Actions/partials/format";
+import { SERVER_ACTIONS } from "../../../../serveractions/Actions/SERVER_ACTIONS";
 
 export async function POST(req: NextRequest) {
   const response = {
@@ -40,7 +41,7 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    const user = await prisma.user.findUnique({
+    let user: any = await prisma.user.findUnique({
       where: {
         id: data.userId,
       },
@@ -53,6 +54,8 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
+    user = await formatter.formatUser(user.id);
+
     await prisma.leads.create({
       data: {
         propertyId: data.propertyId,
@@ -60,9 +63,26 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    const counter: any = await SERVER_ACTIONS.subscriptions.increaseValue(
+      user.subscription.name,
+      user.type,
+      "Number of owners you can contact",
+      user.id,
+      1
+    );
+
+    if (counter.status !== 200) {
+      response.status = counter.status;
+      response.message = counter.message;
+      response.data = null;
+      return new Response(JSON.stringify(response));
+    }
+
+    user = await formatter.formatUser(user.id);
+
     response.status = 200;
     response.message = "Lead created successfully";
-    response.data = null;
+    response.data = user;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
