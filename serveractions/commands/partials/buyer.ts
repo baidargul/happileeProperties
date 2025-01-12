@@ -1,6 +1,7 @@
 import axios from "axios";
 import { favourite } from "./favourite";
 import { interest } from "./interest";
+import { propertyType } from "@prisma/client";
 
 const apiPath = `/api/users/buyer`;
 
@@ -26,7 +27,6 @@ async function listAll() {
 
   return result;
 }
-
 async function get(id: string) {
   const temp = await axios
     .get(`${apiPath}/id?id=${id}`)
@@ -38,9 +38,28 @@ async function get(id: string) {
   return temp;
 }
 
+async function savePreferences(
+  location: string,
+  minBudget: number,
+  maxBudget: number,
+  propertyTypeIds: string[],
+  amenitiesIds: string[]
+) {
+  const data = {
+    location,
+    minBudget,
+    maxBudget,
+    propertyTypeIds,
+    amenitiesIds,
+  };
+  const response = await axios.post(`${apiPath}/preferences`, data);
+  return response;
+}
+
 export const buyer = {
   create,
   listAll,
   favourite,
   interest,
+  savePreferences,
 };
