@@ -177,6 +177,7 @@ async function formatUser(id: string) {
   });
 
   let subscription: any;
+  let isExpired: boolean = false;
   for (const item of rawSubscription) {
     subscription = {
       id: item.id,
@@ -185,12 +186,23 @@ async function formatUser(id: string) {
       type: item.accountType,
       isPopular: item.isPopular,
       properties: {},
+      isExpired: isExpired,
     };
 
     for (const prop of item.subscriptionDetails) {
       let current = 0;
       if (prop.subscriptionRegister.length > 0) {
         current = Number(prop.subscriptionRegister[0].value);
+        //get days count and if days are equal or above 60 then expired = true
+        const newDate = new Date();
+        const oldDate = new Date(
+          String(prop.subscriptionRegister[0].createdAt)
+        );
+        const diff = newDate.getTime() - oldDate.getTime();
+        const days = Math.ceil(diff / (1000 * 3600 * 24));
+        if (days >= 60) {
+          isExpired = true;
+        }
       }
       subscription = {
         ...subscription,

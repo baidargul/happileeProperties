@@ -42,6 +42,9 @@ export async function GET(req: NextRequest) {
         include: {
           subscriptionDetails: true,
         },
+        orderBy: {
+          price: "asc",
+        },
       });
 
       if (subModel.length > 0) {
