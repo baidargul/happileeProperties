@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import { ChangeEventHandler, use, useState } from "react";
 import Link from "next/link";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
 
 import OpenEye from "@/assets/images/icon/icon_68.svg";
@@ -14,166 +14,200 @@ import { useDispatch } from "react-redux";
 import { userLogin } from "@/redux/features/userSlice";
 
 interface FormData {
-   name: string;
-   email: string;
-   password: string;
-   phoneNumber: string;
+  name: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
 }
 
 interface RegisterFormProps {
-   close: () => void;
+  close: () => void;
 }
 
-const RegisterForm = ({close}: RegisterFormProps) => {
-   const router=useRouter()
-   const dispatch = useDispatch();
+const RegisterForm = ({ close }: RegisterFormProps) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-   const schema = yup
-   .object({
-     name: yup
-       .string()
-       .required('Name is required.')
-       .label('Name'),
-     
-     email: yup
-       .string()
-       .required('Email is required.')
-       .email('Please enter a valid email address.')
-       .label('Email'),
- 
-     phoneNumber: yup
-       .string() // Change to string to handle phone number formats
-       .required('Phone number is required.')
-       .matches(
-         /^\+?[1-9]\d{1,10}$/, // Regex for validating international phone number formats
-         'Phone number must be a valid format (e.g., 1234567890).'
-       )
-       .label('Phone Number'),
- 
-     password: yup
-     .string()
-     .required('Password is required.')
-     .min(6, 'Password must be at least 6 characters long.')
-     .matches(
-       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-       'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
-     )
-     .label('Password'),
-   })
-   .required();
+  const schema = yup
+    .object({
+      name: yup.string().required("Name is required.").label("Name"),
 
+      email: yup
+        .string()
+        .required("Email is required.")
+        .email("Please enter a valid email address.")
+        .label("Email"),
 
-   const { register, handleSubmit, reset, formState: { errors }, } = useForm<FormData>({ resolver: yupResolver(schema), });
+      phoneNumber: yup
+        .string() // Change to string to handle phone number formats
+        .required("Phone number is required.")
+        .matches(
+          /^\+?[1-9]\d{1,10}$/, // Regex for validating international phone number formats
+          "Phone number must be a valid format (e.g., 1234567890)."
+        )
+        .label("Phone Number"),
 
-   const onSubmit = async (formData: FormData) => {
-      if (!checkbox) {
-         setError(true);
-         return;
+      password: yup
+        .string()
+        .required("Password is required.")
+        .min(6, "Password must be at least 6 characters long.")
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+          "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+        )
+        .label("Password"),
+    })
+    .required();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({ resolver: yupResolver(schema) });
+
+  const onSubmit = async (formData: FormData) => {
+    if (!checkbox) {
+      setError(true);
+      return;
+    }
+    try {
+      setError(false);
+      const { data, status, message } = await serverActions.user.signUp(
+        formData.name,
+        formData.email,
+        formData.phoneNumber,
+        formData.password
+      );
+
+      if (status === 200) {
+        dispatch(userLogin(data));
+        reset();
+        close();
+        router.push("/dashboard/profile");
+      } else {
+        console.log(message);
+        toast(message);
       }
-      try {
-         setError(false);
-         const { data, status, message } = await serverActions.user.signUp(
-            formData.name,
-            formData.email,
-            formData.phoneNumber,
-            formData.password,
-         );
+    } catch (err: Error | any) {
+      toast(err.response.data.message);
+    }
+  };
 
-         if (status === 200) {
-            dispatch(userLogin(data));
-            reset();
-            close();
-            router.push('/dashboard/profile');
-         } else {
-            console.log(message);
-            toast(message);
-         }
-      } catch (err: Error | any) {
-         toast(err.response.data.message);
-      }
-   };
+  const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
+  const [checkbox, setCheckBox] = useState(false);
+  const [error, setError] = useState(false);
 
-   const [isPasswordVisible, setPasswordVisibility] = useState('');
-   const [checkbox,setCheckBox]=useState(false);
-   const [error, setError] = useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordVisibility(!isPasswordVisible);
+  };
 
-   const togglePasswordVisibility = () => {
-      setPasswordVisibility(!isPasswordVisible);
-   };
-
-   return (
-      <form onSubmit={handleSubmit(onSubmit)}>
-         <div className="row">
-            <div className="col-12">
-               <div className="input-group-meta position-relative mb-25">
-                  <label>Name*</label>
-                  <input type="text" {...register("name")} placeholder="Zubayer Hasan" />
-                  <p className="form_error">{errors.name?.message}</p>
-               </div>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="row">
+        <div className="col-12">
+          <div className="input-group-meta position-relative mb-25">
+            <label>Name*</label>
+            <input
+              type="text"
+              {...register("name")}
+              placeholder="Zubayer Hasan"
+            />
+            <p className="form_error">{errors.name?.message}</p>
+          </div>
+        </div>
+        <div className="col-12">
+          <div className="input-group-meta position-relative mb-25">
+            <label>Email*</label>
+            <input
+              type="email"
+              {...register("email")}
+              placeholder="Youremail@gmail.com"
+            />
+            <p className="form_error">{errors.email?.message}</p>
+          </div>
+        </div>
+        <div className="col-12">
+          <div className="input-group-meta position-relative mb-25">
+            <label>Phone Number*</label>
+            <input
+              type="number"
+              {...register("phoneNumber")}
+              onInput={(e) => {
+                // Optional: Filter out non-digit characters if pasted
+                const input = e.target as HTMLInputElement;
+                input.value = input.value.slice(0, 10);
+              }}
+              placeholder="1234567890"
+            />
+            <p className="form_error">{errors.phoneNumber?.message}</p>
+          </div>
+        </div>
+        <div className="col-12">
+          <div className="input-group-meta position-relative mb-20">
+            <label>Password*</label>
+            <input
+              type={isPasswordVisible ? "text" : "password"}
+              {...register("password")}
+              placeholder="Enter Password"
+              className="pass_log_id"
+            />
+            <span className="placeholder_icon">
+              <span
+                className={`passVicon ${isPasswordVisible ? "eye-slash" : ""}`}
+              >
+                <Image
+                  onClick={togglePasswordVisibility}
+                  src={OpenEye}
+                  alt=""
+                />
+              </span>
+            </span>
+            <p className="form_error">{errors.password?.message}</p>
+          </div>
+        </div>
+        <div className="col-12">
+          <div className="agreement-checkbox d-flex justify-content-between align-items-center">
+            <div>
+              <input
+                type="checkbox"
+                id="remember2"
+                checked={checkbox}
+                onChange={() => setCheckBox(!checkbox)} // Toggle checkbox state
+              />
+              <label
+                style={{ color: !checkbox && error ? "red" : "" }}
+                htmlFor="remember2"
+              >
+                By hitting the &quot;Register&quot; button, you agree to the{" "}
+                <Link
+                  href="#"
+                  style={{ color: !checkbox && error ? "red" : "" }}
+                >
+                  Terms and Conditions
+                </Link>{" "}
+                &{" "}
+                <Link
+                  href="#"
+                  style={{ color: !checkbox && error ? "red" : "" }}
+                >
+                  Privacy Policy
+                </Link>
+              </label>
             </div>
-            <div className="col-12">
-               <div className="input-group-meta position-relative mb-25">
-                  <label>Email*</label>
-                  <input type="email" {...register("email")} placeholder="Youremail@gmail.com" />
-                  <p className="form_error">{errors.email?.message}</p>
-               </div>
-            </div>
-            <div className="col-12">
-               <div className="input-group-meta position-relative mb-25">
-                  <label>Phone Number*</label>
-                  <input type="number" {...register("phoneNumber")} onInput={(e) => {
-            // Optional: Filter out non-digit characters if pasted
-            const input = e.target as HTMLInputElement;
-            input.value = input.value.slice(0, 10);
-         }}     placeholder="1234567890" />
-                  <p className="form_error">{errors.phoneNumber?.message}</p>
-               </div>
-            </div>
-            <div className="col-12">
-               <div className="input-group-meta position-relative mb-20">
-                  <label>Password*</label>
-                  <input type={isPasswordVisible ? "text" : "password"} {...register("password")} placeholder="Enter Password" className="pass_log_id" />
-                  <span className="placeholder_icon"><span className={`passVicon ${isPasswordVisible ? "eye-slash" : ""}`}><Image onClick={togglePasswordVisibility} src={OpenEye} alt="" /></span></span>
-                  <p className="form_error">{errors.password?.message}</p>
-               </div>
-            </div>
-            <div className="col-12">
-               <div className="agreement-checkbox d-flex justify-content-between align-items-center">
-               <div>
-        <input
-          type="checkbox"
-          id="remember2"
-          checked={checkbox}
-          onChange={() => setCheckBox(!checkbox)} // Toggle checkbox state
-        />
-        <label
-          style={{ color: !checkbox && error ? "red" : "" }}
-          htmlFor="remember2"
-        >
-          By hitting the &quot;Register&quot; button, you agree to the{" "}
-          <Link
-            href="#"
-            style={{ color: !checkbox && error ? "red" : "" }}
+          </div>
+        </div>
+        <div className="col-12">
+          <button
+            type="submit"
+            className="btn-two w-100 text-uppercase d-block mt-20"
           >
-            Terms and Conditions
-          </Link>{" "}
-          &{" "}
-          <Link
-            href="#"
-            style={{ color: !checkbox && error ? "red" : "" }}
-          >
-            Privacy Policy
-          </Link>
-        </label>
+            SIGN UP
+          </button>
+        </div>
       </div>
-               </div>
-            </div>
-            <div className="col-12">
-               <button type="submit" className="btn-two w-100 text-uppercase d-block mt-20">SIGN UP</button>
-            </div>
-         </div>
-      </form>
-   )
-}
+    </form>
+  );
+};
 
 export default RegisterForm;

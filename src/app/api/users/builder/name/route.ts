@@ -46,9 +46,6 @@ export async function GET(req: NextRequest) {
             builder: true,
             image: true,
           },
-          omit: {
-            password: true,
-          },
         });
         users.push(user);
       });

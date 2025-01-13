@@ -216,9 +216,6 @@ export async function POST(req: NextRequest) {
       include: {
         agent: true,
       },
-      omit: {
-        password: true,
-      },
     });
 
     response.status = 200;
@@ -251,9 +248,6 @@ export async function GET(req: NextRequest) {
       },
       include: {
         agent: true,
-      },
-      omit: {
-        password: true,
       },
     });
 

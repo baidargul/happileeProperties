@@ -26,9 +26,6 @@ export async function GET(req: NextRequest) {
       },
       include: {
         user: {
-          omit: {
-            password: true,
-          },
           include: {
             image: true,
           },
@@ -50,9 +47,6 @@ export async function GET(req: NextRequest) {
       include: {
         image: true,
         builder: true,
-      },
-      omit: {
-        password: true,
       },
     });
 

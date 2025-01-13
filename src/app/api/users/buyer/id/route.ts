@@ -26,9 +26,6 @@ export async function GET(req: NextRequest) {
       include: {
         buyer: true,
       },
-      omit: {
-        password: true,
-      },
     });
 
     if (!buyer) {
@@ -44,9 +41,6 @@ export async function GET(req: NextRequest) {
       },
       include: {
         agent: true,
-      },
-      omit: {
-        password: true,
       },
     });
 

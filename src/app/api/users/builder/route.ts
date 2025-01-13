@@ -166,9 +166,6 @@ export async function POST(req: NextRequest) {
           include: {
             image: true,
           },
-          omit: {
-            password: true,
-          },
         },
       },
     });
@@ -180,9 +177,6 @@ export async function POST(req: NextRequest) {
       include: {
         builder: true,
         image: true,
-      },
-      omit: {
-        password: true,
       },
     });
 

@@ -71,9 +71,6 @@ export async function PATCH(req: NextRequest) {
         builder: true,
         image: data.type === accountTypes.BUILDER ? true : false,
       },
-      omit: {
-        password: true,
-      },
     });
 
     response.status = 200;

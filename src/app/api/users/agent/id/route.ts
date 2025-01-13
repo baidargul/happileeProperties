@@ -26,9 +26,6 @@ export async function GET(req: NextRequest) {
       include: {
         agent: true,
       },
-      omit: {
-        password: true,
-      },
     });
 
     if (!user) {
