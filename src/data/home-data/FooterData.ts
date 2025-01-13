@@ -77,7 +77,7 @@ const footer_data: DataType[] = [
       widget_class: "col-xl-2 col-lg-3",
       page: "home_4",
       widget_title: "Legal",
-      footer_link: [{ link: "/faq", link_title: "Terms & conditions" }, { link: "/faq", link_title: "Cookie" }, { link: "/faq", link_title: "Privacy policy" }, { link: "/faq", link_title: "Faq’s" },]
+      footer_link: [{ link: "/termsandconditions", link_title: "Terms & conditions" }, { link: "/privacypolicy", link_title: "Privacy policy" },{ link: "/cancellationpolicy", link_title: "Cancellation Policy" }, { link: "/faq", link_title: "Faq’s" },]
    },
 
    // home five
@@ -95,7 +95,7 @@ const footer_data: DataType[] = [
       widget_class: "col-lg-3",
       page: "home_5",
       widget_title: "Legal",
-      footer_link: [{ link: "/faq", link_title: "Terms & conditions" }, { link: "/faq", link_title: "Cookie" }, { link: "/faq", link_title: "Privacy policy" }, { link: "/faq", link_title: "Faq’s" },]
+      footer_link: [{ link: "/termsandconditions", link_title: "Terms & conditions" }, { link: "/privacypolicy", link_title: "Privacy policy" },{ link: "/cancellationpolicy", link_title: "Cancellation Policy" }, { link: "/faq", link_title: "Faq’s" },]
    },
    {
       id: 3,
