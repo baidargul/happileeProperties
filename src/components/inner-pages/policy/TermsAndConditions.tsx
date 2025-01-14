@@ -21,7 +21,7 @@ export default function TermsAndConditions() {
       <div className="container my-5">
         <h1 className="text-center mb-4">Terms and Conditions</h1>
         <p>
-          Welcome to <strong>Happiiee Property</strong>! By accessing or using
+          Welcome to <strong>Happilee Property</strong>! By accessing or using
           our website and services, you agree to comply with these Terms and
           Conditions. Please read them carefully before using the website. If
           you do not agree, you may not use the site.
@@ -30,7 +30,7 @@ export default function TermsAndConditions() {
 
         <h5>1. Acceptance of Terms</h5>
         <p>
-          By accessing or using <strong>Happiiee Property</strong>, you agree to
+          By accessing or using <strong>Happilee Property</strong>, you agree to
           be bound by these Terms and Conditions and our Privacy Policy. These
           terms apply to all users, including visitors, registered users,
           property owners, and agents.
@@ -52,7 +52,7 @@ export default function TermsAndConditions() {
 
         <h5>3. Services Provided</h5>
         <p>
-          <strong>Happiiee Property</strong> provides an online platform to:
+          <strong>Happilee Property</strong> provides an online platform to:
         </p>
         <ul>
           <li>Search for residential and commercial properties.</li>
@@ -78,7 +78,7 @@ export default function TermsAndConditions() {
           </li>
           <li>
             Respect the intellectual property rights of{" "}
-            <strong>Happiiee Property</strong> and others.
+            <strong>Happilee Property</strong> and others.
           </li>
         </ul>
 
@@ -89,7 +89,7 @@ export default function TermsAndConditions() {
             applicable regulations.
           </li>
           <li>
-            <strong>Happiiee Property</strong> reserves the right to edit,
+            <strong>Happilee Property</strong> reserves the right to edit,
             reject, or remove any listing that violates these terms or is deemed
             inappropriate.
           </li>
@@ -124,7 +124,7 @@ export default function TermsAndConditions() {
 
         <h5>8. Limitation of Liability</h5>
         <p>
-          <strong>Happiiee Property</strong> is not liable for:
+          <strong>Happilee Property</strong> is not liable for:
         </p>
         <ul>
           <li>
@@ -143,14 +143,14 @@ export default function TermsAndConditions() {
         <h5>9. Intellectual Property</h5>
         <p>
           All content on the website, including text, images, logos, and design,
-          is owned by <strong>Happiiee Property</strong> or its licensors. You
+          is owned by <strong>Happilee Property</strong> or its licensors. You
           may not copy, reproduce, or distribute any content without written
           permission.
         </p>
 
         <h5>10. Termination</h5>
         <p>
-          <strong>Happiiee Property</strong> reserves the right to suspend or
+          <strong>Happilee Property</strong> reserves the right to suspend or
           terminate your account and access to the website at any time, with or
           without notice, for any violation of these terms.
         </p>
@@ -163,7 +163,7 @@ export default function TermsAndConditions() {
 
         <h5>12. Indemnification</h5>
         <p>
-          You agree to indemnify and hold <strong>Happiiee Property</strong>,
+          You agree to indemnify and hold <strong>Happilee Property</strong>,
           its affiliates, employees, and agents harmless from any claims,
           losses, or damages resulting from:
         </p>
@@ -186,7 +186,7 @@ export default function TermsAndConditions() {
         </p>
 
         <p>
-          Thank you for using <strong>Happiiee Property</strong>. We are
+          Thank you for using <strong>Happilee Property</strong>. We are
           committed to providing a safe and reliable platform for all users.
         </p>
       </div>

@@ -15,7 +15,7 @@ export default function CancellationPolicy() {
          <div className="container my-5">
   <h1 className="text-center mb-4">Cancellation Policy</h1>
   <p>
-    At <strong>Happiiee Property</strong>, we aim to provide transparent and fair cancellation policies for all users. Please read this policy carefully to understand the terms governing cancellations, refunds, and modifications related to our services.
+    At <strong>Happilee Property</strong>, we aim to provide transparent and fair cancellation policies for all users. Please read this policy carefully to understand the terms governing cancellations, refunds, and modifications related to our services.
   </p>
   <hr />
 
@@ -56,7 +56,7 @@ export default function CancellationPolicy() {
 
   <h5>5. Cancellations Due to Policy Violations</h5>
   <p>
-    <strong>Happiiee Property</strong> reserves the right to cancel or suspend any service, listing, or subscription without prior notice if it is found to violate our Terms and Conditions or applicable laws. In such cases, no refunds will be issued.
+    <strong>Happilee Property</strong> reserves the right to cancel or suspend any service, listing, or subscription without prior notice if it is found to violate our Terms and Conditions or applicable laws. In such cases, no refunds will be issued.
   </p>
 
   <h5>6. Modification of Listings or Services</h5>
@@ -71,7 +71,7 @@ export default function CancellationPolicy() {
 
   <h5>8. Changes to This Policy</h5>
   <p>
-    <strong>Happiiee Property</strong> reserves the right to update or modify this Cancellation Policy at any time. Updates will be reflected with the &ldquo;Last Updated&ldquo; date. Continued use of the website constitutes acceptance of the updated policy.
+    <strong>Happilee Property</strong> reserves the right to update or modify this Cancellation Policy at any time. Updates will be reflected with the &ldquo;Last Updated&ldquo; date. Continued use of the website constitutes acceptance of the updated policy.
   </p>
 
   <p>

@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
          <div className="container my-5">
    <h1 className="text-center mb-4">Privacy Policy</h1>
    <p>
-      At <strong>Happiiee Property</strong>, your privacy is our top priority. This Privacy Policy outlines how we collect, use, and safeguard your information when you use our website and services. By accessing or using our website, you consent to the terms of this Privacy Policy.
+      At <strong>Happilee Property</strong>, your privacy is our top priority. This Privacy Policy outlines how we collect, use, and safeguard your information when you use our website and services. By accessing or using our website, you consent to the terms of this Privacy Policy.
    </p>
    <hr />
    <h5>1. Information We Collect</h5>
@@ -92,7 +92,7 @@ export default function PrivacyPolicy() {
    <p>
       We may update this Privacy Policy periodically. Changes will be reflected with the &quot;Last Updated&quot; date. Continued use of the website constitutes acceptance of these changes.
    </p>
-   <p>Thank you for trusting <strong>Happiiee Property</strong>. We are committed to protecting your privacy.</p>
+   <p>Thank you for trusting <strong>Happilee Property</strong>. We are committed to protecting your privacy.</p>
 </div>
 
          <FooterFive />
