@@ -2,7 +2,6 @@ import React from 'react'
 
 export default function CountCard({data,title}:any) {
 	const count = Number(data?.limit)-Number(data?.current)
-console.log(count)
   return (
 	<button className="d-block" style={{
 		border: "2px solid #00C000",

@@ -6,9 +6,10 @@ import { z } from "zod";
 import FormInput from "@/components/forms/reactHookInputs/FormInput";
 import { useEffect, useState } from "react";
 import { serverActions } from "../../../../serveractions/commands/serverCommands";
-import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "@/redux/features/userSlice";
+import { useSelector } from "react-redux";
 import { toast } from "sonner";
+import SelectionCard from "./SelectionCard";
+import Spinner from "@/components/common/Spinner";
 
 interface RootState {
   user: any;
@@ -19,7 +20,14 @@ const ProfileBody = () => {
   const userProfile =
     useSelector((state: RootState) => state.user.userProfile) || {};
 
-  console.log(userProfile);
+  const [propertyData,setPropertyData]=useState<any>([]);
+  const [amenityData,setAmenityData]=useState([]);
+
+  const [propertyType,setPropertyType]=useState([]);
+  const [amenityType,setAmenityType]=useState([]);
+
+  // const [loading,setLoading] =useState(true);
+  // console.log(userProfile);
 
   const formSchema = z
     .object({
@@ -36,12 +44,12 @@ const ProfileBody = () => {
         .refine((value) => /^[0-9]+$/.test(value), {
           message: "Maximum budget must be a valid number",
         }),
-      propertyType: z
-        .array(z.string())
-        .min(1, { message: "At least one property type is required" }),
-      amenities: z
-        .array(z.string())
-        .min(1, { message: "At least one amenity is required" }),
+      // propertyType: z
+      //   .array(z.string())
+      //   .min(1, { message: "At least one property type is required" }),
+      // amenities: z
+      //   .array(z.string())
+      //   .min(1, { message: "At least one amenity is required" }),
     })
     .refine(
       (data) => parseFloat(data.minBudget) <= parseFloat(data.maxBudget),
@@ -56,8 +64,8 @@ const ProfileBody = () => {
       location: "",
       minBudget: "",
       maxBudget: "",
-      propertyType: [],
-      amenities: [],
+      // propertyType: [],
+      // amenities: [],
     },
     resolver: zodResolver(formSchema),
   });
@@ -66,11 +74,35 @@ const ProfileBody = () => {
 
   // Example submit function
   const onSubmit = async (data: any) => {
-    const res = await   serverActions.buyer.savePreferences(data.location,data.minBudget,data.maxBudget,data.propertyType,data.amenities);
+    if ( !propertyType.length || !amenityType.length) {
+      toast.error("Please select at least one property type and amenity.");
+      return;
+    }
+    const res = await   serverActions.buyer.savePreferences(data.location,data.minBudget,data.maxBudget,propertyType,amenityType);
     if(res.status==200){
       toast.success("Preferences saved successfully");
     }
   };
+
+  const getPropertyStructure = async () => {
+    const res = await serverActions.property.GET_ALLOTMENT_STRUCTURE();
+    if (res.status == 200) {
+      setPropertyData(res.data);
+    }
+  };
+
+  const getAmmenities = async () => {
+    const res = await serverActions.property.Amenities.group.listAll();
+    if (res.status == 200) {
+      setAmenityData(res.data);
+      // setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getPropertyStructure();
+    getAmmenities();
+  }, []);
 
   return (
     <div className="dashboard-body">
@@ -113,7 +145,7 @@ const ProfileBody = () => {
                 placeholder="Enter maximum budget"
               />
             </div>
-            <div className="col-md-6">
+            {/* <div className="col-md-6">
               <FormInput
                 label={"Property Type*"}
                 className="custom-class"
@@ -123,19 +155,78 @@ const ProfileBody = () => {
                 isRequired={true}
                 placeholder="Enter property type (e.g., Apartment, Villa)"
               />
-            </div>
-            <div className="col-md-6">
-              <FormInput
-                label={"Amenities*"}
-                className="custom-class"
-                control={control}
-                name="amenities"
-                type="text"
-                isRequired={true}
-                placeholder="Enter amenities (e.g., Pool, Gym, Parking)"
-              />
-            </div>
-            <div className="d-flex justify-content-between col-md-12">
+            </div> */}
+            <div className="d-flex align-items-center justify-content-start flex-column  mt-3" style={{
+                              flexWrap: "wrap",
+                              textWrap: "nowrap",
+                            }}>
+                        <p
+                          style={{
+                            fontSize: "15px",
+                            fontWeight: 500,
+                            textAlign: "left",
+                            width: "100%",
+                            color: "#000",
+                          }}
+                        >
+                          Property type*
+                        </p>
+                        <div className="w-100 row gap-3">
+                          {propertyData?.lookingFor?.propertyType.length>0?propertyData?.lookingFor?.propertyType.map((item: any) => (
+                              <SelectionCard
+                              key={item.id}
+                              selectedItems={propertyType}
+                              setSelectedItems={setPropertyType}
+                              item={item} // Pass the entire object
+                              multiSelect={true}
+                                className="text-capitalize"
+                              />
+                            )):<Spinner/>}
+                        </div>
+                      </div>
+                      <div className="d-flex align-items-center justify-content-start flex-column  mt-3" style={{
+                              flexWrap: "wrap",
+                              textWrap: "nowrap",
+                            }}>
+                        <p
+                          style={{
+                            fontSize: "15px",
+                            fontWeight: 500,
+                            textAlign: "left",
+                            width: "100%",
+                            color: "#000",
+                          }}
+                        >
+                          Ameinities*
+                        </p>
+                        <div className="w-100 row gap-3">
+                          {amenityData.length>0?amenityData?.map((item: any,index:number) => (
+                              <div key={index}>
+                                {item?.name && <p className="text-capitalize" style={{
+                            fontSize: "15px",
+                            fontWeight: 500,
+                            textAlign: "left",
+                            width: "100%",
+                            color: "#000",
+                          }}>{item?.name}</p>}
+                                <div className="w-100 row gap-3">
+                                  {item?.amenities?.map((item: any) => (
+                                    <SelectionCard
+                                      key={item.id}
+                                      selectedItems={amenityType}
+                                      setSelectedItems={setAmenityType}
+                                      item={item} // Pass the entire object
+                                      multiSelect={true}
+                                      className="text-capitalize"
+                                    />
+                                  ))}
+                                  </div>
+                              </div>
+                            )):<Spinner/>}
+                        </div>
+                      </div>
+
+            <div className="d-flex justify-content-between col-md-12 mt-3">
               <button
                 disabled={isSubmitting}
                 type="submit"
