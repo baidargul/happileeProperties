@@ -220,7 +220,38 @@ async function list(id: string) {
   return response;
 }
 
-async function filter(filters: {}) {
+export type FILTER_TYPE = {
+  minPrice?: number; // Minimum price value
+  maxPrice?: number; // Maximum price value
+  propertyTypeIds?: string[]; // List of property type IDs as strings
+  bhkTypeIds?: string[]; // List of BHK type IDs as strings
+  furnishingTypeIds?: string[]; // List of furnishing type IDs as strings
+  allotmentForIds?: string[]; // List of allotment IDs as strings
+  ownerShipTypeIds?: string[]; // List of ownership type IDs as strings
+  userIds?: string[]; // List of user IDs as strings
+  area?: number; // Minimum area value
+  title?: string; // Title for partial text matching
+  minAge?: number; // Minimum age
+  maxAge?: number; // Maximum age
+  minMonthlyMaintenance?: number; // Minimum monthly maintenance
+  maxMonthlyMaintenance?: number; // Maximum monthly maintenance
+  minSecurityDeposit?: number; // Minimum security deposit
+  maxSecurityDeposit?: number; // Maximum security deposit
+  minRent?: number; // Minimum rent
+  maxRent?: number; // Maximum rent
+  status?: string; // Status value (e.g., 'active', 'inactive')
+  description?: string; // Description for partial text matching
+  minCarpetArea?: number; // Minimum carpet area
+  maxCarpetArea?: number; // Maximum carpet area
+  minFloorNumber?: number; // Minimum floor number
+  maxFloorNumber?: number; // Maximum floor number
+  minTotalFloorsInBuilding?: number; // Minimum total floors in building
+  maxTotalFloorsInBuilding?: number; // Maximum total floors in building
+  facingDirection?: string; // Facing direction value (e.g., 'North', 'South')
+  parkingSpace?: boolean; // Indicates availability of parking space
+};
+
+async function filter(filters: FILTER_TYPE) {
   const response = await axios.post(`${apiPath}/filter`, filters);
   return response;
 }
