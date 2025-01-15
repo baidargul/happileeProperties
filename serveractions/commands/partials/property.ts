@@ -220,6 +220,11 @@ async function list(id: string) {
   return response;
 }
 
+async function filter(filters: {}) {
+  const response = await axios.post(`${apiPath}/filter`, filters);
+  return response;
+}
+
 export const property = {
   initializeDefaults,
   GET_ALLOTMENT_STRUCTURE,
@@ -230,4 +235,5 @@ export const property = {
   changeStatus,
   favourite,
   interest,
+  filter,
 };
