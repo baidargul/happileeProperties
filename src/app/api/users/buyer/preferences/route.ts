@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
     for (const amenity of data.amenitiesIds) {
       let temp = await prisma.amenities.findUnique({
         where: {
-          id: amenity,
+          id: amenity.id,
         },
       });
       if (!temp) {
@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
     for (const propertyType of data.propertyTypeIds) {
       let temp = await prisma.propertyType.findUnique({
         where: {
-          id: propertyType,
+          id: propertyType.id,
         },
       });
       if (!temp) {
