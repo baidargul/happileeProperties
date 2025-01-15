@@ -240,7 +240,9 @@ async function formatUser(id: string) {
     properties.push(property);
   }
 
-  return { ...user, properties: properties };
+  const preferences = await formatUserPreferences(id);
+
+  return { ...user, properties: properties, preferences: preferences };
 }
 
 async function formatAmenityGroup(id: string, findBy: "amenity" | "group") {
@@ -278,6 +280,60 @@ async function formatAmenityGroup(id: string, findBy: "amenity" | "group") {
   }
 
   return returnObj;
+}
+
+async function formatUserPreferences(id: string) {
+  let isExists = await prisma.user.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
+  if (!isExists) return null;
+
+  const rawPreferences = await prisma.userPreferences.findFirst({
+    where: {
+      userId: id,
+    },
+  });
+
+  if (!rawPreferences) return null;
+
+  const amenityPreference = await prisma.amenitiesPreferences.findMany({
+    where: {
+      userId: id,
+    },
+    include: {
+      amenities: {
+        include: {
+          amenitiesGroup: true,
+        },
+      },
+    },
+  });
+
+  const propertyPreference = await prisma.propertyTypePreferences.findMany({
+    where: {
+      userId: id,
+    },
+    include: {
+      propertyType: {
+        include: {
+          allotmentType: true,
+        },
+      },
+    },
+  });
+
+  let preferences = {
+    location: rawPreferences.location,
+    minBudget: rawPreferences.minBudget,
+    maxBudget: rawPreferences.maxBudget,
+    amenityPreference: amenityPreference,
+    propertyTypePreference: propertyPreference,
+  };
+
+  return preferences;
 }
 
 export const formatter = {

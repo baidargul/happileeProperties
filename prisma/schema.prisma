@@ -16,28 +16,31 @@ model builder {
 }
 
 model user {
-  id                   String                 @id @default(uuid())
-  email                String?
-  address              String?
-  phone                String?
-  name                 String
-  password             String
-  status               accountStatus          @default(UNDEFINED)
-  type                 accountTypes           @default(UNDEFINED)
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @default(now())
-  deleted              Boolean?               @default(false)
-  bluetickVerified     Boolean?               @default(false)
-  agent                agent?
-  bluetickDocuments    bluetickDocuments[]
-  builder              builder?
-  buyer                buyer?
-  favouriteProperties  favouriteProperties[]
-  image                image[]
-  interested           interested[]
-  leads                leads[]
-  property             property[]
-  subscriptionRegister subscriptionRegister[]
+  id                      String                    @id @default(uuid())
+  email                   String?
+  address                 String?
+  phone                   String?
+  name                    String
+  password                String
+  status                  accountStatus             @default(UNDEFINED)
+  type                    accountTypes              @default(UNDEFINED)
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @default(now())
+  deleted                 Boolean?                  @default(false)
+  bluetickVerified        Boolean?                  @default(false)
+  agent                   agent?
+  amenitiesPreferences    amenitiesPreferences[]
+  bluetickDocuments       bluetickDocuments[]
+  builder                 builder?
+  buyer                   buyer?
+  favouriteProperties     favouriteProperties[]
+  image                   image[]
+  interested              interested[]
+  leads                   leads[]
+  property                property[]
+  propertyTypePreferences propertyTypePreferences[]
+  subscriptionRegister    subscriptionRegister[]
+  userPreferences         userPreferences[]
 }
 
 model image {
@@ -82,11 +85,12 @@ model allotmentFor {
 }
 
 model propertyType {
-  id              String        @id @default(uuid())
-  name            String        @unique
-  allotmentTypeId String
-  property        property[]
-  allotmentType   allotmentType @relation(fields: [allotmentTypeId], references: [id], onDelete: Cascade)
+  id                      String                    @id @default(uuid())
+  name                    String                    @unique
+  allotmentTypeId         String
+  property                property[]
+  allotmentType           allotmentType             @relation(fields: [allotmentTypeId], references: [id], onDelete: Cascade)
+  propertyTypePreferences propertyTypePreferences[]
 }
 
 model property {
@@ -143,12 +147,13 @@ model furnishing {
 }
 
 model amenities {
-  id                String              @id @default(uuid())
-  name              String
-  groupId           String?
-  amenitiesGroup    amenitiesGroup?     @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  amenitiesregister amenitiesregister[]
-  propertyAmenities propertyAmenities[]
+  id                   String                 @id @default(uuid())
+  name                 String
+  groupId              String?
+  amenitiesGroup       amenitiesGroup?        @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  amenitiesPreferences amenitiesPreferences[]
+  amenitiesregister    amenitiesregister[]
+  propertyAmenities    propertyAmenities[]
 }
 
 model propertyImages {
@@ -249,6 +254,31 @@ model amenitiesGroup {
   id        String      @id @default(uuid())
   name      String?
   amenities amenities[]
+}
+
+model userPreferences {
+  id        String   @id @default(uuid())
+  userId    String?
+  maxBudget Decimal? @db.Decimal
+  minBudget Decimal? @db.Decimal
+  location  String?
+  user      user?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model amenitiesPreferences {
+  id          String     @id @default(uuid())
+  userId      String?
+  amenitiesId String?
+  amenities   amenities? @relation(fields: [amenitiesId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user        user?      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model propertyTypePreferences {
+  id             String        @id @default(uuid())
+  userId         String?
+  propertyTypeId String?
+  propertyType   propertyType? @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user           user?         @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum blueTickDocTypes {
