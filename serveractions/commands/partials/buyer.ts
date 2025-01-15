@@ -39,6 +39,7 @@ async function get(id: string) {
 }
 
 async function savePreferences(
+  userId: string,
   location: string,
   minBudget: number,
   maxBudget: number,
@@ -46,6 +47,7 @@ async function savePreferences(
   amenitiesIds: string[]
 ) {
   const data = {
+    userId,
     location,
     minBudget,
     maxBudget,
