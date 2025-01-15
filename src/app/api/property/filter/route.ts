@@ -239,7 +239,7 @@ export async function POST(req: NextRequest) {
     }
 
     const properties = await prisma.property.findMany({
-      where: filters,
+      where: { ...filters },
     });
 
     let formatted = [];
