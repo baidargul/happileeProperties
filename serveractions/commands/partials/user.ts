@@ -99,11 +99,17 @@ async function list(id: string) {
   return response;
 }
 
+async function recommendations(userId: string) {
+  const response = await axios.get(`${apiPath}/recommendations?id=${userId}`);
+  return response;
+}
+
 export const user = {
   signIn,
   signUp,
   list,
   listAll,
+  recommendations,
   Bluetick,
   subscription,
   changeType,

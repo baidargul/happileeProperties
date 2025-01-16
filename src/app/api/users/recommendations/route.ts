@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import prisma from "../../../../../serveractions/commands/prisma";
 import { formatter } from "../../../../../serveractions/Actions/partials/format";
+import { SERVER_ACTIONS } from "../../../../../serveractions/Actions/SERVER_ACTIONS";
 
 export async function GET(req: NextRequest) {
   const response = {
@@ -34,8 +35,8 @@ export async function GET(req: NextRequest) {
 
     const userData: any = await formatter.formatUser(user.id);
 
-    let propertyTypeIds = [];
-    let amenitiesIds = [];
+    let propertyTypeIds: any = [];
+    let amenitiesIds: any = [];
     const preferences = userData.preferences;
     const minPrice = preferences.minBudget;
     const maxPrice = preferences.maxBudget;
@@ -49,9 +50,19 @@ export async function GET(req: NextRequest) {
       amenitiesIds.push(item.amenitiesId);
     });
 
+    const data = {
+      minPrice,
+      maxPrice,
+      location,
+      propertyTypeIds,
+      amenitiesIds,
+    };
+
+    const recommendations = await SERVER_ACTIONS.properties.filter(data);
+
     response.status = 200;
-    response.message = "User found";
-    response.data = preferences;
+    response.message = `Found ${recommendations.length} recommended properties.`;
+    response.data = recommendations;
     return new Response(JSON.stringify(response));
   } catch (error: any) {
     console.log("[SERVER ERROR]: " + error.message);
