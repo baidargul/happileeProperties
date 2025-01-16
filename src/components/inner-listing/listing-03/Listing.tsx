@@ -1,101 +1,15 @@
+
+"use client";
 import PropertyCard from "@/components/homes/home-four/PropertyCard";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import prisma from "../../../../serveractions/commands/prisma";
 import { formatter } from "../../../../serveractions/Actions/partials/format";
+import { serverActions } from "../../../../serveractions/commands/serverCommands";
+import { FILTER_TYPE } from "../../../../serveractions/commands/partials/property";
 
-export const Listing = async ({ currentItems, style }: any) => {
-  const sasa = () => {};
-  let property_data: any = await prisma.property.findMany({
-    select: {
-      id: true,
-    },
-    where: {
-      NOT: {
-        status: "PENDING",
-      },
-    },
-  });
-
-  let properties: any = [];
-  for (const item of property_data) {
-    const property = await formatter.formattedProperty(item.id);
-    if (property) {
-      properties.push(property);
-    }
-  }
+export const Listing = ({ properties }: any) => {
 
   console.log(properties.length);
-
-  // const properties=[
-  //   {
-  //     id: 1,
-  //     name: "Property 1",
-  //     address: "123 Main St, City",
-  //     image: "/images/property/property_1.jpg",
-  //     price: "$1,000,000",
-  //     bedrooms: 3,
-  //     bathrooms: 2,
-  //     area: "1,000 sqft",
-  //     propertyImages:[
-  //       {
-  //         image:{
-  //           url:''
-  //         }
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "Property 1",
-  //     address: "123 Main St, City",
-  //     image: "/images/property/property_1.jpg",
-  //     price: "$1,000,000",
-  //     bedrooms: 3,
-  //     bathrooms: 2,
-  //     area: "1,000 sqft",
-  //     propertyImages:[
-  //       {
-  //         image:{
-  //           url:''
-  //         }
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "Property 1",
-  //     address: "123 Main St, City",
-  //     image: "/images/property/property_1.jpg",
-  //     price: "$1,000,000",
-  //     bedrooms: 3,
-  //     bathrooms: 2,
-  //     area: "1,000 sqft",
-  //     propertyImages:[
-  //       {
-  //         image:{
-  //           url:''
-  //         }
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "Property 1",
-  //     address: "123 Main St, City",
-  //     image: "/images/property/property_1.jpg",
-  //     price: "$1,000,000",
-  //     bedrooms: 3,
-  //     bathrooms: 2,
-  //     area: "1,000 sqft",
-  //     propertyImages:[
-  //       {
-  //         image:{
-  //           url:''
-  //         }
-  //       }
-  //     ]
-  //   },
-  // ]
 
   return (properties.length>0?
     <div className="w-100">

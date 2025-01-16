@@ -15,31 +15,31 @@ interface DataType {
 const address_data: DataType[] = [
    {
       id: 1,
-      title: "We’r always happy to help.",
+      title: "Email Us at",
       address_1: "ask@Happilee.com"
    },
    {
       id: 2,
       class_name: "skew-line",
-      title: "Our hotline number",
+      title: "our Phone Number",
       address_1: "+757 699 4478,",
       address_2: "+991 377 9731",
    },
    {
       id: 3,
-      title: "Live chat",
-      address_1: "www.Happileelivechat.com"
+      title: "Support",
+      address_1: "24/7 Support"
    },
 ]
 
 const ContactArea = () => {
    return (
-      <div className="contact-us border-top mt-130 xl-mt-100 pt-80 lg-pt-60">
+      <div className="contact-us border-top mt-130 xl-mt-100 pt-80 lg-pt-60 mb-130 xl-mb-100 pb-80 lg-pb-60">
          <div className="container">
             <div className="row">
                <div className="col-xxl-9 col-xl-8 col-lg-10 m-auto">
                   <div className="title-one text-center wow fadeInUp">
-                     <h3>Questions? Feel Free to Reach Out Via Message.</h3>
+                     <h3>Questions? Feel Free to Reach Out.</h3>
                   </div>
                </div>
             </div>
@@ -65,7 +65,7 @@ const ContactArea = () => {
             </div>
          </div>
 
-         <div className="bg-pink mt-150 xl-mt-120 md-mt-80">
+         {/* <div className="bg-pink mt-150 xl-mt-120 md-mt-80">
             <div className="row">
                <div className="col-xl-7 col-lg-6">
                   <div className="form-style-one wow fadeInUp">
@@ -80,7 +80,7 @@ const ContactArea = () => {
                   </div>
                </div>
             </div>
-         </div>
+         </div> */}
       </div>
    )
 }

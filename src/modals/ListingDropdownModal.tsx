@@ -18,7 +18,10 @@ const ListingDropdownModal = ({
    handleLocationChange,
    handleStatusChange, }: any) => {
    return (
-      <div className="modal fade" id="advanceFilterModal" tabIndex={-1} aria-hidden="true">
+      <div className="modal fade" id="advanceFilterModal" tabIndex={-1} aria-hidden="true" style={{
+         zoom:1
+      }}
+      >
          <div className="modal-dialog modal-dialog-centered">
             <div className="container">
                <div className="row">
@@ -31,7 +34,7 @@ const ListingDropdownModal = ({
                                  <div className="row gx-lg-5">
                                     <div className="col-md-6">
                                        <div className="input-box-one mb-35">
-                                          <div className="label">I’m looking to...</div>
+                                          <div className="label">Allotment Type</div>
                                           <NiceSelect className="nice-select fw-normal"
                                              options={[
                                                 { value: "apartments", text: "Buy Apartments" },
@@ -48,7 +51,68 @@ const ListingDropdownModal = ({
                                     </div>
                                     <div className="col-md-6">
                                        <div className="input-box-one mb-35">
-                                          <div className="label">Location</div>
+                                          <div className="label">Property Type</div>
+                                          <NiceSelect className="nice-select fw-normal"
+                                             options={[
+                                                { value: "apartments", text: "Buy Apartments" },
+                                                { value: "condos", text: "Rent Condos" },
+                                                { value: "houses", text: "Sell Houses" },
+                                                { value: "industrial", text: "Rent Industrial" },
+                                                { value: "villas", text: "Sell Villas" },
+                                             ]}
+                                             defaultCurrent={0}
+                                             onChange={handleStatusChange}
+                                             name=""
+                                             placeholder="" />
+                                       </div>
+                                    </div>
+                                    <div className="col-md-6 mb-35">
+                                       <h6 className="block-title fw-bold mt-45 mb-20">Budget</h6>
+                                       <div className="price-ranger">
+                                          <div className="price-input d-flex align-items-center justify-content-between pt-5">
+                                             <div className="field d-flex align-items-center">
+                                                <input type="number" className="input-min" value={priceValue[0]} onChange={() => handlePriceChange} />
+                                             </div>
+                                             <div className="divider-line"></div>
+                                             <div className="field d-flex align-items-center">
+                                                <input type="number" className="input-max" value={priceValue[1]} onChange={() => handlePriceChange} />
+                                             </div>
+                                             <div className="currency ps-1">INR</div>
+                                          </div>
+                                       </div>
+                                       <PriceRange
+                                          MAX={maxPrice}
+                                          MIN={0}
+                                          STEP={1}
+                                          values={priceValue}
+                                          handleChanges={handlePriceChange}
+                                       />
+                                    </div>
+                                    <div className="col-md-6 mb-35">
+                                       <h6 className="block-title fw-bold mt-45 mb-20">Area</h6>
+                                       <div className="price-ranger">
+                                          <div className="price-input d-flex align-items-center justify-content-between pt-5">
+                                             <div className="field d-flex align-items-center">
+                                                <input type="number" className="input-min" value={priceValue[0]} onChange={() => handlePriceChange} />
+                                             </div>
+                                             <div className="divider-line"></div>
+                                             <div className="field d-flex align-items-center">
+                                                <input type="number" className="input-max" value={priceValue[0]} onChange={() => handlePriceChange} />
+                                             </div>
+                                             <div className="currency ps-1">SQFT</div>
+                                          </div>
+                                       </div>
+                                       <PriceRange
+                                          MAX={maxPrice}
+                                          MIN={0}
+                                          STEP={1}
+                                          values={priceValue}
+                                          handleChanges={handlePriceChange}
+                                       />
+                                    </div>
+                                    <div className="col-md-6">
+                                       <div className="input-box-one mb-35">
+                                          <div className="label">Number of Bedrooms</div>
                                           <NiceSelect className="nice-select location fw-normal"
                                              options={[
                                                 { value: "mumbai", text: "Bandra, Mumbai" },
@@ -68,45 +132,60 @@ const ListingDropdownModal = ({
                                     </div>
                                     <div className="col-md-6">
                                        <div className="input-box-one mb-35">
-                                          <div className="label">Keyword</div>
-                                          <input onChange={handleSearchChange} type="text" placeholder="buy, home, loft, apartment" className="type-input" />
-                                       </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                       <div className="input-box-one mb-35">
-                                          <div className="label">Property ID</div>
-                                          <input type="text" placeholder="EM45203014" className="type-input" />
-                                       </div>
-                                    </div>
-
-                                    <div className="col-lg-6">
-                                       <div className="input-box-one mb-40">
-                                          <div className="label">Bedroom</div>
-                                          <NiceSelect className="nice-select fw-normal"
+                                          <div className="label">Furnishing Type</div>
+                                          <NiceSelect className="nice-select location fw-normal"
                                              options={[
-                                                { value: "1", text: "1" },
-                                                { value: "2", text: "2" },
-                                                { value: "3", text: "3" },
-                                                { value: "4", text: "4" },
-                                             ]}
+                                                { value: "mumbai", text: "Bandra, Mumbai" },
+                                                { value: "kolkata", text: "Salt Lake, Kolkata" },
+                                                { value: "bangalore", text: "Koramangala, Bangalore" },
+                                                { value: "delhi", text: "Connaught Place, Delhi" },
+                                                { value: "jaipur", text: "Malviya Nagar, Jaipur" },
+                                                { value: "chennai", text: "T. Nagar, Chennai" },
+                                                { value: "hyderabad", text: "Banjara Hills, Hyderabad" },
+                                             ]
+                                             }
                                              defaultCurrent={0}
-                                             onChange={handleBedroomChange}
+                                             onChange={handleLocationChange}
                                              name=""
                                              placeholder="" />
                                        </div>
                                     </div>
-                                    <div className="col-lg-6">
-                                       <div className="input-box-one mb-40">
-                                          <div className="label">Bath</div>
-                                          <NiceSelect className="nice-select fw-normal"
+                                    <div className="col-md-6">
+                                       <div className="input-box-one mb-35">
+                                          <div className="label">Facing Direction</div>
+                                          <NiceSelect className="nice-select location fw-normal"
                                              options={[
-                                                { value: "1", text: "1" },
-                                                { value: "2", text: "2" },
-                                                { value: "3", text: "3" },
-                                                { value: "4", text: "4" },
-                                             ]}
+                                                { value: "mumbai", text: "Bandra, Mumbai" },
+                                                { value: "kolkata", text: "Salt Lake, Kolkata" },
+                                                { value: "bangalore", text: "Koramangala, Bangalore" },
+                                                { value: "delhi", text: "Connaught Place, Delhi" },
+                                                { value: "jaipur", text: "Malviya Nagar, Jaipur" },
+                                                { value: "chennai", text: "T. Nagar, Chennai" },
+                                                { value: "hyderabad", text: "Banjara Hills, Hyderabad" },
+                                             ]
+                                             }
                                              defaultCurrent={0}
-                                             onChange={handleBathroomChange}
+                                             onChange={handleLocationChange}
+                                             name=""
+                                             placeholder="" />
+                                       </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                       <div className="input-box-one mb-35">
+                                          <div className="label">Parking Spot</div>
+                                          <NiceSelect className="nice-select location fw-normal"
+                                             options={[
+                                                { value: "mumbai", text: "Bandra, Mumbai" },
+                                                { value: "kolkata", text: "Salt Lake, Kolkata" },
+                                                { value: "bangalore", text: "Koramangala, Bangalore" },
+                                                { value: "delhi", text: "Connaught Place, Delhi" },
+                                                { value: "jaipur", text: "Malviya Nagar, Jaipur" },
+                                                { value: "chennai", text: "T. Nagar, Chennai" },
+                                                { value: "hyderabad", text: "Banjara Hills, Hyderabad" },
+                                             ]
+                                             }
+                                             defaultCurrent={0}
+                                             onChange={handleLocationChange}
                                              name=""
                                              placeholder="" />
                                        </div>
@@ -128,35 +207,7 @@ const ListingDropdownModal = ({
                                           ))}
                                        </ul>
                                     </div>
-                                    <div className="col-md-6">
-                                       <h6 className="block-title fw-bold mt-45 mb-20">Price range</h6>
-                                       <div className="price-ranger">
-                                          <div className="price-input d-flex align-items-center justify-content-between pt-5">
-                                             <div className="field d-flex align-items-center">
-                                                <input type="number" className="input-min" value={priceValue[0]} onChange={() => handlePriceChange} />
-                                             </div>
-                                             <div className="divider-line"></div>
-                                             <div className="field d-flex align-items-center">
-                                                <input type="number" className="input-max" value={priceValue[0]} onChange={() => handlePriceChange} />
-                                             </div>
-                                             <div className="currency ps-1">INR</div>
-                                          </div>
-                                       </div>
-                                       <PriceRange
-                                          MAX={maxPrice}
-                                          MIN={0}
-                                          STEP={1}
-                                          values={priceValue}
-                                          handleChanges={handlePriceChange}
-                                       />
-                                       <div className="col-md-6">
-                                          <h6 className="block-title fw-bold mt-45 mb-20">SQFT</h6>
-                                          <div className="d-flex align-items-center sqf-ranger">
-                                             <input type="text" placeholder="Min" />
-                                             <div className="divider"></div>
-                                             <input type="text" placeholder="Max" />
-                                          </div>
-                                       </div>
+                                    <div className="col-md-6">                                       
                                        <div className="col-12">
                                           <button className="fw-500 text-uppercase tran3s apply-search w-100 mt-40 mb-25">
                                              <i className="fa-light fa-magnifying-glass"></i>
@@ -169,10 +220,10 @@ const ListingDropdownModal = ({
                                                 <i className="fa-regular fa-arrows-rotate"></i>
                                                 <span>Reset Filter</span>
                                              </a>
-                                             <Link href="#" className="tran3s">
+                                             {/* <Link href="#" className="tran3s">
                                                 <i className="fa-regular fa-star"></i>
                                                 <span>Save Search</span>
-                                             </Link>
+                                             </Link> */}
                                           </div>
                                        </div>
                                     </div>

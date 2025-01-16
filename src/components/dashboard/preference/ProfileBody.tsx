@@ -6,16 +6,18 @@ import { z } from "zod";
 import FormInput from "@/components/forms/reactHookInputs/FormInput";
 import { useEffect, useState } from "react";
 import { serverActions } from "../../../../serveractions/commands/serverCommands";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import SelectionCard from "./SelectionCard";
 import Spinner from "@/components/common/Spinner";
+import { userLogin } from "@/redux/features/userSlice";
 
 interface RootState {
   user: any;
 }
 
 const ProfileBody = () => {
+  const dispatch = useDispatch();
 
   const userProfile =
     useSelector((state: RootState) => state.user.userProfile) || {};
@@ -26,8 +28,30 @@ const ProfileBody = () => {
   const [propertyType,setPropertyType]=useState([]);
   const [amenityType,setAmenityType]=useState([]);
 
-  // const [loading,setLoading] =useState(true);
-  // console.log(userProfile);
+    useEffect(()=>{
+          const array1=userProfile?.preferences?.propertyTypePreference.map((item:any)=>({
+              id: item?.propertyType?.id,
+              name:item?.propertyType?.name ,
+              allotmentTypeId: item?.propertyType?.allotmentTypeId,
+              allotmentType: {
+                  id: item?.propertyType?.allotmentType?.id,
+                  name: item?.propertyType?.allotmentType?.name
+              }
+          }))
+          if(array1.length>0){
+              setPropertyType(array1);
+          }
+
+          const array2=userProfile?.preferences?.amenityPreference.map((item:any)=>({
+              id:item?.amenities?.id ,
+              name:item?.amenities?.name,
+              groupId: item?.amenities?.groupId
+        }))
+        console.log(array2)
+        if(array2.length>0){
+            setAmenityType(array2);
+        }
+    },[userProfile?.preferences?.amenityPreference,userProfile?.preferences?.propertyTypePreference])
 
   const formSchema = z
     .object({
@@ -61,9 +85,9 @@ const ProfileBody = () => {
 
   const { control, handleSubmit, setValue, formState } = useForm({
     defaultValues: {
-      location: "",
-      minBudget: "",
-      maxBudget: "",
+      location: userProfile?.preferences?.location??"",
+      minBudget: userProfile?.preferences?.minBudget??"",
+      maxBudget: userProfile?.preferences?.maxBudget??"",
       // propertyType: [],
       // amenities: [],
     },
@@ -78,9 +102,10 @@ const ProfileBody = () => {
       toast.error("Please select at least one property type and amenity.");
       return;
     }
-    const res = await   serverActions.buyer.savePreferences(data.location,data.minBudget,data.maxBudget,propertyType,amenityType);
-    if(res.status==200){
+    const res = await   serverActions.buyer.savePreferences(userProfile?.id,data.location,data.minBudget,data.maxBudget,propertyType,amenityType);
+    if(res.data.status===200){
       toast.success("Preferences saved successfully");
+      dispatch(userLogin(res.data.data));
     }
   };
 
@@ -104,6 +129,9 @@ const ProfileBody = () => {
     getAmmenities();
   }, []);
 
+
+  console.log(amenityType);
+  
   return (
     <div className="dashboard-body">
       <div className="position-relative">
@@ -145,17 +173,6 @@ const ProfileBody = () => {
                 placeholder="Enter maximum budget"
               />
             </div>
-            {/* <div className="col-md-6">
-              <FormInput
-                label={"Property Type*"}
-                className="custom-class"
-                control={control}
-                name="propertyType"
-                type="text"
-                isRequired={true}
-                placeholder="Enter property type (e.g., Apartment, Villa)"
-              />
-            </div> */}
             <div className="d-flex align-items-center justify-content-start flex-column  mt-3" style={{
                               flexWrap: "wrap",
                               textWrap: "nowrap",

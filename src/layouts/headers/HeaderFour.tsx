@@ -20,12 +20,15 @@ interface RootState {
 const HeaderFour = () => {
   const { sticky } = UseSticky();
   const isloggedin = useSelector((state: RootState) => state.user.isLoggedIn);
-  const [isMounted,setIsMounted]=useState(false)
+  const [isMounted,setIsMounted]=useState(true)
   const [showCity,setShowCity]=useState("")
 
   useEffect(()=>{
-    setIsMounted(true)
-  },[])
+    if(!isMounted){
+      setIsMounted(true)
+    }
+    
+  },[isMounted])
 
 
   const openMobileMenu = (menu: any) => {
@@ -36,9 +39,11 @@ const HeaderFour = () => {
     }
 };
 
+// console.log(isMounted)
+
 
   return (
-    isMounted &&<>
+    isMounted===true &&<>
       <header
         className={`theme-main-menu menu-overlay menu-style-six sticky-menu ${
           sticky ? "fixed" : ""

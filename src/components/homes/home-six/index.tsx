@@ -11,6 +11,7 @@ import FancyBanner from "./FancyBanner"
 import FooterFive from "@/layouts/footers/FooterFive"
 import HeaderFour from "@/layouts/headers/HeaderFour"
 import Category from "../home-three/Category"
+import PropertyRecomend from "../home-four/PropertyRecomend"
 
 const HomeSix = () => {
    return (
@@ -21,6 +22,7 @@ const HomeSix = () => {
          {/* <BLockFeatureTwo style={true} /> */}
          {/* <PropertyOne /> */}
          <Property style_1={false} style_2={true} />
+         <PropertyRecomend style_1={false} style_2={true} />
          <p style={{
             textAlign: 'center',
             fontSize: '10rem',
