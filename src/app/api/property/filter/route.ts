@@ -238,8 +238,6 @@ export async function POST(req: NextRequest) {
       };
     }
 
-    console.log(filters);
-
     const properties = await prisma.property.findMany({
       where: { ...filters },
     });
