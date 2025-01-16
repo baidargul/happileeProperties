@@ -14,22 +14,22 @@ export async function POST(req: NextRequest) {
 
     let filters: any = {};
 
-    if (data.minBudget && data.maxBudget) {
+    if (data.minPrice && data.maxPrice) {
       filters.price = {
-        gte: Number(data.minBudget),
-        lte: Number(data.maxBudget),
+        gte: Number(data.minPrice),
+        lte: Number(data.maxPrice),
       };
     }
 
-    if (data.minBudget && !data.maxBudget) {
+    if (data.minPrice && !data.maxPrice) {
       filters.price = {
-        gte: Number(data.minBudget),
+        gte: Number(data.minPrice),
       };
     }
 
-    if (!data.minBudget && data.maxBudget) {
+    if (!data.minPrice && data.maxPrice) {
       filters.price = {
-        lte: Number(data.maxBudget),
+        lte: Number(data.maxPrice),
       };
     }
 
@@ -237,6 +237,8 @@ export async function POST(req: NextRequest) {
         equals: data.parkingSpace,
       };
     }
+
+    console.log(filters);
 
     const properties = await prisma.property.findMany({
       where: { ...filters },

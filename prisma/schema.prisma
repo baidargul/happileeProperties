@@ -98,19 +98,19 @@ model property {
   propertyTypeId        String?
   bhkTypeId             String?
   furnishingId          String?
-  price                 Int?
-  area                  Int?
+  price                 Decimal?              @db.Decimal
+  area                  Decimal?              @db.Decimal
   createdAt             DateTime              @default(now())
   allotmentForId        String
   title                 String
-  age                   Int
+  age                   Decimal               @db.Decimal
   availableDate         DateTime
   monthlyMaintenance    Decimal?
   ownershipTypeId       String
-  securityDeposite      Int?
-  rent                  Int?
-  maintenance           Int?
-  views                 Int?                  @default(0)
+  securityDeposite      Decimal?              @db.Decimal
+  rent                  Decimal?              @db.Decimal
+  maintenance           Decimal?              @db.Decimal
+  views                 Decimal?              @default(0) @db.Decimal
   userId                String?
   status                propertyStatus        @default(PENDING)
   description           String?
