@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
     const location = preferences.location;
 
     userData.preferences.propertyTypePreference.map((item: any) => {
-      propertyTypeIds.push(item.id);
+      propertyTypeIds.push(item.propertyTypeId);
     });
 
     userData.preferences.amenityPreference.map((item: any) => {

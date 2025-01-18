@@ -239,6 +239,8 @@ async function filter(data: FILTER_TYPE) {
     };
   }
 
+  console.log(filters);
+
   const properties = await prisma.property.findMany({
     where: { ...filters },
     include: {
