@@ -76,10 +76,24 @@ async function filter(data: FILTER_TYPE) {
     };
   }
 
-  if (data.title) {
-    filters.title = {
-      contains: data.title,
-    };
+  if (data.title || data.description) {
+    filters.OR = [];
+
+    if (data.title) {
+      filters.OR.push({
+        title: {
+          contains: data.title,
+        },
+      });
+    }
+
+    if (data.description) {
+      filters.OR.push({
+        description: {
+          contains: data.description,
+        },
+      });
+    }
   }
 
   if (data.minAge && data.maxAge) {
@@ -161,12 +175,6 @@ async function filter(data: FILTER_TYPE) {
   if (data.status) {
     filters.status = {
       equals: data.status,
-    };
-  }
-
-  if (data.description) {
-    filters.description = {
-      contains: data.description,
     };
   }
 
