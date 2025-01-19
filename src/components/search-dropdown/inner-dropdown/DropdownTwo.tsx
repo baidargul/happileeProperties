@@ -19,7 +19,11 @@ const DropdownTwo = ({
   search,
   setSearch,
   filter,
-  setFilter
+  setFilter,
+  budget,
+  setBudget,
+  area,
+  setArea
 }: any) => {
   return (
     <>
@@ -79,6 +83,11 @@ const DropdownTwo = ({
         handleAmenityChange={handleAmenityChange}
         handleLocationChange={handleLocationChange}
         handleStatusChange={handleStatusChange}
+        setFilter={setFilter}
+        budget={budget}
+        setBudget={setBudget}
+        area={area}
+        setArea={setArea}
       />
     </>
   );

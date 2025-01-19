@@ -7,7 +7,7 @@ export const metadata = {
 const index = () => {
    return (
       <Wrapper>
-         <ListingSeven />
+         {/* <ListingSeven /> */}
       </Wrapper>
    )
 }

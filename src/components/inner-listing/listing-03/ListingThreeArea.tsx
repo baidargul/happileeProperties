@@ -12,8 +12,9 @@ import featureIcon_3 from "@/assets/images/icon/icon_06.svg"
 import PropertyCard from "@/components/homes/home-four/PropertyCard";
 import Listing from "./Listing";
 import { FILTER_TYPE } from "../../../../serveractions/commands/partials/property";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { serverActions } from "../../../../serveractions/commands/serverCommands";
+import Spinner from "@/components/common/Spinner";
 
 const ListingThreeArea = ({ style }: any) => {
 
@@ -59,13 +60,22 @@ const ListingThreeArea = ({ style }: any) => {
       facingDirection:"",
       parkingSpace:false,
    })
+    const [search,setSearch]=useState('');
+
+    const [budget,setBudget]=useState([0,1000000000]);
+    const [area,setArea]=useState([0,100000]);
+    
   
     const [properties,setProperties]=useState([]);
-    const [search,setSearch]=useState('');
+    
+
+    const [loading,setLoading]=useState(true);
   
     const getProperty = async () =>{
+      setLoading(true);
       const res=await serverActions.property.filter(filter)
       if(res.data.status==200){
+         setLoading(false);
         setProperties(res.data.data)
       //   console.log(res.data.data)
       }
@@ -76,8 +86,36 @@ const ListingThreeArea = ({ style }: any) => {
       getProperty();
     },[filter])
 
+    const updateFilter = useCallback(
+      debounce((budget:any, area:any) => {
+        setFilter({ maxPrice: budget[1], minPrice: budget[0], area: area[0] });
+      }, 300), // Adjust delay as needed
+      []
+    );
 
-console.log(filter);
+    useEffect(() => {
+      // Call debounced function when budget or area changes
+      updateFilter(budget, area);
+  
+      return () => {
+        // Cancel any pending debounce calls on component unmount
+        updateFilter.cancel?.();
+      };
+    }, [budget, area, updateFilter]);
+
+
+    // Utility function for debouncing
+      function debounce(func:any, delay:any) {
+         let timeout:any;
+         const debounced = (...args:any) => {
+         clearTimeout(timeout);
+         timeout = setTimeout(() => func(...args), delay);
+         };
+         debounced.cancel = () => clearTimeout(timeout);
+         return debounced;
+      }
+
+// console.log(budget,area);
 
    return (
 
@@ -103,6 +141,10 @@ console.log(filter);
                      setFilter={setFilter}
                      search={search}
                      setSearch={setSearch}
+                     budget={budget}
+                     setBudget={setBudget}
+                     area={area}
+                     setArea={setArea}
 
                   />
                </div>
@@ -133,7 +175,7 @@ console.log(filter);
                </div>
             </div>
 
-            <Listing properties={properties}/>
+            {loading?<Spinner/>:<Listing properties={properties}/>}
 
             {/* <div className="pt-50 md-pt-20 text-center">
                <ReactPaginate

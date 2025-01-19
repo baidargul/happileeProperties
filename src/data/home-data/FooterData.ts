@@ -95,7 +95,7 @@ const footer_data: DataType[] = [
       widget_class: "col-lg-3",
       page: "home_5",
       widget_title: "Legal",
-      footer_link: [{ link: "/termsandconditions", link_title: "Terms & conditions" }, { link: "/privacypolicy", link_title: "Privacy policy" },{ link: "/cancellationpolicy", link_title: "Cancellation Policy" }, { link: "/faq", link_title: "Faq’s" },]
+      footer_link: [{ link: "/termsandconditions", link_title: "Terms & conditions" }, { link: "/privacypolicy", link_title: "Privacy policy" },{ link: "/questionandcontactinformation", link_title: "Question & Contact Information" },{ link: "/cancellationpolicy", link_title: "Cancellation Policy" }, { link: "/faq", link_title: "Faq’s" },]
    },
    {
       id: 3,

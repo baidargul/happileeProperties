@@ -12,6 +12,9 @@ import FooterFive from "@/layouts/footers/FooterFive"
 import HeaderFour from "@/layouts/headers/HeaderFour"
 import Category from "../home-three/Category"
 import PropertyRecomend from "../home-four/PropertyRecomend"
+import MembershipBody from "@/components/dashboard/membership/MembershipBody"
+import Pricing from "@/components/dashboard/membership/Pricing"
+import Subscription from "@/components/common/Subscription"
 
 const HomeSix = () => {
    return (
@@ -23,13 +26,13 @@ const HomeSix = () => {
          {/* <PropertyOne /> */}
          <Property style_1={false} style_2={true} />
          <PropertyRecomend style_1={false} style_2={true} />
-         <p style={{
+         <Subscription/>
+         {/* <p style={{
             textAlign: 'center',
             fontSize: '10rem',
-            // fontWeight: 'bold',
             color: '#333',
             padding: '50px 0'
-         }}>Comming Soon...</p>
+         }}>Comming Soon...</p> */}
          {/* <HomeSixBLockFeatureTwo /> */}
          {/* <BLockFeatureThree /> */}
          {/* <Feedback /> */}

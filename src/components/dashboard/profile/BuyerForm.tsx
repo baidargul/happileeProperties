@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { serverActions } from '../../../../serveractions/commands/serverCommands';
 import ImagePicker from '@/components/ImagePicker/ImagePicker';
 import { userLogin } from '@/redux/features/userSlice';
+import { SingleInput } from '@/components/forms/inputs/SingleInput';
 
 interface RootState {
 	user: any;
@@ -53,6 +54,42 @@ export default function BuyerForm() {
   return (
 	<div className="bg-white card-box border-20">
             <form onSubmit={handleSubmit(onSubmit)} className="row">
+              <div className="col-md-4">
+                        <SingleInput
+                          label={"Name"}
+                          className="mb-30"
+                          type="text"
+                          isRequired={true}
+                          placeholder="Enter your Bussiness Name"
+                          value={userProfile.name}
+                          onChange={(e: any) => console.log(e.target.value)}
+                          isDisabled={true}
+                        />
+                      </div>
+                      <div className="col-md-4">
+                        <SingleInput
+                          label={"Phone Number"}
+                          className="mb-30"
+                          type="text"
+                          isRequired={true}
+                          placeholder="Enter your Phone Number"
+                          value={userProfile.phone}
+                          onChange={(e: any) => console.log(e.target.value)}
+                          isDisabled={true}
+                        />
+                      </div>
+                      <div className="col-md-4">
+                        <SingleInput
+                          label={"Email"}
+                          className="mb-30"
+                          type="text"
+                          isRequired={true}
+                          placeholder="Enter your Email"
+                          value={userProfile.email}
+                          onChange={(e: any) => console.log(e.target.value)}
+                          isDisabled={true}
+                        />
+                      </div>
             <FormTextArea
                 label={"Address"}
                 control={control}
@@ -61,6 +98,7 @@ export default function BuyerForm() {
                 isRequired={true}
                 placeholder="Enter your address"
                 rows={4}
+                isDisabled={userProfile.status!="INCOMPLETE"?true:false}
               />
               <FormTextArea
                 label={"Description*"}
@@ -70,6 +108,7 @@ export default function BuyerForm() {
                 isRequired={true}
                 placeholder="Enter a description"
                 rows={8}
+                isDisabled={userProfile.status!="INCOMPLETE"?true:false}
               />
               <div className="d-flex justify-content-between col-md-12">
           <button

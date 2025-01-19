@@ -5,7 +5,7 @@ import { serverActions } from "../../../../serveractions/commands/serverCommands
 import SubscriptionCard from "./SubscriptionCard";
 import Spinner from "@/components/common/Spinner";
 
-const Pricing = () => {
+const Pricing = ({showCase,userType}:any) => {
   const userProfile = useSelector((state: any) => state.user.userProfile);
   const [subscriptions, setSubscriptions] = useState(null);
   const [loading,setLoading]=useState(false);
@@ -14,7 +14,7 @@ const Pricing = () => {
     const res = await serverActions.user.subscription.listAll();
     if (res.status === 200) {
       const userSubscriptions = res.data.find(
-        (element: any) => element.name === userProfile.type
+        (element: any) => showCase ? element.name === userType : element.name === userProfile.type
       );
       setSubscriptions(userSubscriptions?.subscriptions || null);
     }
@@ -22,7 +22,7 @@ const Pricing = () => {
 
   useEffect(() => {
     getSubscription();
-  }, []);
+  }, [userType]);
 
   return (
     <div className="py-4">
@@ -34,7 +34,7 @@ const Pricing = () => {
     {subscriptions ? (
       Object.entries(subscriptions).map(([planName, planData]: any, index) => (
         <div key={planData.id} className="d-flex justify-content-center align-items-center">
-          <SubscriptionCard planName={planName} planData={planData} isPopular={planData.isPopular}/>
+          <SubscriptionCard planName={planName} planData={planData} isPopular={planData.isPopular} showCase={showCase}/>
         </div>
       ))
     ) : (

@@ -15,7 +15,7 @@ const PriceRange = ({MIN,MAX,values,handleChanges }: IProps) => {
          zoom:1.33
       }}>
          <Range
-            step={0.1}
+            step={1}
             min={MIN}
             max={MAX}
             values={values}

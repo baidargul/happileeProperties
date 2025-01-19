@@ -77,6 +77,7 @@ export default function BuilderForm() {
   return (
 	<div className="bg-white card-box border-20">
             <form onSubmit={handleSubmit(onSubmit)} className="row">
+              
               <FormInput
                 label={"Name*"}
                 className="custom-class"
@@ -85,6 +86,7 @@ export default function BuilderForm() {
                 type="text"
                 isRequired={true}
                 placeholder="Enter company name"
+                isDisabled={userProfile.status!="INCOMPLETE"?true:false}
               />
               <FormTextArea
                 label={"Description*"}
@@ -94,6 +96,7 @@ export default function BuilderForm() {
                 isRequired={true}
                 placeholder="Enter a description"
                 rows={8}
+                isDisabled={userProfile.status!="INCOMPLETE"?true:false}
               />
               <div className="">
                 <FormInput
@@ -102,6 +105,7 @@ export default function BuilderForm() {
                   name="gst"
                   type="text"
                   placeholder="Enter GST number"
+                  isDisabled={userProfile.status!="INCOMPLETE"?true:false}
                 />
               </div>
               <FormTextArea
@@ -112,6 +116,7 @@ export default function BuilderForm() {
                 isRequired={true}
                 placeholder="Enter your address"
                 rows={4}
+                isDisabled={userProfile.status!="INCOMPLETE"?true:false}
               />
               <ImagePicker
                 selectedImageArray={selectedImageArray}

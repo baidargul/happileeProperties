@@ -23,7 +23,7 @@ export default function AgentForm() {
 
   const [file,setFile]=useState(null);
 
-  console.log(userProfile);
+  // console.log(userProfile);
 
   const experienceFormSchema = z.object({
     experience: z
@@ -85,6 +85,43 @@ const handleBack = () =>{
     <div className="bg-white card-box border-20">
       <form onSubmit={handleSubmit(onSubmit)} className="row">
       <div className="col-md-4">
+          <SingleInput
+            label={"Name"}
+            className="mb-30"
+            type="text"
+            isRequired={true}
+            placeholder="Enter your Bussiness Name"
+            value={userProfile.name}
+            onChange={(e: any) => console.log(e.target.value)}
+            isDisabled={true}
+          />
+        </div>
+        <div className="col-md-4">
+          <SingleInput
+            label={"Phone Number"}
+            className="mb-30"
+            type="text"
+            isRequired={true}
+            placeholder="Enter your Phone Number"
+            value={userProfile.phone}
+            onChange={(e: any) => console.log(e.target.value)}
+            isDisabled={true}
+          />
+        </div>
+        <div className="col-md-4">
+          <SingleInput
+            label={"Email"}
+            className="mb-30"
+            type="text"
+            isRequired={true}
+            placeholder="Enter your Email"
+            value={userProfile.email}
+            onChange={(e: any) => console.log(e.target.value)}
+            isDisabled={true}
+          />
+        </div>
+
+      <div className="col-md-4">
           <FormInput
             label={"Bussiness Name*"}
             className="custom-class"
@@ -93,6 +130,7 @@ const handleBack = () =>{
             type="text"
             isRequired={true}
             placeholder="Enter your Bussiness Name"
+            isDisabled={userProfile.status!="INCOMPLETE"?true:false}
           />
         </div>
         <div className="col-md-4">
@@ -104,6 +142,7 @@ const handleBack = () =>{
             type="number"
             isRequired={true}
             placeholder="Enter your years of experience"
+            isDisabled={userProfile.status!="INCOMPLETE"?true:false}
           />
         </div>
         <div className="col-md-4">
@@ -115,6 +154,7 @@ const handleBack = () =>{
             type="text"
             isRequired={true}
             placeholder="Enter RERA id"
+            isDisabled={userProfile.status!="INCOMPLETE"?true:false}
           />
         </div>
         <div className="col-md-4">
@@ -135,6 +175,7 @@ const handleBack = () =>{
           value={file??""}
           onChange={(e:any) => setFile(e.target.files[0])}
           placeholder="Select File"
+          isDisabled={userProfile.status!="INCOMPLETE"?true:false}
           />
         </div>
         <div className="col-md-12">
@@ -146,6 +187,7 @@ const handleBack = () =>{
             isRequired={true}
             placeholder="Enter a address"
             rows={6}
+            isDisabled={userProfile.status!="INCOMPLETE"?true:false}
           />
         </div>
         <div className="col-md-12">
@@ -157,6 +199,7 @@ const handleBack = () =>{
             isRequired={true}
             placeholder="Enter a description for your profile"
             rows={8}
+            isDisabled={userProfile.status!="INCOMPLETE"?true:false}
           />
         </div>
         <div className="d-flex justify-content-between col-md-12">
