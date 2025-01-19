@@ -12,23 +12,23 @@ export async function GET(req: NextRequest) {
   };
 
   try {
-    const status = req.nextUrl.searchParams.get("status");
-    const title = req.nextUrl.searchParams.get("title");
-    const type = req.nextUrl.searchParams.get("type");
-    const allotmentFor = req.nextUrl.searchParams.get("for");
-    const minPrice = req.nextUrl.searchParams.get("minPrice");
-    const maxPrice = req.nextUrl.searchParams.get("maxPrice");
-    const price = req.nextUrl.searchParams.get("price");
-    const allotmentType = req.nextUrl.searchParams.get("allotmentType");
-    const ownership = req.nextUrl.searchParams.get("ownership");
-    const bhk = req.nextUrl.searchParams.get("bhk");
-    const minAge = req.nextUrl.searchParams.get("minAge");
-    const maxAge = req.nextUrl.searchParams.get("maxAge");
-    const age = req.nextUrl.searchParams.get("age");
-    const minAvailableDate = req.nextUrl.searchParams.get("availableFrom");
-    const maxAvailableDate = req.nextUrl.searchParams.get("availableUpto");
-    const availableDate = req.nextUrl.searchParams.get("availableDate");
-    const sortBy = req.nextUrl.searchParams.get("sortBy");
+    const status = new URL(req.url).searchParams.get("status");
+    const title = new URL(req.url).searchParams.get("title");
+    const type = new URL(req.url).searchParams.get("type");
+    const allotmentFor = new URL(req.url).searchParams.get("for");
+    const minPrice = new URL(req.url).searchParams.get("minPrice");
+    const maxPrice = new URL(req.url).searchParams.get("maxPrice");
+    const price = new URL(req.url).searchParams.get("price");
+    const allotmentType = new URL(req.url).searchParams.get("allotmentType");
+    const ownership = new URL(req.url).searchParams.get("ownership");
+    const bhk = new URL(req.url).searchParams.get("bhk");
+    const minAge = new URL(req.url).searchParams.get("minAge");
+    const maxAge = new URL(req.url).searchParams.get("maxAge");
+    const age = new URL(req.url).searchParams.get("age");
+    const minAvailableDate = new URL(req.url).searchParams.get("availableFrom");
+    const maxAvailableDate = new URL(req.url).searchParams.get("availableUpto");
+    const availableDate = new URL(req.url).searchParams.get("availableDate");
+    const sortBy = new URL(req.url).searchParams.get("sortBy");
 
     const filters: any = {};
     let sortingOrder: any = {
