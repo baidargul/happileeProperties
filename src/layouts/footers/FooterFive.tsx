@@ -65,7 +65,7 @@ const FooterFive = () => {
                </div>
             </div>
             <div className="bottom-footer">
-               <p className="m0 text-center fs-16">Copyright @2024 Happilee inc.</p>
+               <p className="m0 text-center fs-16">Copyright @2024 HAPPILEE PROPERTY SOLUTIONS PRIVATE LIMITED</p>
             </div>
          </div>
       </div>
