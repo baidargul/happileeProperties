@@ -63,7 +63,9 @@ const NavMenu = () => {
                                 </li>
                             ))}
                             {menu.menu_column && (
-                                <li className="row gx-1">
+                                <li className="row gx-1" style={{
+                                    justifyContent:"space-evenly"
+                                }}>
                                     {menu.menu_column.map((item: any) => (
                                         <div key={item.id} className="col-lg-4">
                                             <div className="menu-column">

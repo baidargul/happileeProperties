@@ -81,6 +81,14 @@ export default function PrivacyPolicy() {
     <br />
     If our store is acquired or merged with another company, your information may be transferred to the new owners so that we may continue to sell products to you.
   </p>
+  <p>
+        Address:  HN, 798, Shinde Vasti, <br />
+        CHH. Shivaji Vidyalaya, Mardi, <br />
+        Tal-Maan, Mardi Talman, Satara, Maharashtra, 415508. <br />
+        <br />
+        Email: ask@Happilee.com <br />
+        Mobile No. 7218767879 <br />
+        </p>
 </div>
 
 

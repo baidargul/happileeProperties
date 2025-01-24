@@ -77,6 +77,14 @@ export default function CancellationPolicy() {
   <p>
     For further assistance, please contact us. We value your trust and aim to provide the best possible service experience.
   </p>
+  <p>
+        Address:  HN, 798, Shinde Vasti, <br />
+        CHH. Shivaji Vidyalaya, Mardi, <br />
+        Tal-Maan, Mardi Talman, Satara, Maharashtra, 415508. <br />
+        <br />
+        Email: ask@Happilee.com <br />
+        Mobile No. 7218767879 <br />
+        </p>
 </div>
 
 

@@ -108,6 +108,14 @@ export default function TermsAndConditions() {
           exceeded the preset limit mutually agreed by us with our acquiring
           bank from time to time.
         </p>
+        <p>
+        Address:  HN, 798, Shinde Vasti, <br />
+        CHH. Shivaji Vidyalaya, Mardi, <br />
+        Tal-Maan, Mardi Talman, Satara, Maharashtra, 415508. <br />
+        <br />
+        Email: ask@Happilee.com <br />
+        Mobile No. 7218767879 <br />
+        </p>
       </div>
 
       <FooterFive />
