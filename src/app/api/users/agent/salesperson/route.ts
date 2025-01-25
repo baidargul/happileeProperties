@@ -70,6 +70,7 @@ export async function POST(req: NextRequest) {
       const builder = await prisma.user.findUnique({
         where: {
           id: item,
+          type: "BUILDER",
         },
       });
       builders.push(builder);
