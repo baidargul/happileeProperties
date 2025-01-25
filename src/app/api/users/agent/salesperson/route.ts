@@ -65,13 +65,17 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    isExists = await prisma.user.findMany({
-      where: {
-        id: { in: data.builderIds },
-      },
-    });
+    const builders: any = [];
+    for (const item of data.builderIds) {
+      const builder = await prisma.user.findUnique({
+        where: {
+          id: item,
+        },
+      });
+      builders.push(builder);
+    }
 
-    if (isExists.length !== data.builderIds.length) {
+    if (!builders && builders.length === 0) {
       response.status = 404;
       response.message = "Builder not found";
       return new Response(JSON.stringify(response));
@@ -83,11 +87,11 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    for (const builderId of data.builderIds) {
+    for (const builder of builders) {
       await prisma.assignedTo.create({
         data: {
           agentId: agent.id,
-          builderId: builderId,
+          builderId: builder.id,
         },
       });
     }
