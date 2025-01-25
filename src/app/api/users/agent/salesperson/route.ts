@@ -88,11 +88,13 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    console.log(builders);
+
     for (const builder of builders) {
       await prisma.assignedTo.create({
         data: {
           agentId: agent.id,
-          builderId: builder.id,
+          builderId: builder.builder.id,
         },
       });
     }
