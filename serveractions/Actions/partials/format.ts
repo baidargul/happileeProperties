@@ -15,6 +15,19 @@ async function formattedProperty(id: string) {
       furnishing: true,
       ownershipType: true,
       allotmentFor: true,
+      builder: {
+        include: {
+          assignedTo: {
+            include: {
+              builder: true,
+              agent: true,
+            },
+            orderBy: {
+              createdAt: "desc",
+            },
+          },
+        },
+      },
       favouriteProperties: {
         include: {
           user: {

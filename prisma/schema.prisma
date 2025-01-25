@@ -14,6 +14,7 @@ model builder {
   gst         String?
   assignedTo  assignedTo[]
   user        user         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property    property[]
 }
 
 model user {
@@ -123,12 +124,14 @@ model property {
   totalFloorsInBuilding String?
   facingDirection       String?
   parkingSpace          String?
+  builderId             String?
   amenitiesregister     amenitiesregister[]
   favouriteProperties   favouriteProperties[]
   interested            interested[]
   leads                 leads[]
   allotmentFor          allotmentFor          @relation(fields: [allotmentForId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   bhkType               bhk?                  @relation("bhkType", fields: [bhkTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  builder               builder?              @relation(fields: [builderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   furnishing            furnishing?           @relation(fields: [furnishingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   ownershipType         ownershipType         @relation(fields: [ownershipTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   propertyType          propertyType?         @relation(fields: [propertyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -289,8 +292,8 @@ model assignedTo {
   agentId   String
   builderId String
   createdAt DateTime? @default(now()) @db.Timestamptz(6)
-  agent     agent     @relation(fields: [agentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  builder   builder   @relation(fields: [builderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  agent     agent     @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  builder   builder   @relation(fields: [builderId], references: [id], onDelete: Cascade)
 }
 
 enum blueTickDocTypes {
