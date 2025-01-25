@@ -104,9 +104,33 @@ async function formatUser(id: string) {
       id: id,
     },
     include: {
-      builder: true,
+      builder: {
+        include: {
+          assignedTo: {
+            include: {
+              builder: true,
+              agent: true,
+            },
+            orderBy: {
+              createdAt: "desc",
+            },
+          },
+        },
+      },
       image: true,
-      agent: true,
+      agent: {
+        include: {
+          assignedTo: {
+            include: {
+              builder: true,
+              agent: true,
+            },
+            orderBy: {
+              createdAt: "desc",
+            },
+          },
+        },
+      },
       buyer: true,
       bluetickDocuments: {
         include: {
