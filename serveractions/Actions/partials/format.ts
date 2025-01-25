@@ -19,8 +19,16 @@ async function formattedProperty(id: string) {
         include: {
           assignedTo: {
             include: {
-              builder: true,
-              agent: true,
+              builder: {
+                include: {
+                  user: true,
+                },
+              },
+              agent: {
+                include: {
+                  user: true,
+                },
+              },
             },
             orderBy: {
               createdAt: "desc",
@@ -121,8 +129,16 @@ async function formatUser(id: string) {
         include: {
           assignedTo: {
             include: {
-              builder: true,
-              agent: true,
+              builder: {
+                include: {
+                  user: true,
+                },
+              },
+              agent: {
+                include: {
+                  user: true,
+                },
+              },
             },
             orderBy: {
               createdAt: "desc",
