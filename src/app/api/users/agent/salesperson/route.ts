@@ -72,6 +72,9 @@ export async function POST(req: NextRequest) {
           id: item,
           type: "BUILDER",
         },
+        include: {
+          builder: true,
+        },
       });
       builders.push(builder);
     }
