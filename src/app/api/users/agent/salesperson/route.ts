@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 
     if (!data.isSalesPerson) {
       response.status = 400;
-      response.message = "isSalePerson is required";
+      response.message = "isSalesPerson is required";
       return new Response(JSON.stringify(response));
     }
 
