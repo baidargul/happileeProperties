@@ -335,6 +335,7 @@ export async function POST(req: NextRequest) {
         totalFloorsInBuilding: formData.get(`totalFloorsInBuilding`) || "",
         facingDirection: formData.get(`facingDirection`) || "",
         parkingSpace: formData.get(`parkingSpace`) || "",
+        builderId: formData.get(`builderId`) || "",
       },
     });
 
