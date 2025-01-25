@@ -63,8 +63,27 @@ async function list(id: string) {
   return temp;
 }
 
+/**
+ *
+ * @param userId
+ * @param isSalesPerson
+ * @returns user
+ * @description takes userId and isSalesPerson and if user is an agent, sets the agent flag to isSalesPerson as provided
+ */
+
+async function setSalesPerson(userId: string, isSalesPerson: boolean) {
+  const data = {
+    userId,
+    isSalesPerson,
+  };
+
+  const response = await axios.post(`${apiPath}/salesperson`, data);
+  return response;
+}
+
 export const agent = {
   create,
   list,
   listAll,
+  setSalesPerson,
 };
