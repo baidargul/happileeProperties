@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify(response));
     }
 
-    isExists = await prisma.builder.findMany({
+    isExists = await prisma.user.findMany({
       where: {
         id: { in: data.builderIds },
       },
