@@ -77,15 +77,23 @@ const DashboardHeaderTwo = ({ title }: any) => {
         }}>
           {userProfile.status === "ACTIVE" && (
             <>
-               {/* BUYER */}
+            {userProfile?.subscription?.isExpired ? <div className="d-flex align-items-center justify-content-center flex-column w-100 p-1 border border-danger rounded" style={{
+            backgroundColor:'#ff000041'
+          }}>
+            <p className="p-0 m-0">Your Subscription has expired !</p>
+            <Link href="/dashboard/membership">
+                    <button className="btn-two d-block">
+                      <span>Renew Subscription</span>
+                    </button>
+                  </Link>  
+          </div> :(
+            <>
+              {/* BUYER */}
               {userProfile.type === "BUYER" &&
                 Object.entries(userProfile?.subscription?.properties || {})
                   .filter(
-                    ([key, value]: [string, any]) =>
-                      ![
-                        "Validity",
-                        "Priority Support",
-                      ].includes(key)
+                    ([key]: [string, any]) =>
+                      !["Validity", "Priority Support"].includes(key)
                   )
                   .map(([key, value]: [string, any], index) => (
                     <CountCard key={index} data={value} title={key} />
@@ -95,7 +103,7 @@ const DashboardHeaderTwo = ({ title }: any) => {
               {userProfile.type === "AGENT" &&
                 Object.entries(userProfile?.subscription?.properties || {})
                   .filter(
-                    ([key, value]: [string, any]) =>
+                    ([key]: [string, any]) =>
                       ![
                         "Bluetick verification",
                         "Position on Search",
@@ -107,6 +115,8 @@ const DashboardHeaderTwo = ({ title }: any) => {
                   .map(([key, value]: [string, any], index) => (
                     <CountCard key={index} data={value} title={key} />
                   ))}
+            </>
+          )}
               {!userProfile.bluetickVerified &&
                 userProfile.type === "AGENT" && (
                   <Link href="/dashboard/verify">

@@ -100,7 +100,7 @@ export default function SubscriptionCard({
       <div
         style={{
           position: "absolute",
-          top: "10px",
+          top: "30px",
           left: "0",
           // right: "0",
           transform: "translateX(40%)",

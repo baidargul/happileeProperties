@@ -33,6 +33,7 @@ import {
   sportsAndOutdoors,
 } from "@/data/home-data/AmenitiesData";
 import SidebarInfo from "@/components/ListingDetails/listing-details-sidebar.tsx/SidebarInfo";
+import Spinner from "@/components/common/Spinner";
 
 
 type Amenity = {
@@ -61,14 +62,16 @@ const Overview = () => {
   const [amenitiesData, setAmenitiesData] = useState<Amenity[]>([]);
   const [selectedImageArray, setSelectedImageArray] = useState([]);
   const [removedImageArray, setRemovedImageArray] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [builder,setBuilder]=useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  const userId = useSelector((state: any) => state.user.userProfile.id);
+  const userProfile = useSelector((state: any) => state.user.userProfile);
 
   const getPropertyStructure = async () => {
     const res = await serverActions.property.GET_ALLOTMENT_STRUCTURE();
     if (res.status == 200) {
       setData(res.data);
+      setLoading(false);
     }
   };
 
@@ -148,14 +151,20 @@ const Overview = () => {
   const { isSubmitting } = formState;
 
   const onSubmit = async (data: any) => {
+    if(!builder?.builderId){
+      toast.error("Please select a builder");
+      return
+    }
     setLoading(true);
     // Process form data here
+    data.builderId= builder?.builderId;
+
     data.allotmentType = allotment?.id;
     data.allotmentFor = lookingFor?.id;
     data.propertyType = propertyType?.id;
     data.bhk = bhk?.id;
     data.amenities = amenities;
-    data.userId = userId;
+    data.userId = userProfile?.id;
     console.log(data);
     const formData = new FormData();
 
@@ -189,8 +198,10 @@ const Overview = () => {
   };
 
   // console.log(propertyType);
-  console.log(amenities)
-  return (
+  // console.log(amenities)
+
+  // console.log(builder)
+  return ( loading?<Spinner/>:
     data?.furnishing?.length > 0 && (
       <div className="bg-white card-box border-20">
         <h4 className="dash-title-three">Add Property</h4>
@@ -477,156 +488,6 @@ const Overview = () => {
               />
             </div>        
             ))}
-            {/* <div className="col-md-4">
-              <SingleSelectInput
-                options={generalBuildingAmenities}
-                label={"General Building Amenities"}
-                placeholder="Select"
-                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
-                multiSelect={true}
-              />
-            </div>
-
-            <div className="col-md-4">
-              <SingleSelectInput
-                options={lifestyleAndRecreation}
-                label={"Lifestyle and Recreation"}
-                placeholder="Select"
-                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
-                multiSelect={true}
-              />
-            </div>
-
-            <div className="col-md-4">
-              <SingleSelectInput
-                options={sportsAndOutdoors}
-                label={"Sports and Outdoors"}
-                placeholder="Select"
-                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
-                multiSelect={true}
-              />
-            </div>
-
-            <div className="col-md-4">
-              <SingleSelectInput
-                options={environmentalAndSustainability}
-                label={"Environmental and Sustainability"}
-                placeholder="Select"
-                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
-                multiSelect={true}
-              />
-            </div>
-
-            <div className="col-md-4">
-              <SingleSelectInput
-                options={healthAndWellness}
-                label={"Health and Wellness"}
-                placeholder="Select"
-                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
-                multiSelect={true}
-              />
-            </div>
-
-            <div className="col-md-4">
-              <SingleSelectInput
-                options={convenienceAndServices}
-                label={"Convenience and Services"}
-                placeholder="Select"
-                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
-                multiSelect={true}
-              />
-            </div>
-
-            <div className="col-md-4">
-              <SingleSelectInput
-                options={parkingAndTransportation}
-                label={"Parking and Transportation"}
-                placeholder="Select"
-                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
-                multiSelect={true}
-              />
-            </div>
-
-            <div className="col-md-4">
-              <SingleSelectInput
-                options={specialPropertyFeatures}
-                label={"Special Property Features"}
-                placeholder="Select"
-                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
-                multiSelect={true}
-              />
-            </div>
-
-            <div className="col-md-4">
-              <SingleSelectInput
-                options={safetyAndSecurity}
-                label={"Safety and Security"}
-                placeholder="Select"
-                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
-                multiSelect={true}
-              />
-            </div>
-
-            <div className="col-md-4">
-              <SingleSelectInput
-                options={commercialPropertySpecific}
-                label={"Commercial Property Specific"}
-                placeholder="Select"
-                selectHandler={(e:any) => setAmenities((prev:any) => [...prev, e])}
-                multiSelect={true}
-              />
-            </div> */}
-
-            {/* {allotment?.name?.toLowerCase() === "residential" && (
-              <div className="d-flex align-items-center justify-content-start flex-column mt-3 mb-3">
-                <p
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: 500,
-                    textAlign: "left",
-                    width: "100%",
-                    color: "#000",
-                  }}
-                >
-                  Amenities*
-                </p>
-                <div className="w-100 row gap-2">
-                  {data?.amenities?.slice(0, 9).map((item: any) => (
-                    <div
-                      key={item.id}
-                      className={`border border-2 col-1 d-flex align-items-center justify-content-center ${
-                        amenities?.some(
-                          (amenity: amenities) => amenity.id === item.id
-                        )
-                          ? "bg-primary text-white"
-                          : ""
-                      } rounded-2 text-center p-2`}
-                      style={{
-                        cursor: "pointer",
-                        width: "100%",
-                        height: "2.5rem",
-                      }}
-                      onClick={() =>
-                        setAmenities(
-                          (prev: any) =>
-                            prev.some(
-                              (amenity: amenities) => amenity.id === item.id
-                            )
-                              ? prev.filter(
-                                  (amenity: amenities) => amenity.id !== item.id
-                                ) // Remove if already selected
-                              : [...prev, item] // Add if not selected
-                        )
-                      }
-                    >
-                      <p className={`mb-0 fs-6 fw-normal text-capitalize`}>
-                        {item.name}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )} */}
             <div className="col-md-4">
               <FormInput
                 type="number"
@@ -694,6 +555,34 @@ const Overview = () => {
                 placeholder="Enter description about property"
               />
             </div>
+
+
+            {userProfile?.agent?.isSalesPerson &&<div className="d-flex align-items-center justify-content-start flex-column mt-3">
+              <p
+                style={{
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  textAlign: "left",
+                  width: "100%",
+                  color: "#000",
+                }}
+              >
+               Builder
+              </p>
+              <div className="w-100 row gap-3">
+              {userProfile?.agent?.assignedTo.length>0 &&   userProfile?.agent?.assignedTo.map((item:any)=>(
+                <SelectionCard 
+                  key={item.id}
+                  setItem={() => setBuilder(item)}
+                  item={builder?.id ?? ""}
+                  name={item.builder.user.name}
+                  id={item.id}
+                  className="text-capitalize"
+                />
+              ))}
+              </div>
+            </div>}
+
             <ImagePicker
               selectedImageArray={selectedImageArray}
               setSelectedImageArray={setSelectedImageArray}
