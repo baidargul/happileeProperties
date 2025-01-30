@@ -8,7 +8,7 @@ const nextConfig = {
         headers: [
           {
             key: "Access-Control-Allow-Origin",
-            value: "*", // Adjust this to a specific domain if needed
+            value: "*",
           },
           {
             key: "Access-Control-Allow-Methods",
@@ -20,7 +20,7 @@ const nextConfig = {
           },
           {
             key: "Access-Control-Allow-Credentials",
-            value: "true", // Include if credentials (cookies, etc.) are needed
+            value: "true",
           },
         ],
       },
