@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
   async headers() {
     return [
       {
-        // Apply headers to all routes and any files
         source: "/api/:path*",
         headers: [
           {
