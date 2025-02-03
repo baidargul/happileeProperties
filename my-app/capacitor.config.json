@@ -1,0 +1,10 @@
+{
+  "appId": "com.happileeproperty.app",
+  "appName": "com.happileeproperty.app",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

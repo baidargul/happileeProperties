@@ -7,9 +7,13 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "export": "next build && next export"
   },
   "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/ios": "^6.1.2",
     "@emailjs/browser": "^4.1.0",
     "@fancyapps/ui": "^5.0.33",
     "@hookform/resolvers": "^3.9.0",
@@ -53,6 +57,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@capacitor/cli": "^6.1.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.7",
