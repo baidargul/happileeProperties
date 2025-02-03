@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Happilee Property</string>
+    <string name="title_activity_main">Happilee Property</string>
+    <string name="package_name">com.happileeproperty.app</string>
+    <string name="custom_url_scheme">com.happileeproperty.app</string>
+</resources>

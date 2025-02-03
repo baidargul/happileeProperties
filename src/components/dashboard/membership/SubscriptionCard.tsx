@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { serverActions } from "../../../../serveractions/commands/serverCommands";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -18,6 +18,12 @@ interface PlanData {
   };
 }
 
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
 export default function SubscriptionCard({
   showCase,
   planName,
@@ -32,6 +38,9 @@ export default function SubscriptionCard({
   // serverActions.user.subscription.changeUserSubscription()
   const dispatch = useDispatch();
   const userProfile = useSelector((state: any) => state.user.userProfile);
+  const [loading,setLoading]=useState(false);
+
+
   const handleSubscriptionChange = async (planName: string) => {
     const res = await serverActions.user.subscription.changeUserSubscription(
       userProfile.id,
@@ -47,6 +56,80 @@ export default function SubscriptionCard({
     }
   };
 
+
+const createOrder=()=>{
+
+}
+
+  const onSubmit = async () => {
+    setLoading(true);
+  
+    try {
+        // Step 1: Create Razorpay order from backend
+        // const { data: { order } } = await axiosInstance.post('/api/razorpay/create-order', {
+        //   amount: checkout?.amount?.total
+        // });
+  
+        if (!order) {
+          alert('Failed to create Razorpay order');
+          setLoading(false);
+          return;
+        }
+  
+        // Step 2: Define Razorpay options
+        const options = {
+          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Razorpay Key ID
+          amount: order.amount, // Amount in paise (no need to multiply by 100)
+          currency: 'INR',
+          name: 'The Perfume By Goldy',
+          description: 'Order',
+          order_id: order.id, // Razorpay order ID from backend
+          handler: async function (response) {
+            try {
+              // Step 3: Verify the payment
+              const verifyResponse = await axiosInstance.post('/api/razorpay/verify-payment', {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              });
+  
+              if (verifyResponse.data.success) {
+                await createOrder(response.razorpay_payment_id); // If payment is verified, create the order
+              } else {
+                alert('Payment verification failed');
+                setLoading(false); // Ensure loading is false if payment verification fails
+              }
+            } catch (error) {
+              console.error('Payment verification error:', error);
+              setLoading(false); // Ensure loading state is false even on error
+            }
+          },
+          prefill: {
+            name: checkout?.delivery?.name,
+            email: checkout?.delivery?.email,
+            contact: checkout?.delivery?.phoneNumber,
+          },
+          theme: {
+            color: '#F2C437',
+          },
+          modal: {
+            ondismiss: function () {
+              alert('Payment dismissed');
+              setLoading(false); // Ensure loading is false when modal is closed
+            }
+          }
+        };
+  
+        // Step 4: Open Razorpay checkout
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+    } catch (error) {
+      console.error('Error in Razorpay flow:', error);
+      setLoading(false); // Ensure loading is false even in case of error
+    }
+  };
+
+  
   const renderProperties = (properties: PlanData["properties"]) =>
     properties &&
     Object.entries(properties).map(([key, value]) => (
