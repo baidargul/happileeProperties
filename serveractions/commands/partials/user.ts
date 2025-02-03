@@ -2,6 +2,7 @@ import { accountTypes } from "@prisma/client";
 import axios from "axios";
 import { subscription } from "./subscriptions";
 import { Bluetick } from "./bluetick";
+import { razorpay } from "./razorpay";
 
 const apiPath = "/api/users";
 
@@ -105,6 +106,7 @@ async function recommendations(userId: string) {
 }
 
 export const user = {
+  razorpay,
   signIn,
   signUp,
   list,
